@@ -1,0 +1,114 @@
+/* Главный класс */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 60px;
+    margin-left: 60px;
+    margin-bottom: 69px;
+}
+
+/* Список элементов навигации (Главная, Тарифы, FAQ)*/
+.nav-list {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+/* Элемент навигации */
+.list-item {
+    margin-right: 49px;
+    /*width: 57px;*/
+    /*height: 17px;*/
+}
+
+/* Ссылка внутри элемента навигации */
+.list-link {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    display: flex;
+    font-family: sans-serif;
+
+}
+
+/*============================================ Если пользователь не авторизован ======================================*/
+
+/* Все элементы неавторизованного пользователя */
+.my-office {
+    width: 251px;
+    height: 26px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Ссылка для регистрации */
+.sign-up {
+    text-decoration: none;
+    font-size: 20px;
+    color: grey;
+    margin-right: 18px;
+}
+
+
+/*============================================ Если пользователь авторизован ======================================*/
+
+/* Все элементы авторизованного пользователя */
+.authorized {
+    /*display: flex;*/
+    /*justify-content: space-around;*/
+    gap: 100px;
+}
+
+/* Имя пользователя */
+.user-name {
+    position: absolute;
+    top: 18px;
+    right: 75px;
+    width: 75px;
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* Аватарка пользователя */
+.photo-profile {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%; /* Делает изображение круглым */
+    object-fit: cover;  /* Убедитесь, что изображение не искажается */
+}
+
+
+/* Ссылка "выйти" из аккаунта */
+.quit {
+    position: absolute;
+    top: 52px;
+    right: 100px;
+    color: grey;
+    font-size: 12px;
+    font-family: sans-serif;
+    text-decoration: none;
+}
+
+/* Элементы информации о компании (использовано компаний, лимит по компаниям)*/
+.info-about-companies {
+    position: absolute;
+    right: 565px;
+    width: 175px;
+    height: 63px;
+    background: #D9D9D9;
+    border-radius: 5px;
+}
+
+/* Использовано компаний и лимит по компаниям */
+.used-companies, .limit-companies {
+    padding-top: 14px;
+
+    margin: 0;
+    color: grey;
+    font-family: sans-serif;
+    font-size: 10px;
+    text-align: center;
+}
