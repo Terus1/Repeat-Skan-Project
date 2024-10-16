@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useState} from "react";
 import './Main.css'
 
 
@@ -9,16 +9,13 @@ import groupLoupe from "../../media/group-loupe.svg"
 import groupShield from "../../media/group-shield.svg"
 import groupManSitting from "../../media/group-man-sitting.svg"
 import beginnerIcon from "../../media/beginner-icon.svg"
-import tariffIncludesBeginner from "../../media/tariff-includes-beginner.svg"
 import targetIcon from "../../media/target-icon.svg"
-import tariffIncludesPro from "../../media/tariff-includes-pro.svg"
 import businessIcon from "../../media/business-icon.svg"
-import tariffIncludesBusiness from "../../media/tariff-includes-business.svg"
 import greenCheckMark from '../../media/green_check_mark.svg'
 import {Link} from "react-router-dom";
 
 
-export const Main = ({isLoggedIn, }) => {
+export const Main = ({isLoggedIn}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     // Массив элементов карусели
@@ -273,7 +270,7 @@ export const Main = ({isLoggedIn, }) => {
                                 </div>
 
 
-                                <div className="button-business">
+                                <div className="business-button">
                                     <button className="more-white ">Подробнее</button>
                                 </div>
                             </div>

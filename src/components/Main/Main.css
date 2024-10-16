@@ -1,3 +1,8 @@
+.main {
+    margin-right: 60px;
+    margin-left: 60px;
+}
+
 /* Верхняя часть мейна */
 .upper-part-site {
     display: flex;
@@ -20,6 +25,18 @@
     font-family: sans-serif;
 }
 
+/* Кнопка "Запросить данные" */
+.request-data {
+    width: 335px;
+    height: 59px;
+    background: #5970FF;
+    border: none;
+    border-radius: 5px;
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
+}
+
 /*===========================================Контейнер "Почему именно мы" ============================================*/
 
 /* Сам текст */
@@ -28,6 +45,59 @@
     font-size: 45px;
     font-weight: 900;
     font-family: sans-serif;
+}
+
+/*---------------------------------------------------Карусель---------------------------------------------------------*/
+
+/* Стрелочки влево и вправо (карусель) */
+.arrow-nav-left, .arrow-nav-right {
+    cursor: pointer;
+    padding: 10px;
+    user-select: none;
+}
+
+/* Стрелка вправо */
+.arrow-nav-right {
+    /*position: absolute;*/
+    /*right: -50px;*/
+    /*top: 50%;*/
+    /*transform: translateY(-50%);*/
+    rotate: 180deg;
+;
+}
+
+/* Положение карусели*/
+.carousel-position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.carousel-container {
+    display: flex;
+    overflow: hidden; /* Скрыть элементы за границей */
+    /*width: 100%; !* Ширина для трёх видимых элементов *!*/
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* Плавная анимация */
+    width: 100%;
+}
+
+.carousel-slide {
+    flex: 0 0 33.33%; /* Каждый элемент занимает треть ширины */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-item {
+    width: 100%;
+    text-align: center;
 }
 
 /* Картинка где мужчина сидит */
@@ -86,7 +156,7 @@
     text-align: left;
 }
 
-/* Название тарифа (класс для всех тарифов) */
+/* Название тарифа (Beginner, Pro) */
 .name-of-tariff {
     margin-top: 0;
     margin-bottom: 10px;
@@ -108,7 +178,7 @@
     right: 16px;
 }
 
-/* Тело тарифа Beginner */
+/* Тело тарифа Beginner, Pro, Business */
 .tariff-body-beginner {
     padding-top: 33px;
     padding-left: 30px;
@@ -284,3 +354,115 @@
     border: none;
     cursor: pointer;
 }
+
+/*-------------------------------------------------- Тариф "Pro" -----------------------------------------------------*/
+
+/* Контейнер тарифа Pro */
+.pro {
+    position: relative;
+    width: 415px;
+    height: 540px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Хедер тарифа "Pro" */
+.tariff-header-pro {
+    box-sizing: border-box;
+    padding-top: 30px;
+    padding-left: 30px;
+    height: 132px;
+    background: #7CE3E1;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+/* Заголовок "Pro" */
+.head-tariff-pro {
+    text-align: left;
+}
+
+/* Иконка тарифа Pro (Мишень со стрелой) */
+.pro-icon {
+    position: absolute;
+    top: 4px;
+    right: 12px;
+    rotate: 0deg;
+    align-items: start;
+}
+
+/* Кнопка тарифа Pro */
+.pro-button {
+    position: absolute;
+    bottom: 24px;
+    left: 30px;
+    right: 30px;
+}
+
+/* Кнопка "Подробнее" */
+.more-white {
+    color: white;
+    width: 355px;
+    height: 59px;
+    background: #5970FF;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+/*-------------------------------------------------- Тариф "Business" ------------------------------------------------*/
+
+/* Контейнер тарифа Business */
+.business {
+    position: relative;
+    width: 415px;
+    height: 540px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Хедер тарифа "Business" */
+.tariff-header-business {
+    box-sizing: border-box;
+    padding-top: 30px;
+    padding-left: 30px;
+    height: 132px;
+    background: black;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+/* Заголовок "Business" */
+.head-tariff-business {
+    text-align: left;
+}
+
+/* Название тарифа Business */
+.name-of-tariff-business {
+    color: white;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-family: sans-serif;
+}
+
+/* Краткое описание тарифа Business */
+.shortly-business {
+    color: white;
+    margin: 0;
+    font-size: 18px;
+    font-family: sans-serif;
+}
+
+
+/* Кнопка тарифа Business */
+.business-button {
+    position: absolute;
+    bottom: 24px;
+    left: 30px;
+    right: 30px;
+}
+
+
+

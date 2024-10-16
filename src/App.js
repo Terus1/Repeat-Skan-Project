@@ -1,8 +1,12 @@
 import './App.css';
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import {fetchWithToken, handleLogout} from "./api/api";
 import Header from "./components/Header/Header";
+import {Main} from "./components/Main/Main";
+import Footer from "./components/Footer/Footer";
+import Authorization from "./components/Authorization/Authorization";
+import Search from "./components/Search/Search";
 
 
 function App() {
@@ -32,13 +36,29 @@ function App() {
 
 
   return (
-    <>
+    <div className="app-container"> {/* Основной контейнер с flex */}
       <Header isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
               accountInfo={accountInfo}
               setAccountInfo={setAccountInfo}
               handleLogout={handleLogout}/>
-    </>
+      <div className="main-content"> {/* Контентная область */}
+
+        <Routes>
+          {/* Главная страница */}
+          <Route path={"/"} element={<Main isLoggedIn={isLoggedIn} />}/>
+
+          {/* Страница авторизации */}
+          <Route path={"/authorization"} element={<Authorization setIsLoggedIn={setIsLoggedIn} setAccountInfo={setAccountInfo} />}/>
+
+          {/* Страница поиска */}
+
+          <Route path={"/search"} element={<Search />}/>
+        </Routes>
+
+      </div>
+      <Footer /> {/* Футер */}
+    </div>
   );
 }
 

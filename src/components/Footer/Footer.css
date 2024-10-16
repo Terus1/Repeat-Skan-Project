@@ -1,0 +1,22 @@
+/* Главный класс footer */
+.footer {
+    margin-bottom: 0;
+    width: 100%;
+    height: 137px;
+    background: #029491;
+    display: flex;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+/* Адрес и номер телефона компании */
+.info-address {
+    margin-right: 45px;
+    text-align: right;
+    color: white;
+}
+
+/* Сама информация */
+.footer-info {
+    font-family: sans-serif;
+}

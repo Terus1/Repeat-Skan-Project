@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 import {fetchWithToken} from "../../api/api";
 
 
-const Header = (isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleLogout) => {
+const Header = ({isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleLogout}) => {
     const [loading, setLoading] = useState(true)    // Состояние для лоадера
 
 
@@ -63,9 +63,9 @@ const Header = (isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleLo
                             // Информация о компаниях
                             <div className="info-about-companies">
                                 <p className="used-companies">Использовано
-                                    компаний: {accountInfo?.eventFiltersInfo?.usedCompanyCount || '—'}</p>
+                                    компаний: <span className="how-much-used-companies">{accountInfo?.eventFiltersInfo?.usedCompanyCount || '0'}</span></p>
                                 <p className="limit-companies">Лимит по
-                                    компаниям: {accountInfo?.eventFiltersInfo?.companyLimit || '—'}</p>
+                                    компаниям: <span className="how-much-limit-companies">{accountInfo?.eventFiltersInfo?.companyLimit || '0'}</span></p>
                             </div>
                         )}
 
