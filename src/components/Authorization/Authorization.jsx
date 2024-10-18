@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import './Authorization.css'
-import {fetchWithToken, loginAndFetch} from "../../api/api";
+import {loginAndFetch} from "../../api/api";
 
 import peopleCarryingKey from '../../media/people-carrying-key.svg'
 import lock from '../../media/lock.svg'

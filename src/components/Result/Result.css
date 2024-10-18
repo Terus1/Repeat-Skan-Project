@@ -1,0 +1,134 @@
+/* Верхняя часть результата */
+.head-result {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Главный текст */
+.searching {
+    width: 509px;
+    height: 96px;
+    font-size: 40px;
+    font-weight: 900;
+    font-family: sans-serif;
+    text-transform: uppercase;
+}
+
+/* Текст про задержку ответа */
+.be-patient {
+    width: 447px;
+    height: 48px;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: sans-serif;
+}
+
+/* Контейнер "Общая сводка" */
+.general-summary {
+    /* Было */
+    /*width: 447px;*/
+    /*height: 75px;*/
+
+    /* Стало */
+    text-align: left;
+    max-width: 1200px;
+    /*margin: 20px auto;*/
+}
+
+/* Текст общая сводка */
+.text-general-summary{
+    margin: 0;
+    font-size: 30px;
+    font-weight: 900;
+    font-family: sans-serif;
+    text-transform: uppercase;
+}
+
+/* Текст "найдено" вариантов */
+.found-options {
+    color: #949494;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: sans-serif;
+}
+
+/* Карусель результатов */
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+/* Стрелки влево и вправо */
+.left-arrow, .right-arrow {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+/* Развернул стрелку вправо */
+.right-arrow {
+    rotate: 180deg;
+}
+
+.table-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    width: calc(100% - 60px); /* Оставляем место для стрелок */
+    scroll-behavior: smooth; /* Плавная прокрутка */
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border-right: 2px solid rgba(224, 224, 224, 0.5); /* Прозрачная вертикальная линия между заголовками */
+
+
+}
+
+th:first-child, td:first-child {
+    background-color: #029491;
+    color: white;
+}
+
+th:last-child, td:last-child {
+    border-right: none;
+}
+
+.table-container {
+    border: 1px solid #008B8B; /* Цвет рамки */
+    border-radius: 17px; /* Закругленные углы */
+
+}
+
+.left-arrow, .right-arrow {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+}
+
+.left-arrow:hover, .right-arrow:hover {
+    opacity: 1;
+}
+
+
+.th-for-top-border-radius {
+    border-top-left-radius: 10px;
+
+}
+
+.th-for-bottom-border-radius {
+    border-bottom-left-radius: 10px;
+
+}
+
+
+

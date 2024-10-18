@@ -7,6 +7,7 @@ import {Main} from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
 import Authorization from "./components/Authorization/Authorization";
 import Search from "./components/Search/Search";
+import Result from "./components/Result/Result";
 
 
 function App() {
@@ -52,8 +53,11 @@ function App() {
           <Route path={"/authorization"} element={<Authorization setIsLoggedIn={setIsLoggedIn} setAccountInfo={setAccountInfo} />}/>
 
           {/* Страница поиска */}
-
           <Route path={"/search"} element={<Search />}/>
+
+          {/* Страница результата */}
+          <Route path={"/result"} element={<Result />}/>
+
         </Routes>
 
       </div>

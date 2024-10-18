@@ -363,6 +363,7 @@
     width: 415px;
     height: 540px;
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
 }
 
 /* Хедер тарифа "Pro" */
@@ -419,6 +420,7 @@
     width: 415px;
     height: 540px;
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
 }
 
 /* Хедер тарифа "Business" */

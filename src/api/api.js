@@ -88,8 +88,8 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
 
     // Сохраняем информацию о аккаунте в состоянии
     setAccountInfo(accountInfo);
-    console.log(accountInfo);
-
+    console.log(`accountInfo`, accountInfo);
+    console.log(await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', accessToken))
     // Сохранение информации об аккаунте в localStorage
     localStorage.setItem('accountInfo', JSON.stringify(accountInfo));  // Сохраняем объект как строку
 
