@@ -8,7 +8,22 @@ import {useLocation} from "react-router-dom";
 const Result = () => {
     // Получаем переданные данные через useLocation
     const location = useLocation();
+    console.log('location:', location.state)
     const { startDate, endDate, totalDocuments, riskFactors, histograms } = location.state || {};
+    console.log('Переданные данные startDate:', startDate,
+        'endDate:', endDate,
+        'totalDocuments:', totalDocuments,
+        'riskFactors:', riskFactors,
+        'histograms:', histograms)
+
+    // Проверяем, есть ли данные и выделяем их по типу
+    const totalDocumentsData = histograms && histograms[0] && histograms[0].histogramType === 'totalDocuments'
+        ? histograms[0].data
+        : [];
+
+    const riskFactorsData = histograms && histograms[1] && histograms[1].histogramType === 'riskFactors'
+        ? histograms[1].data
+        : [];
 
     // Состояние для отслеживания текущего слайда
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,6 +34,9 @@ const Result = () => {
     // Определение количества видимых элементов на экране (например, 5)
     const itemsPerPage = 5;
 
+    // Общая длина данных
+    const maxLength = Math.max(totalDocumentsData.length, riskFactorsData.length);
+
     // Функция для прокрутки влево (без зацикливания)
     const scrollLeft = () => {
         if (currentIndex > 0) {
@@ -28,17 +46,30 @@ const Result = () => {
 
     // Функция для прокрутки вправо (без зацикливания)
     const scrollRight = () => {
-        if (currentIndex + itemsPerPage < data.length) {
+        if (currentIndex + itemsPerPage < maxLength) {
             setCurrentIndex(currentIndex + itemsPerPage);
         }
     };
 
     // Отображение только нужной части данных
-    const visibleData = data.slice(currentIndex, currentIndex + itemsPerPage);
+    const visibleTotalDocumentsData = totalDocumentsData.slice(currentIndex, currentIndex + itemsPerPage);
+    const visibleRiskFactorsData = riskFactorsData.slice(currentIndex, currentIndex + itemsPerPage);
+
+    console.log('visibleTotalDocumentsData', visibleTotalDocumentsData)
+    console.log('visibleRiskFactorsData', visibleRiskFactorsData)
     // Используем useEffect для вывода данных в консоль при загрузке компонента
     useEffect(() => {
             console.log("Ответ сервера:", startDate, endDate, totalDocuments, riskFactors, histograms);
     }, [startDate, endDate, totalDocuments, riskFactors, histograms]);
+
+
+    // Отображение даты в нужном формате
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('ru-RU'); // Форматирует дату как "DD.MM.YYYY"
+    };
+
+
     return (
         <>
             <div className="head-result">
@@ -57,16 +88,10 @@ const Result = () => {
                     Общая сводка
                 </p>
                 <p className="found-options">
-                    Найдено "количество" вариантов
-                </p>
-                <p className="text-general-summary">
-                    Общая сводка
+                    Найдено {histograms[0].data.length} вариантов
                 </p>
                 <p className="found-options">
-                    Найдено {totalDocuments || 0} вариантов
-                </p>
-                <p className="found-options">
-                    Риски: {riskFactors || 0}
+                    Риски: {riskFactors.data.value || 0}
                 </p>
                 <p className="found-options">
                     Период: с {startDate} по {endDate}
@@ -76,32 +101,37 @@ const Result = () => {
             <div className="results">
                 <div className="carousel-wrapper">
                     {/* Левая стрелка */}
-                    <img src={arrowIcon} className="left-arrow" onClick={scrollLeft} alt={'left-arrow-icon'}/>
+                    <img
+                        src={arrowIcon}
+                        className={`left-arrow ${currentIndex === 0 ? 'disabled' : ''}`} // Добавляем класс disabled, если достигнут край
+                        onClick={scrollLeft}
+                        alt={'left-arrow-icon'}
+                    />
 
                     {/* Контейнер таблицы */}
                     <div className="table-container">
                         <div className="table-wrapper">
 
                             <table>
-                            <thead>
+                                <thead>
                                 <tr>
-                                    <th className={'th-for-top-border-radius'}>Период</th>
-                                    {visibleData.map((item) => (
-                                        <td key={item.date}>{item.date}</td>
+                                <th className={'th-for-top-border-radius'}>Период</th>
+                                    {visibleTotalDocumentsData.map((item, index) => (
+                                        <td className={'data-table'} key={index}>{item.date ? formatDate(item.date) : '-'}</td>
                                     ))}
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <th>Всего</th>
-                                    {visibleData.map((item) => (
-                                        <td key={item.date + '-total'}>{item.total}</td>
+                                    {visibleTotalDocumentsData.map((item, index) => (
+                                        <td className={'data-table'} key={index}>{item.value || item.value === 0 ? String(item.value) : '-'}</td>
                                     ))}
                                 </tr>
                                 <tr>
                                     <th className={'th-for-bottom-border-radius'}>Риски</th>
-                                    {visibleData.map((item) => (
-                                        <td key={item.date + '-risks'}>{item.risks}</td>
+                                    {visibleRiskFactorsData.map((item, index) => (
+                                        <td className={'data-table'} key={index}>{item.value || item.value === 0 ? String(item.value) : '-'}</td>
                                     ))}
                                 </tr>
                                 </tbody>
@@ -111,7 +141,12 @@ const Result = () => {
                     </div>
 
                     {/* Правая стрелка */}
-                    <img src={arrowIcon} className="right-arrow" onClick={scrollRight} alt={'right-arrow-icon'}/>
+                    <img
+                        src={arrowIcon}
+                        className={`right-arrow ${currentIndex + itemsPerPage >= maxLength ? 'disabled' : ''}`} // Добавляем класс disabled, если достигнут край
+                        onClick={scrollRight}
+                        alt={'right-arrow-icon'}
+                    />
                 </div>
             </div>
         </>

@@ -189,3 +189,25 @@ export const validateDates = (start, end, setDateError) => {
   setDateError(''); // Если ошибок нет, очищаем сообщение об ошибке
   return true;
 };
+
+// Функция для проверки тональности
+export const validateTonality = (tonality, setTonalityValid) => {
+  if(tonality === '') {
+    setTonalityValid(false)
+    return false
+  }
+  setTonalityValid(true)
+  return true
+}
+
+
+// Функция для проверки валидности документов
+export const validateDocuments = (documents, setDocuments) => {
+  const numLimit = Number(documents)
+  if(numLimit < 0 || numLimit > 100 || documents === ''){
+    setDocuments(false)
+    return false
+  }
+  setDocuments(true)
+  return true
+}

@@ -89,8 +89,13 @@ th, td {
     padding: 10px;
     text-align: center;
     border-right: 2px solid rgba(224, 224, 224, 0.5); /* Прозрачная вертикальная линия между заголовками */
+}
 
-
+/* Данные в таблице */
+.data-table {
+    font-size: 18px;
+    font-weight: 400;
+    font-family: sans-serif;
 }
 
 th:first-child, td:first-child {

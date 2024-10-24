@@ -6,7 +6,7 @@ import {validateInn, validateDates} from "../../api/api";
 import greenLeaf from '../../media/green-leaf.svg'
 import folders from '../../media/folders.svg'
 import manAndRocket from '../../media/man-and-rocket.svg'
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 
 const Search = () => {
@@ -133,9 +133,9 @@ const Search = () => {
                 excludeAnnouncements: true,
                 excludeDigests: true
             },
-            similarMode: "duplicates",
+            similarMode: "none",
             limit: parseInt(documents, 10),
-            sortType: "sourceInfluence",
+            sortType: "issueDate",
             sortDirectionType: "desc",
             intervalType: "month",
             histogramTypes: ["totalDocuments", "riskFactors"]
@@ -150,7 +150,19 @@ const Search = () => {
             );
 
             console.log(response)
-
+            console.log("totalDocuments:", response.data[0])
+            console.log('riskFactors:', response.data[1])
+            console.log('Количество публикаций:', response.data[0].data.length)
+            console.log('Перед навигацией: startDate:', startDate, 'endDate:', endDate);
+            navigate('/result', {
+                state: {
+                    totalDocuments: response.data[0],
+                    riskFactors: response.data[1],
+                    histograms: response.data,
+                    startDate: startDate,
+                    endDate: endDate
+                }
+            })
         } catch (error) {
             console.error("Ошибка при выполнении запроса:", error);
             setError("Ошибка при выполнении запроса");
@@ -350,4 +362,3 @@ const Search = () => {
 }
 
 export default Search;
-
