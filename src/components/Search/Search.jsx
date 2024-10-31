@@ -143,24 +143,40 @@ const Search = () => {
 
         try {
             const token = localStorage.getItem("accessToken");
-            const response = await fetchWithTokenAndBody(
+
+            // Запрос для получения гистограммы
+            const histogramResponse = await fetchWithTokenAndBody(
                 'https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms',
                 token,
                 requestData
             );
 
-            console.log(response)
-            console.log("totalDocuments:", response.data[0])
-            console.log('riskFactors:', response.data[1])
-            console.log('Количество публикаций:', response.data[0].data.length)
+            // Новый запрос для получения ID документов
+            const objectSearchResponse = await fetchWithTokenAndBody(
+                'https://gateway.scan-interfax.ru/api/v1/objectsearch',
+                token,
+                requestData
+            );
+            console.log(objectSearchResponse.items)
+            const documentIds = objectSearchResponse.items.map(doc => doc.encodedId);
+            // console.log('documentIds:', documentIds)
+            // const objectData = await objectSearchResponse
+            // console.log('objectSearchResponse:', objectData)
+            console.log(histogramResponse)
+            console.log("totalDocuments:", histogramResponse.data[0])
+            console.log('riskFactors:', histogramResponse.data[1])
+            console.log('Количество публикаций:', histogramResponse.data[0].data.length)
             console.log('Перед навигацией: startDate:', startDate, 'endDate:', endDate);
             navigate('/result', {
                 state: {
-                    totalDocuments: response.data[0],
-                    riskFactors: response.data[1],
-                    histograms: response.data,
+                    totalDocuments: histogramResponse.data[0],
+                    riskFactors: histogramResponse.data[1],
+                    histograms: histogramResponse.data,
                     startDate: startDate,
-                    endDate: endDate
+                    endDate: endDate,
+                    documentIds: documentIds,
+
+
                 }
             })
         } catch (error) {
