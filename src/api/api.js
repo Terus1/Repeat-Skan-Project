@@ -1,9 +1,23 @@
 //======================================================App.js==========================================================
-
+import {mockUsers} from "../users";
 
 // Функция для запроса с использованием токена
-export const fetchWithToken = async (url, token) => {
+export const fetchWithToken = async (url, token, navigate) => {
   try {
+    // Проверяем, не истек ли токен
+    const tokenExpire = localStorage.getItem('tokenExpire');
+    const currentTime = Date.now();
+
+    // Если срок действия токена истек, перенаправляем на страницу логина
+    if (tokenExpire && currentTime > tokenExpire) {
+      console.log('Токен истек, требуется повторная авторизация');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('tokenExpire');
+      localStorage.setItem('isLoggedIn', 'false');
+      navigate('/authorization'); // Перенаправление на страницу авторизации
+      return { error: 'Токен истек, пожалуйста, авторизуйтесь снова' };
+    }
+
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -27,6 +41,7 @@ export const fetchWithToken = async (url, token) => {
 };
 
 
+
 // Функция для выхода пользователя из системы
 export const handleLogout = ({setIsLoggedIn, setAccountInfo, navigate}) => {
   localStorage.removeItem('accessToken');
@@ -42,11 +57,36 @@ export const handleLogout = ({setIsLoggedIn, setAccountInfo, navigate}) => {
 
 
 //==================================================Authorization.jsx===================================================
+// Функция для авторизации и получения токена (v2)
 
-// Функция для авторизации и получения токена
 export const loginAndFetch = async (username, password, setIsLoggedIn, setAccountInfo, navigate) => {
   try {
-    // 1. Авторизация (логин)
+    // Ищем пользователя в локальных данных
+    const localUser = mockUsers.find(user => user.login === username && user.password === password);
+
+    // if (localUser) {
+    //   // Если пользователь найден в mockUsers, то сохраняем его данные в состоянии и localStorage
+    //   const accountInfo = {
+    //     id: localUser.id,
+    //     login: localUser.login,
+    //     userPhoto: localUser.userPhoto, // Локальная аватарка
+    //     tariff: localUser.tariff,
+    //   };
+    //
+    //   // Сохранение состояния авторизации
+    //   setIsLoggedIn(true);
+    //   setAccountInfo(accountInfo);
+    //
+    //   // Сохраняем данные о пользователе в localStorage для последующих сессий
+    //   localStorage.setItem('accountInfo', JSON.stringify(accountInfo));
+    //   localStorage.setItem('accessToken', 'mockToken123'); // Моковый токен
+    //
+    //   console.log('Локальный вход выполнен для пользователя:', localUser.login);
+    //   navigate('/');  // Перенаправление после успешного логина
+    //   return;
+    // }
+
+    // Если пользователь не найден в mockUsers, выполняем запрос к серверу
     const response = await fetch('https://gateway.scan-interfax.ru/api/v1/account/login', {
       method: 'POST',
       headers: {
@@ -58,59 +98,113 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
       }),
     });
 
-    // Проверяем ответ
+    // Проверяем ответ от сервера
     if (!response.ok) {
       const errorMessage = `Ошибка авторизации: ${response.status}`;
       console.error(errorMessage);
-      return { error: errorMessage }; // Возвращаем объект с ошибкой вместо выброса исключения
+      return { error: errorMessage };
     }
 
     const data = await response.json();
-
-    // Получение accessToken и даты истечения действия токена
     const accessToken = data.accessToken;
     const expire = data.expire;
 
     // Сохранение токена в localStorage
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('tokenExpire', expire);
-    localStorage.setItem('isLoggedIn', 'true'); // Сохранение состояния
-
+    // localStorage.setItem('tokenExpire', new Date(Date.now() - 5000).toISOString());
+    localStorage.setItem('isLoggedIn', 'true');
 
     console.log('Токен получен:', accessToken);
     console.log('Срок действия токена до:', expire);
 
-    // После успешной авторизации изменить состояние на авторизованное
     setIsLoggedIn(true);
 
-    // Выполняем защищённый запрос и получаем accountInfo
+    // Выполняем защищённый запрос для получения accountInfo
     const accountInfo = await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', accessToken);
 
-    // Сохраняем информацию о аккаунте в состоянии
+    // Устанавливаем и сохраняем данные о аккаунте
     setAccountInfo(accountInfo);
-    console.log(`accountInfo`, accountInfo);
-    console.log(await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', accessToken))
-    // Сохранение информации об аккаунте в localStorage
-    localStorage.setItem('accountInfo', JSON.stringify(accountInfo));  // Сохраняем объект как строку
-
-    // Выводим только usedCompanyCount
-    console.log('Used Company Count:', accountInfo.eventFiltersInfo.usedCompanyCount);
-
-    // Выводим только companyLimit
-    console.log('CompanyLimit:', accountInfo.eventFiltersInfo.companyLimit);
-
-    // 2. После успешной авторизации, выполнить защищённый запрос
-    await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', accessToken);
-    await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/balance', accessToken);
-    // await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/purchaseHistory', accessToken);
+    console.log(accountInfo)
+    localStorage.setItem('accountInfo', JSON.stringify(accountInfo));
 
     // Перенаправление на главную страницу
     navigate('/');
-
   } catch (error) {
     console.error('Ошибка:', error);
   }
 };
+
+
+
+// // Функция для авторизации и получения токена (v1)
+// export const loginAndFetch = async (username, password, setIsLoggedIn, setAccountInfo, navigate) => {
+//   try {
+//     // 1. Авторизация (логин)
+//     const response = await fetch('https://gateway.scan-interfax.ru/api/v1/account/login', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({
+//         login: username,
+//         password: password,
+//       }),
+//     });
+//
+//     // Проверяем ответ
+//     if (!response.ok) {
+//       const errorMessage = `Ошибка авторизации: ${response.status}`;
+//       console.error(errorMessage);
+//       return { error: errorMessage }; // Возвращаем объект с ошибкой вместо выброса исключения
+//     }
+//
+//     const data = await response.json();
+//
+//     // Получение accessToken и даты истечения действия токена
+//     const accessToken = data.accessToken;
+//     const expire = data.expire;
+//
+//     // Сохранение токена в localStorage
+//     localStorage.setItem('accessToken', accessToken);
+//     localStorage.setItem('tokenExpire', expire);
+//     localStorage.setItem('isLoggedIn', 'true'); // Сохранение состояния
+//
+//
+//     console.log('Токен получен:', accessToken);
+//     console.log('Срок действия токена до:', expire);
+//
+//     // После успешной авторизации изменить состояние на авторизованное
+//     setIsLoggedIn(true);
+//
+//     // Выполняем защищённый запрос и получаем accountInfo
+//     const accountInfo = await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', accessToken);
+//
+//     // Сохраняем информацию о аккаунте в состоянии
+//     setAccountInfo(accountInfo);
+//     console.log(`accountInfo`, accountInfo);
+//     console.log(await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', accessToken))
+//     // Сохранение информации об аккаунте в localStorage
+//     localStorage.setItem('accountInfo', JSON.stringify(accountInfo));  // Сохраняем объект как строку
+//
+//     // Выводим только usedCompanyCount
+//     console.log('Used Company Count:', accountInfo.eventFiltersInfo.usedCompanyCount);
+//
+//     // Выводим только companyLimit
+//     console.log('CompanyLimit:', accountInfo.eventFiltersInfo.companyLimit);
+//
+//     // 2. После успешной авторизации, выполнить защищённый запрос
+//     await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', accessToken);
+//     await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/balance', accessToken);
+//     // await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/purchaseHistory', accessToken);
+//
+//     // Перенаправление на главную страницу
+//     navigate('/');
+//
+//   } catch (error) {
+//     console.error('Ошибка:', error);
+//   }
+// };
 
 
 

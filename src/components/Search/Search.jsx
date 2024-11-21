@@ -162,7 +162,7 @@ const Search = () => {
             // console.log('documentIds:', documentIds)
             // const objectData = await objectSearchResponse
             // console.log('objectSearchResponse:', objectData)
-            console.log(histogramResponse)
+            console.log('histogramResponse', histogramResponse)
             console.log("totalDocuments:", histogramResponse.data[0])
             console.log('riskFactors:', histogramResponse.data[1])
             console.log('Количество публикаций:', histogramResponse.data[0].data.length)

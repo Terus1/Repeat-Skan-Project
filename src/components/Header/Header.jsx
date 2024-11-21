@@ -3,14 +3,50 @@ import './Header.css'
 
 import logoHeader from '../../media/logo-header.svg';
 import stick from '../../media/stick.svg';
-import cat from '../../media/cat.jpg';
-import {Link} from "react-router-dom";
-import {fetchWithToken} from "../../api/api";
+import emptyPhoto from '../../photoUsers/emptyPhoto.jpg'
+import {Link, useNavigate} from "react-router-dom";
+import {fetchWithToken, handleLogout} from "../../api/api";
 
 
 const Header = ({isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleLogout}) => {
     const [loading, setLoading] = useState(true)    // Состояние для лоадера
+    const [isTokenExpired, setIsTokenExpired] = useState(false);
+    const [companyInfo, setCompanyInfo] = useState(null);
+    const navigate = useNavigate(); // Хук для навигации
 
+    useEffect(() => {
+        const checkTokenExpiration = () => {
+            const tokenExpire = new Date(localStorage.getItem('tokenExpire')).getTime();
+            const currentTime = Date.now();
+            const accessToken = localStorage.getItem('accessToken')
+
+            // Преверяем, не истёк ли токен
+            if (currentTime > tokenExpire) {
+                //Токен истёк, очищяем данные и перенаправляем на авторизацию
+                console.log('Токен истёк')
+                setIsTokenExpired(true)
+                navigate('/authorization');
+            } else {
+                setIsTokenExpired(false)  // Если токен не истёк
+                console.log('Токен не истёк')
+                console.log('tokenExpire', tokenExpire)
+                console.log('currentTime', currentTime)
+                console.log('accessToken', accessToken)
+                const maxNumber = Math.max(tokenExpire, currentTime)
+                console.log('Большее значение:', maxNumber === tokenExpire ? 'tokenExpire' : 'currentTime');
+
+            }
+            console.log(isTokenExpired)
+        };
+
+        checkTokenExpiration()
+    }, [handleLogout, isTokenExpired, navigate, setAccountInfo, setIsLoggedIn]);
+
+    // useEffect(() => {
+    //     if (isTokenExpired) {
+    //         navigate('/authorization')
+    //     }
+    // }, [isTokenExpired, navigate]);
 
     useEffect(() => {
         // Проверяем есть ли токен и данные в localStorage
@@ -37,6 +73,18 @@ const Header = ({isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleL
         }
     }, [setAccountInfo, setIsLoggedIn]);
 
+    // useEffect(() => {
+    //     if (accountInfo && !isTokenExpired) {
+    //         setCompanyInfo({
+    //             usedCompanyCount: accountInfo.eventFiltersInfo.usedCompanyCount || 0,
+    //             companyLimit: accountInfo.eventFiltersInfo.companyLimit || 0,
+    //         });
+    //     } else {
+    //         setCompanyInfo(null); // Если токен истёк, очищаем информацию о компании
+    //     }
+    // }, [accountInfo, isTokenExpired]);
+
+
     return(
         <>
             <header className="header">
@@ -60,6 +108,7 @@ const Header = ({isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleL
                                 <p className="loading-text">Загрузка информации...</p>
                             </div>
                         ) : (
+
                             // Информация о компаниях
                             <div className="info-about-companies">
                                 <p className="used-companies">Использовано
@@ -70,7 +119,7 @@ const Header = ({isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleL
                         )}
 
                         <p className="user-name">Вася П.</p>
-                        <img src={cat} alt="cat" className="photo-profile"/>
+                        <img src={accountInfo?.userPhoto || emptyPhoto} alt="userPhoto" className="photo-profile"/>
 
                         <Link to="/" className="quit" onClick={handleLogout}>Выйти</Link>
                     </div>

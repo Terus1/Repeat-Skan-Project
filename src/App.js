@@ -19,6 +19,17 @@ function App() {
   useEffect(() => {
     const loggedIn = localStorage.getItem('isLoggedIn') === 'true'; // Проверяем статус авторизации
     const accessToken = localStorage.getItem('accessToken');
+    const tokenExpire = localStorage.getItem('tokenExpire');
+    const currentTime = Date.now();
+
+    if (tokenExpire && currentTime > tokenExpire) {
+      console.log('Токен истек, требуется повторная авторизация');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('tokenExpire');
+      localStorage.setItem('isLoggedIn', 'false');
+      navigate('/authorization'); // Перенаправляем на страницу авторизации
+    }
+
 
     if (loggedIn && accessToken) {
       setIsLoggedIn(true);  // Устанавливаем флаг, что пользователь авторизован

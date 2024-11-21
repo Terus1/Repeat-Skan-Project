@@ -234,7 +234,7 @@ export const Main = ({isLoggedIn}) => {
                                     <p className="shortly-business">Для корпоративных клиентов</p>
                                 </div>
 
-                                <div className="beginner-icon">
+                                <div className="business-icon">
                                     <img src={businessIcon} alt="business-icon"/>
                                 </div>
                             </div>

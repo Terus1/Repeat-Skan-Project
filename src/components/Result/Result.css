@@ -1,3 +1,8 @@
+.main {
+    margin-right: 60px;
+    margin-left: 60px;
+}
+
 /* Верхняя часть результата */
 .head-result {
     display: flex;
@@ -132,8 +137,37 @@ th:last-child, td:last-child {
 
 .th-for-bottom-border-radius {
     border-bottom-left-radius: 10px;
-
 }
 
+.head-list-of-documents {
+    font-size: 30px;
+    font-family: sans-serif;
+    font-weight: 900;
+}
 
+.documents-container {
+    display: flex;
+    flex-wrap: wrap; /* Перенос строк */
+    gap: 16px; /* Отступы между карточками */
+    justify-content: flex-start; /* Выравнивание по левому краю */
+}
+
+.document-item {
+    flex: 1 1 calc(50% - 16px); /* Каждый документ занимает 50% ширины с учетом отступов */
+    box-sizing: border-box; /* Учитываем padding в ширине */
+    max-width: calc(50% - 16px); /* Ограничиваем максимальную ширину */
+    margin-bottom: 16px; /* Отступ снизу для выравнивания по сетке */
+}
+
+.load-more-button {
+    width: 305px;
+    height: 59px;
+    border: none;
+    border-radius: 5px;
+    background: #5970FF;
+    color: white;
+    font-size: 22px;
+    font-family: sans-serif;
+    text-align: center;
+}
 

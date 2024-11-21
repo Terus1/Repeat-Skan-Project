@@ -140,6 +140,7 @@
 
 /* Хедер тарифа "Beginner" */
 .tariff-header-beginner {
+    position: relative;
     box-sizing: border-box;
     padding-top: 30px;
     padding-left: 30px;
@@ -233,8 +234,12 @@
 
 /* Текст текущего тарифа (на конкретный тариф)*/
 .text-current-tariff {
+    padding: 3px 13px;
     margin: 0;
     text-align: center;
+    color: white;
+    font-size: 14px;
+    font-family: sans-serif;
 }
 
 /* текст "monthly" */
@@ -368,6 +373,7 @@
 
 /* Хедер тарифа "Pro" */
 .tariff-header-pro {
+    position: relative;
     box-sizing: border-box;
     padding-top: 30px;
     padding-left: 30px;
@@ -386,7 +392,7 @@
 /* Иконка тарифа Pro (Мишень со стрелой) */
 .pro-icon {
     position: absolute;
-    top: 4px;
+    top: 0;
     right: 12px;
     rotate: 0deg;
     align-items: start;
@@ -464,6 +470,12 @@
     bottom: 24px;
     left: 30px;
     right: 30px;
+}
+
+.business-icon {
+    position: absolute;
+    top: 23px;
+    right: 5px;
 }
 
 

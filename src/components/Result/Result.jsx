@@ -4,38 +4,19 @@ import './Result.css';
 import girlLookingFor from '../../media/girl-looking-for.svg';
 import arrowIcon from '../../media/arrow-icon.svg';
 import {useLocation} from "react-router-dom";
+import Document from "../Document/Document";
 
 const Result = () => {
-    const parseXML = (xmlString) => {
-        // Используем DOMParser для парсинга XML
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(xmlString, "text/xml");
 
-        // Преобразуем XML в массив предложений
-        const sentences = Array.from(xml.getElementsByTagName("sentence")).map((sentence) => {
-            const rawText = sentence.innerHTML;
-            // Убираем все теги и HTML спецсимволы
-            const cleanedText = rawText
-                .replace(/<[^>]*>/g, "")          // Убирает все теги
-                .replace(/&lt;br&gt;/g, "\n")     // Заменяет <br> на перенос строки
-                .replace(/&lt;[^&]*&gt;/g, "")    // Убирает оставшиеся спецсимволы в теге
-                .trim();                          // Убирает лишние пробелы
-
-            return cleanedText;
-        });
-
-        return sentences;
-    };
     // Получаем переданные данные через useLocation
     const location = useLocation();
-    console.log('location:', location.state)
+    // console.log('location:', location.state)
     const { startDate, endDate, totalDocuments, riskFactors, histograms, documentIds } = location.state || {};
     console.log('Переданные данные startDate:', startDate,
         'endDate:', endDate,
         'totalDocuments:', totalDocuments,
         'riskFactors:', riskFactors,
-        'histograms:', histograms,
-        'documentIds:', documentIds)
+        'histograms:', histograms)
 
     // Проверяем, есть ли данные и выделяем их по типу
     const totalDocumentsData = histograms && histograms[0] && histograms[0].histogramType === 'totalDocuments'
@@ -76,19 +57,19 @@ const Result = () => {
     const visibleTotalDocumentsData = totalDocumentsData ? totalDocumentsData.slice(currentIndex, currentIndex + itemsPerPage) : [];
     const visibleRiskFactorsData = riskFactorsData ? riskFactorsData.slice(currentIndex, currentIndex + itemsPerPage) : [];
 
-    console.log('visibleTotalDocumentsData', visibleTotalDocumentsData)
-    console.log('visibleRiskFactorsData', visibleRiskFactorsData)
+    // console.log('visibleTotalDocumentsData', visibleTotalDocumentsData)
+    // console.log('visibleRiskFactorsData', visibleRiskFactorsData)
     // Используем useEffect для вывода данных в консоль при загрузке компонента
     useEffect(() => {
             console.log("Ответ сервера:", startDate, endDate, totalDocuments, riskFactors, histograms);
     }, [startDate, endDate, totalDocuments, riskFactors, histograms]);
-
 
     // Отображение даты в нужном формате
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('ru-RU'); // Форматирует дату как "DD.MM.YYYY"
     };
+
 
     const [loadedDocuments, setLoadedDocuments] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -129,6 +110,12 @@ const Result = () => {
         loadInitialDocuments();
     }, [documentIds]);
 
+    // useEffect(() => {
+    //     if (loadedDocuments.length > 0) {
+    //         console.log('loadedDocuments', loadedDocuments)
+    //     }
+    // }, [loadedDocuments]);
+
     // Функция для загрузки дополнительных документов
     const loadMoreDocuments = async () => {
         setLoading(true);
@@ -138,8 +125,9 @@ const Result = () => {
         setLoading(false);
     };
 
+
     return (
-        <>
+        <div className={'main'}>
             <div className="head-result">
                 <div className="head-text">
                     <p className="searching">Ищем. Скоро <br/> будут результаты</p>
@@ -231,27 +219,30 @@ const Result = () => {
                 </div>
             </div>
             <div className="results">
-                {/* Отображение загруженных документов */}
-                <div className="document-list">
-                    {loadedDocuments && loadedDocuments.length > 0 ? (
+                <p className={'head-list-of-documents'}>Список документов</p>
+
+                {/*<Document loadedDocuments={loadedDocuments} formatDate={formatDate}/>*/}
+                <div className="documents-container">
+                    {loadedDocuments.length > 0 ? (
                         loadedDocuments.map((doc, index) => (
-                            <div key={index} className="document-item">
-                                <h3>{doc.ok.title.text}</h3>
-                                <p>{formatDate(doc.ok.issueDate)}</p>
-                                <p>{doc.ok.source.name}</p>
-                                <div className="content">
-                                    {parseXML(doc.ok.content.markup).map((sentence, i) => (
-                                        <p key={i}>{sentence}</p>
-                                    ))}
-                                </div>
+                            <div key={index} className={'document-item'}>
+                                <Document loadedDocument={doc} formatDate={formatDate}/>
                             </div>
                         ))
                     ) : (
                         <p>Документы не найдены</p>
                     )}
                 </div>
+
+
             </div>
-        </>
+            {/* Кнопка для загрузки дополнительных документов */}
+            {loadedDocuments.length < documentIds.length && (
+                <button className="load-more-button" onClick={loadMoreDocuments} disabled={loading}>
+                    {loading ? "Загрузка..." : "Показать больше"}
+                </button>
+            )}
+        </div>
     )
 };
 

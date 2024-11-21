@@ -1,0 +1,108 @@
+/* Контейнер документа */
+.div-document {
+    position: relative;
+    padding: 19px 30px 30px 30px;
+    width: 641px;
+    height: 694px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+
+}
+
+/* Верхняя информация (дата и источник) */
+.top-information {
+    position: relative;
+}
+
+.date {
+    margin: 0;
+    padding: 0;
+    /*position: absolute;*/
+    width: 100px;
+    left: 30px;
+    top: 19px;
+    color: #949494;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+.source {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 132px;
+    top: 0;
+    color: #949494;
+    text-decoration: underline;
+    font-size: 16px;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+
+.div-head-of-document {
+    margin-top: 24px;
+    font-size: 26px;
+    font-family: sans-serif;
+}
+
+.div-tag {
+    width: 157px;
+    /*height: 22px;*/
+    border-radius: 5px;
+    background: #FFB64F ;
+    padding: 4px 12px;
+    margin-bottom: 14px;
+}
+
+.head-tag {
+    margin: 0;
+    font-size: 12px;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.div-content {
+    width: 581px;
+    height: 350px;
+    overflow: hidden;
+}
+
+.document-content {
+    margin: 0;
+    font-size: 16px;
+    font-family: sans-serif;
+    color: #000000;
+    line-height: 20px;
+    font-weight: 400;
+    opacity: 50%;
+}
+
+.div-read-in-source {
+    padding: 14px 30px 14px 30px;
+    position: absolute;
+    bottom: 35px;
+    left: 0;
+}
+
+.button-read-in-source {
+    width: 223px;
+    height: 47px;
+    background: #7CE3E1;
+    color: black;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 400;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.text-number-of-words {
+    position: absolute;
+    bottom: 35px;
+    right: 28px;
+    color: #949494;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: sans-serif;
+}
