@@ -123,10 +123,11 @@ const Header = ({isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleL
                             </div>
                         )}
                         <div className="info-about-user">
-                            <p className="user-name">{accountInfo?.fullName || 'Неизвестно'}</p>
+                            <div className="user-details">
+                                <p className="user-name">{accountInfo?.fullName || 'Неизвестно'}</p>
+                                <Link to="/" className="quit" onClick={handleLogout}>Выйти</Link>
+                            </div>
                             <img src={accountInfo.userPhoto || emptyPhoto} alt="userPhoto" className="photo-profile"/>
-
-                            <Link to="/" className="quit" onClick={handleLogout}>Выйти</Link>
                         </div>
 
                     </div>

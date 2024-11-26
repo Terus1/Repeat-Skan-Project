@@ -85,7 +85,7 @@ const Document = ({loadedDocument, formatDate}) => {
             <div className="div-content">
                 <p className="document-content">
                     {parseXML(doc.content.markup).map((sentence, i) => (
-                        <p key={i}>{sentence}</p>
+                        <p key={i} className={'document-text'}>{sentence}</p>
                     ))}
                 </p>
             </div>

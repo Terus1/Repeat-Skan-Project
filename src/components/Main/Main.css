@@ -11,18 +11,21 @@
 
 /* О чём этот сайт (Заголовок) */
 .site-h1 {
+    width: 743px;
     text-align: left;
     text-transform: uppercase;
     font-weight: 900;
     font-size: 60px;
-    font-family: sans-serif
+    font-family: Ferry, sans-serif;
+    line-height: 72px;
+
 }
 
 /* Текст под заголовком */
 .small-text {
     text-align: left;
     font-size: 20px;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 /* Кнопка "Запросить данные" */
@@ -35,6 +38,7 @@
     font-size: 22px;
     color: white;
     cursor: pointer;
+    font-family: Inter, sans-serif;
 }
 
 /*===========================================Контейнер "Почему именно мы" ============================================*/
@@ -44,7 +48,7 @@
     text-transform: uppercase;
     font-size: 45px;
     font-weight: 900;
-    font-family: sans-serif;
+    font-family: Ferry, sans-serif;
 }
 
 /*---------------------------------------------------Карусель---------------------------------------------------------*/
@@ -112,7 +116,7 @@
 .text-our-tariffs {
     text-align: left;
     font-size: 45px;
-    font-family: sans-serif;
+    font-family: Ferry, sans-serif;
     text-transform: uppercase;
     font-weight: 900;
 }
@@ -127,6 +131,9 @@
     justify-content: center;
 }
 
+
+
+
 /*-------------------------------------------------- Тариф "Beginner" ------------------------------------------------*/
 .beginner {
     position: relative;
@@ -134,7 +141,7 @@
     height: 540px;
     background: white;
     margin-bottom: 118px;
-    box-shadow: inset 0 0 0 2px #FFB64F;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
 
@@ -149,7 +156,9 @@
     background: #FFB64F;
     display: flex;
     justify-content: space-between;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 /* Заголовок "Beginner" */
@@ -162,14 +171,14 @@
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 30px;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 /* Краткое описание тарифов (Beginner, Pro) */
 .shortly {
     margin: 0;
     font-size: 18px;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 /* Иконка Beginner (Лампочка) */
@@ -198,7 +207,7 @@
 /* Текст "новая цена" (Для всех тарифов) */
 .new-price {
     font-size: 30px;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
     font-weight: 500;
     display: inline;
 }
@@ -214,7 +223,7 @@
 /* Текст "старая цена" (для всех тарифов)*/
 .old-price {
     font-size: 25px;
-    font-family: Inter sans-serif;
+    font-family: Inter, sans-serif;
     font-weight: 500;
     color: grey;
     display: inline;
@@ -242,6 +251,8 @@
     font-family: sans-serif;
 }
 
+
+
 /* текст "monthly" */
 .monthly {
     position: absolute;
@@ -252,7 +263,7 @@
     width: 340px;
     height: 22px;
     font-size: 20px;
-    font-family: Inter sans-serif;
+    font-family: Inter, sans-serif;
     font-weight: 400;
 }
 
@@ -273,7 +284,7 @@
     /*bottom: 224px;*/
     font-size: 20px;
     font-weight: 500;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
     text-align: left;
 }
 
@@ -295,7 +306,7 @@
     bottom: 192px;
     font-size: 18px;
     font-weight: 400;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 /* Вторая зелёная галочка */
@@ -316,7 +327,7 @@
     bottom: 165px;
     font-size: 18px;
     font-weight: 400;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 /* Третья зелёная галочка */
@@ -337,7 +348,7 @@
     bottom: 139px;
     font-size: 18px;
     font-weight: 400;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 /* Кнопка тарифа Beginner */
@@ -358,6 +369,7 @@
     font-size: 20px;
     border: none;
     cursor: pointer;
+    font-family: Inter, sans-serif;
 }
 
 /*-------------------------------------------------- Тариф "Pro" -----------------------------------------------------*/
@@ -381,7 +393,9 @@
     background: #7CE3E1;
     display: flex;
     justify-content: space-between;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 /* Заголовок "Pro" */
@@ -416,6 +430,7 @@
     border-radius: 5px;
     border: none;
     cursor: pointer;
+    font-family: Inter, sans-serif;
 }
 
 /*-------------------------------------------------- Тариф "Business" ------------------------------------------------*/
@@ -438,7 +453,9 @@
     background: black;
     display: flex;
     justify-content: space-between;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 /* Заголовок "Business" */
@@ -479,4 +496,16 @@
 }
 
 
+/*------------------------------------------------ Стили для активного тарифа ----------------------------------------*/
+.active-beginner-tariff {
+    box-shadow: inset 0 0 0 2px #FFB64F;
+}
+
+.active-pro-tariff {
+    box-shadow: 0 0 5px 1px #7CE3E1;
+}
+
+.active-business-tariff {
+    box-shadow: 0 0 5px 1px black;
+}
 

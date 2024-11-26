@@ -30,7 +30,7 @@
     color: black;
     font-size: 20px;
     display: flex;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 
 }
 
@@ -78,40 +78,44 @@
     gap: 100px;
 }
 
-/* Имя пользователя */
+
+/*--------------------------------------------------Имя и фото профиля------------------------------------------------*/
+.info-about-user {
+    display: flex;
+    align-items: center; /* Центрируем вертикально элементы */
+    gap: 16px; /* Отступ между фото и текстом */
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column; /* Расположить имя и "Выйти" вертикально */
+    align-items: flex-end; /* Выравнивание по левому краю */
+}
+
 .user-name {
-    position: absolute;
-    top: 18px;
-    right: 75px;
-    width: 100px;
-    font-family: Inter, sans-serif;
     font-size: 15px;
     font-weight: 400;
+    margin: 0;
+    font-family: Inter, sans-serif;
 }
 
-/* Аватарка пользователя */
-.photo-profile {
-    position: absolute;
-    top: 30px;
-    right: 44px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%; /* Делает изображение круглым */
-    object-fit: cover;  /* Убедитесь, что изображение не искажается */
-}
-
-
-/* Ссылка "выйти" из аккаунта */
 .quit {
-    position: absolute;
-    top: 52px;
-    right: 100px;
-    color: grey;
     font-size: 12px;
-    font-family: sans-serif;
+    color: grey;
     text-decoration: none;
+    margin-top: 4px; /* Отступ от имени */
+    font-family: Inter, sans-serif;
 }
 
+.photo-profile {
+    width: 32px; /* Размер аватарки */
+    height: 32px;
+    border-radius: 50%; /* Круглая форма */
+    object-fit: cover; /* Обрезка для фото */
+
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
 /* Элементы информации о компании (использовано компаний, лимит по компаниям)*/
 .info-about-companies {
     position: absolute;
@@ -128,10 +132,9 @@
 /* Использовано компаний и лимит по компаниям */
 .used-companies, .limit-companies {
     padding-top: 14px;
-
     margin: 0;
     color: grey;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
     font-size: 10px;
     text-align: center;
 }

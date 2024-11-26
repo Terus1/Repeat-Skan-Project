@@ -10,7 +10,7 @@
 /* Главный текст */
 .text-head {
     text-transform: uppercase;
-    font-family: sans-serif;
+    font-family: Ferry, sans-serif;
     font-size: 40px;
     font-weight: 900;
 }
@@ -18,7 +18,7 @@
 /* Текст подсказка (под главным текстом) */
 .hint {
     font-size: 20px;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
     font-weight: 400;
 }
 
@@ -35,7 +35,7 @@
 /* Тексты заголовков для заполнения */
 .text-INN, .text-tonality, .text-documents, .range-text {
     font-size: 18px;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
     margin-top: 0;
     margin-bottom: 20px;
 }
@@ -125,7 +125,7 @@
 .text-label-checkboxes {
     font-size: 18px;
     font-weight: 400;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
     margin-bottom: 15px;
 }
 
@@ -139,7 +139,7 @@
     color: white;
     font-size: 22px;
     font-weight: 500;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 /* При наведении на кнопку поиск */
@@ -157,7 +157,7 @@
 .explanation {
     font-size: 16px;
     font-weight: 400;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
     color: #949494;
 }
 

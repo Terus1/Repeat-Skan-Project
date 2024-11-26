@@ -15,7 +15,7 @@
     height: 96px;
     font-size: 40px;
     font-weight: 900;
-    font-family: sans-serif;
+    font-family: Ferry, sans-serif;
     text-transform: uppercase;
 }
 
@@ -25,7 +25,7 @@
     height: 48px;
     font-size: 20px;
     font-weight: 400;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 /* Контейнер "Общая сводка" */
@@ -45,7 +45,7 @@
     margin: 0;
     font-size: 30px;
     font-weight: 900;
-    font-family: sans-serif;
+    font-family: Ferry, sans-serif;
     text-transform: uppercase;
 }
 
@@ -54,7 +54,7 @@
     color: #949494;
     font-size: 18px;
     font-weight: 400;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 /* Карусель результатов */
@@ -94,6 +94,7 @@ th, td {
     padding: 10px;
     text-align: center;
     border-right: 2px solid rgba(224, 224, 224, 0.5); /* Прозрачная вертикальная линия между заголовками */
+    font-family: Inter, sans-serif;
 }
 
 /* Данные в таблице */
@@ -141,7 +142,7 @@ th:last-child, td:last-child {
 
 .head-list-of-documents {
     font-size: 30px;
-    font-family: sans-serif;
+    font-family: Ferry, sans-serif;
     font-weight: 900;
 }
 
@@ -178,7 +179,8 @@ th:last-child, td:last-child {
     background: #5970FF;
     color: white;
     font-size: 22px;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
     text-align: center;
+    cursor: pointer;
 }
 

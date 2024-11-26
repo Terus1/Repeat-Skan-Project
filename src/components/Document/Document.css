@@ -23,7 +23,7 @@
     top: 19px;
     color: #949494;
     font-size: 16px;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 .source {
@@ -35,14 +35,14 @@
     color: #949494;
     text-decoration: underline;
     font-size: 16px;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
     cursor: pointer;
 }
 
 .div-head-of-document {
     margin-top: 24px;
     font-size: 26px;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 .div-tag {
@@ -77,6 +77,12 @@
     opacity: 50%;
 }
 
+.document-text {
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
 .div-read-in-source {
     padding: 14px 30px 14px 30px;
     position: absolute;
@@ -90,7 +96,7 @@
     background: #7CE3E1;
     color: black;
     font-size: 16px;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
     font-weight: 400;
     border-radius: 5px;
     border: none;
@@ -104,5 +110,5 @@
     color: #949494;
     font-size: 16px;
     font-weight: 400;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }

@@ -17,6 +17,8 @@ import {Link} from "react-router-dom";
 
 export const Main = ({isLoggedIn}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const tariff = JSON.parse(localStorage.getItem('accountInfo')).tariff
+    console.log(tariff === 'business')
 
     // Массив элементов карусели
     const elements = [
@@ -118,7 +120,9 @@ export const Main = ({isLoggedIn}) => {
                     <div className="list-of-tariffs">
 
 
-                        <div className="beginner grid-item">
+                        <div className={`beginner grid-item 
+                        ${tariff === 'beginner' ? 'active-beginner-tariff': ''}                 
+                        `}>
                             <div className="tariff-header-beginner">
                                 <div className="head-tariff-beginner">
                                     <p className="name-of-tariff">Beginner</p>
@@ -141,10 +145,13 @@ export const Main = ({isLoggedIn}) => {
                                     </p>
                                 </div>
 
-
-                                <div className="current-tariff">
-                                    <p className="text-current-tariff">Текущий тариф</p>
-                                </div>
+                                {tariff === 'beginner' ? (
+                                    <div className="current-tariff">
+                                        <p className="text-current-tariff">Текущий тариф</p>
+                                    </div>
+                                ) : (
+                                    <></>
+                                )}
 
                                 <p className="monthly">или 150 ₽/мес. при рассрочке на 24 мес.</p>
 
@@ -169,13 +176,20 @@ export const Main = ({isLoggedIn}) => {
                                 </div>
 
                                 <div className="beginner-button">
-                                    <button className="to-personal-acc">Перейти в личный кабинет</button>
+                                    {tariff === 'beginner' ? (
+                                        <button className="to-personal-acc">Перейти в личный кабинет</button>
+                                    ) : (
+                                        <button className="more-white">Подробнее</button>
+                                    )}
+
                                 </div>
                             </div>
 
                         </div>
                         {/*=============================================================================================================*/}
-                        <div className="pro grid-item">
+                        <div className={`pro grid-item 
+                        ${tariff === 'pro' ? 'active-pro-tariff' : ''}               
+                        `}>
                             <div className="tariff-header-pro">
                                 <div className="head-tariff-pro">
                                     <p className="name-of-tariff">Pro</p>
@@ -197,7 +211,13 @@ export const Main = ({isLoggedIn}) => {
                                         <del>2600 ₽</del>
                                     </p>
                                 </div>
-
+                                {tariff === 'pro' ? (
+                                    <div className="current-tariff">
+                                        <p className="text-current-tariff">Текущий тариф</p>
+                                    </div>
+                                ) : (
+                                    <></>
+                                )}
 
                                 <p className="monthly">или 279 ₽/мес. при рассрочке на 24 мес.</p>
                                 <div className="div-tariff-includes">
@@ -221,13 +241,18 @@ export const Main = ({isLoggedIn}) => {
                                 </div>
 
                                 <div className="pro-button">
-                                    <button className="more-white">Подробнее</button>
+                                    {tariff === 'pro' ? (
+                                        <button className="to-personal-acc">Перейти в личный кабинет</button>
+                                    ) : (
+                                        <button className="more-white">Подробнее</button>
+                                    )}
+
                                 </div>
                             </div>
 
                         </div>
 
-                        <div className="business grid-item">
+                        <div className={`business grid-item ${tariff === 'business' ? 'active-business-tariff' : ''} `}>
                             <div className="tariff-header-business">
                                 <div className="head-tariff-business">
                                     <p className="name-of-tariff-business">Business</p>
@@ -249,6 +274,13 @@ export const Main = ({isLoggedIn}) => {
                                         <del>3700 ₽</del>
                                     </p>
                                 </div>
+                                {tariff === 'business' ? (
+                                    <div className="current-tariff">
+                                        <p className="text-current-tariff">Текущий тариф</p>
+                                    </div>
+                                ) : (
+                                    <></>
+                                )}
 
                                 <div className="div-tariff-includes">
                                     <p className={'text-tariff-includes'}>В тариф входит:</p>
@@ -271,7 +303,12 @@ export const Main = ({isLoggedIn}) => {
 
 
                                 <div className="business-button">
-                                    <button className="more-white ">Подробнее</button>
+                                    {tariff === 'business' ? (
+                                        <button className="to-personal-acc">Перейти в личный кабинет</button>
+                                    ) : (
+                                        <button className="more-white">Подробнее</button>
+                                    )}
+
                                 </div>
                             </div>
 
