@@ -218,9 +218,8 @@ const Result = () => {
                     />
                 </div>
             </div>
-            <div className="results">
+            <div className="results-documents">
                 <p className={'head-list-of-documents'}>Список документов</p>
-
                 {/*<Document loadedDocuments={loadedDocuments} formatDate={formatDate}/>*/}
                 <div className="documents-container">
                     {loadedDocuments.length > 0 ? (
@@ -238,9 +237,12 @@ const Result = () => {
             </div>
             {/* Кнопка для загрузки дополнительных документов */}
             {loadedDocuments.length < documentIds.length && (
-                <button className="load-more-button" onClick={loadMoreDocuments} disabled={loading}>
-                    {loading ? "Загрузка..." : "Показать больше"}
-                </button>
+                <div className={'load-more-container'}>
+                    <button className="load-more-button" onClick={loadMoreDocuments} disabled={loading}>
+                        {loading ? "Загрузка..." : "Показать больше"}
+                    </button>
+                </div>
+
             )}
         </div>
     )

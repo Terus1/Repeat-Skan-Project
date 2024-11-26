@@ -3,11 +3,9 @@ import './Document.css';
 
 
 const Document = ({loadedDocument, formatDate}) => {
-
     const doc = loadedDocument?.ok
 
     useEffect(() => {
-
         if (doc) {
             console.log('Loaded document', doc)
         }
@@ -53,7 +51,11 @@ const Document = ({loadedDocument, formatDate}) => {
         <div className="div-document">
             <div className="top-information">
                 <p className="date">{formatDate(doc.issueDate)}</p>
-                <p className="source">{doc.source.name}</p>
+                {doc.url ? (
+                    <a href={doc.url} target={"_blank"} rel="noopener noreferrer" className="source">{doc.source.name}</a>
+                ) : (
+                    <p className={'source'}>{doc.source.name}</p>
+                )}
             </div>
 
             <div className="div-head-of-document">
@@ -89,11 +91,21 @@ const Document = ({loadedDocument, formatDate}) => {
             </div>
 
             <div className="div-read-in-source">
-                <button className="button-read-in-source">Читать в источнике</button>
+                <button
+                    className="button-read-in-source"
+                    onClick={() => {
+                        if (doc.url) {
+                            window.open(doc.url, "_blank", "noopener,noreferrer");
+                        }
+                    }}
+                    disabled={!doc.url} // Отключаем кнопку, если ссылки нет
+                >
+                    Читать в источнике
+                </button>
             </div>
 
             <div className="div-number-of-words">
-                <p className="text-number-of-words">
+            <p className="text-number-of-words">
                     {getWordForm(doc.attributes.wordCount)}
                 </p>
             </div>

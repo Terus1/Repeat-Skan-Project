@@ -148,15 +148,26 @@ th:last-child, td:last-child {
 .documents-container {
     display: flex;
     flex-wrap: wrap; /* Перенос строк */
-    gap: 16px; /* Отступы между карточками */
-    justify-content: flex-start; /* Выравнивание по левому краю */
+    gap: 16px; /* Единый отступ между карточками */
+    justify-content: center; /* Центровка карточек */
+    /*padding: 0 16px; !* Отступы слева и справа *!*/
+    /*margin-top: 20px; !* Отступ сверху *!*/
+    /*box-sizing: border-box; !* Учет padding в размере *!*/
 }
 
 .document-item {
-    flex: 1 1 calc(50% - 16px); /* Каждый документ занимает 50% ширины с учетом отступов */
+    /*flex: 1 1 calc(50% - 32px); !* Карточки занимают 50% ширины минус отступы *!*/
+    /*max-width: calc(50% - 32px); !* Ограничение максимальной ширины *!*/
     box-sizing: border-box; /* Учитываем padding в ширине */
-    max-width: calc(50% - 16px); /* Ограничиваем максимальную ширину */
-    margin-bottom: 16px; /* Отступ снизу для выравнивания по сетке */
+    margin-bottom: 16px; /* Отступ снизу для выравнивания */
+}
+
+
+.load-more-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 20px;
 }
 
 .load-more-button {

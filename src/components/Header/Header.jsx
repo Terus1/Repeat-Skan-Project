@@ -5,85 +5,90 @@ import logoHeader from '../../media/logo-header.svg';
 import stick from '../../media/stick.svg';
 import emptyPhoto from '../../photoUsers/emptyPhoto.jpg'
 import {Link, useNavigate} from "react-router-dom";
-import {fetchWithToken, handleLogout} from "../../api/api";
+import {fetchWithToken} from "../../api/api";
+
 
 
 const Header = ({isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleLogout}) => {
     const [loading, setLoading] = useState(true)    // Состояние для лоадера
     const [isTokenExpired, setIsTokenExpired] = useState(false);
-    const [companyInfo, setCompanyInfo] = useState(null);
     const navigate = useNavigate(); // Хук для навигации
 
     useEffect(() => {
         const checkTokenExpiration = () => {
             const tokenExpire = new Date(localStorage.getItem('tokenExpire')).getTime();
             const currentTime = Date.now();
-            const accessToken = localStorage.getItem('accessToken')
+            // const accessToken = localStorage.getItem('accessToken')
+            if (accountInfo) {
+                console.log('Данные есть!', accountInfo)
+            } else {
+                console.log('Данных пока нет :(')
+            }
 
             // Преверяем, не истёк ли токен
             if (currentTime > tokenExpire) {
                 //Токен истёк, очищяем данные и перенаправляем на авторизацию
-                console.log('Токен истёк')
+                // console.log('Токен истёк')
                 setIsTokenExpired(true)
                 navigate('/authorization');
             } else {
                 setIsTokenExpired(false)  // Если токен не истёк
-                console.log('Токен не истёк')
-                console.log('tokenExpire', tokenExpire)
-                console.log('currentTime', currentTime)
-                console.log('accessToken', accessToken)
-                const maxNumber = Math.max(tokenExpire, currentTime)
-                console.log('Большее значение:', maxNumber === tokenExpire ? 'tokenExpire' : 'currentTime');
+                // console.log('Токен не истёк')
+                // console.log('tokenExpire', tokenExpire)
+                // console.log('currentTime', currentTime)
+                // console.log('accessToken', accessToken)
+                // const maxNumber = Math.max(tokenExpire, currentTime)
+                // console.log('Большее значение:', maxNumber === tokenExpire ? 'tokenExpire' : 'currentTime');
+
 
             }
-            console.log(isTokenExpired)
+            // console.log(isTokenExpired)
         };
 
         checkTokenExpiration()
-    }, [handleLogout, isTokenExpired, navigate, setAccountInfo, setIsLoggedIn]);
-
-    // useEffect(() => {
-    //     if (isTokenExpired) {
-    //         navigate('/authorization')
-    //     }
-    // }, [isTokenExpired, navigate]);
+    }, [accountInfo, navigate]);
 
     useEffect(() => {
-        // Проверяем есть ли токен и данные в localStorage
         const savedToken = localStorage.getItem('accessToken');
         const savedAccountInfo = localStorage.getItem('accountInfo');
-
-        if (savedToken && savedAccountInfo) {
-            // Если данные есть, парсим и устанавливаем в состояние
-            setAccountInfo(JSON.parse(savedAccountInfo));   // Передаем данные об аккаунте в accountInfo
-            setIsLoggedIn(true);    // Ставим флаг в true, что пользователь авторизован
-            setLoading(false)   // Отключаем лоадер
-        } else if (savedToken) {
-            // Если токен есть, но нет информации о пользователе, делаем запрос для её получения
+        console.log('savedAccountInfo', JSON.parse(savedAccountInfo));
+        console.log('accountInfo', accountInfo)
+        if (savedToken && savedAccountInfo && !accountInfo) {
+            setAccountInfo(JSON.parse(savedAccountInfo));
+            setIsLoggedIn(true);
+            setLoading(false);
+            console.log('Новый accountInfo', JSON.parse(accountInfo));
+        } else if (savedToken && !accountInfo) {
             fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', savedToken)
                 .then((accountInfo) => {
                     if (accountInfo) {
-                        localStorage.setItem('accountInfo', JSON.parse(accountInfo));   // Сохраняем в localStorage
-                        setAccountInfo(accountInfo);    // Устанавливаем в состояние
-                        setLoading(false);  // Отключаем лоадер
+                        localStorage.setItem('accountInfo', JSON.stringify(accountInfo));
+                        setAccountInfo(accountInfo);
+                        setLoading(false);
                     }
                 });
         } else {
-            setLoading(false);  // Если нет токена, отключаем лоадер
+            setLoading(false);
         }
-    }, [setAccountInfo, setIsLoggedIn]);
+    }, [setAccountInfo, setIsLoggedIn, accountInfo]); // Добавляем accountInfo, но используем проверку
 
     // useEffect(() => {
-    //     if (accountInfo && !isTokenExpired) {
-    //         setCompanyInfo({
-    //             usedCompanyCount: accountInfo.eventFiltersInfo.usedCompanyCount || 0,
-    //             companyLimit: accountInfo.eventFiltersInfo.companyLimit || 0,
-    //         });
-    //     } else {
-    //         setCompanyInfo(null); // Если токен истёк, очищаем информацию о компании
+    //     const savedToken = localStorage.getItem('accessToken');
+    //     if (savedToken && !accountInfo) {
+    //         fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', savedToken)
+    //             .then((dataFromServer) => {
+    //                 const localUser = mockUsers.find(user => user.login === dataFromServer.login);
+    //
+    //                 const updatedAccountInfo = {
+    //                     ...dataFromServer,
+    //                     tariff: localUser?.tariff || null,
+    //                     userPhoto: localUser?.userPhoto || null,
+    //                 };
+    //
+    //                 setAccountInfo(updatedAccountInfo);
+    //             });
     //     }
-    // }, [accountInfo, isTokenExpired]);
-
+    // }, [accountInfo, setAccountInfo]);
 
     return(
         <>
@@ -100,7 +105,7 @@ const Header = ({isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleL
                     </ul>
                 </div>
 
-                {isLoggedIn ? (
+                {isLoggedIn && !isTokenExpired ? (
                     <div className="authorized">
                         {loading ? (
                             // Лоадер, если данные загружаются
@@ -117,11 +122,13 @@ const Header = ({isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleL
                                     компаниям: <span className="how-much-limit-companies">{accountInfo?.eventFiltersInfo?.companyLimit || '0'}</span></p>
                             </div>
                         )}
+                        <div className="info-about-user">
+                            <p className="user-name">{accountInfo?.fullName || 'Неизвестно'}</p>
+                            <img src={accountInfo.userPhoto || emptyPhoto} alt="userPhoto" className="photo-profile"/>
 
-                        <p className="user-name">Вася П.</p>
-                        <img src={accountInfo?.userPhoto || emptyPhoto} alt="userPhoto" className="photo-profile"/>
+                            <Link to="/" className="quit" onClick={handleLogout}>Выйти</Link>
+                        </div>
 
-                        <Link to="/" className="quit" onClick={handleLogout}>Выйти</Link>
                     </div>
                 ) : (
                     <div className="my-office">

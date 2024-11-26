@@ -62,7 +62,7 @@ export const handleLogout = ({setIsLoggedIn, setAccountInfo, navigate}) => {
 export const loginAndFetch = async (username, password, setIsLoggedIn, setAccountInfo, navigate) => {
   try {
     // Ищем пользователя в локальных данных
-    const localUser = mockUsers.find(user => user.login === username && user.password === password);
+    // const localUser = mockUsers.find(user => user.login === username && user.password === password);
 
     // if (localUser) {
     //   // Если пользователь найден в mockUsers, то сохраняем его данные в состоянии и localStorage
@@ -118,15 +118,32 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
     console.log('Токен получен:', accessToken);
     console.log('Срок действия токена до:', expire);
 
+
     setIsLoggedIn(true);
 
     // Выполняем защищённый запрос для получения accountInfo
-    const accountInfo = await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', accessToken);
+    const accountInfoFromServer = await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', accessToken);
+
+    const localUser = mockUsers.find(user => user.login === username && user.password === password)
+
+    if (!localUser) {
+      console.log('Пользователь с таким логином и паролем не найден в mockUsers!', username)
+      return
+    }
+    console.log('Найден пользователь в mockUsers!', localUser)
+
+    // Объединяем данные из сервера с локальными данными
+    const MergedAccountInfo = {
+      ...accountInfoFromServer, // Данные с сервера
+      tariff: localUser?.tariff || null, // Берём тариф из mockUsers
+      userPhoto: localUser.userPhoto || null,  // Берём фото пользователя из mockUsers
+      fullName: localUser.fullName || null, // Берём Имя пользователя из mockUsers
+    }
 
     // Устанавливаем и сохраняем данные о аккаунте
-    setAccountInfo(accountInfo);
-    console.log(accountInfo)
-    localStorage.setItem('accountInfo', JSON.stringify(accountInfo));
+    setAccountInfo(MergedAccountInfo);
+    console.log('MergedAccountInfo', MergedAccountInfo)
+    localStorage.setItem('accountInfo', JSON.stringify(MergedAccountInfo));
 
     // Перенаправление на главную страницу
     navigate('/');

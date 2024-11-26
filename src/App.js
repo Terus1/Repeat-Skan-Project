@@ -31,18 +31,18 @@ function App() {
     }
 
 
-    if (loggedIn && accessToken) {
-      setIsLoggedIn(true);  // Устанавливаем флаг, что пользователь авторизован
-      // Если пользователь авторизован, получаем информацию об аккаунте
-      fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', accessToken)
-        .then(data => {
-          setAccountInfo(data)  // Передаём информацию об аккаунте
-        })
-        .catch(error => {
-          console.error('Ошибка при получении информации об аккаутне', error)
-          handleLogout({setAccountInfo, setIsLoggedIn, navigate}); // Выход из системы если токен не действителен
-        })
-    }
+    // if (loggedIn && accessToken) {
+    //   setIsLoggedIn(true);  // Устанавливаем флаг, что пользователь авторизован
+    //   // Если пользователь авторизован, получаем информацию об аккаунте
+    //   fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', accessToken)
+    //     .then(data => {
+    //       setAccountInfo(data)  // Передаём информацию об аккаунте
+    //     })
+    //     .catch(error => {
+    //       console.error('Ошибка при получении информации об аккаутне', error)
+    //       handleLogout({setAccountInfo, setIsLoggedIn, navigate}); // Выход из системы если токен не действителен
+    //     })
+    // }
 
   }, [navigate]);
 
