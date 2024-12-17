@@ -50,7 +50,6 @@ export const handleLogout = ({setIsLoggedIn, setAccountInfo, navigate}) => {
   setIsLoggedIn(false);
   setAccountInfo(null);
   navigate('/authorization')
-
 }
 
 
@@ -59,7 +58,7 @@ export const handleLogout = ({setIsLoggedIn, setAccountInfo, navigate}) => {
 //==================================================Authorization.jsx===================================================
 // Функция для авторизации и получения токена (v2)
 
-export const loginAndFetch = async (username, password, setIsLoggedIn, setAccountInfo, navigate) => {
+export const loginAndFetch = async (username, password, setIsLoggedIn, setAccountInfo, navigate, loading, setLoading) => {
   try {
     // Ищем пользователя в локальных данных
     // const localUser = mockUsers.find(user => user.login === username && user.password === password);
@@ -86,7 +85,7 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
     //   return;
     // }
 
-    // Если пользователь не найден в mockUsers, выполняем запрос к серверу
+    setLoading(true)
     const response = await fetch('https://gateway.scan-interfax.ru/api/v1/account/login', {
       method: 'POST',
       headers: {
@@ -120,6 +119,8 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
 
 
     setIsLoggedIn(true);
+    // Перенаправление на главную страницу
+    navigate('/');
 
     // Выполняем защищённый запрос для получения accountInfo
     const accountInfoFromServer = await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', accessToken);
@@ -145,10 +146,11 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
     console.log('MergedAccountInfo', MergedAccountInfo)
     localStorage.setItem('accountInfo', JSON.stringify(MergedAccountInfo));
 
-    // Перенаправление на главную страницу
-    navigate('/');
+
   } catch (error) {
     console.error('Ошибка:', error);
+  } finally {
+    setLoading(false)
   }
 };
 

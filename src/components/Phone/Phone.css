@@ -1,0 +1,57 @@
+@media (max-width: 9999px) {
+    /*.main-content {*/
+    /*    background: #029491;*/
+    /*}*/
+    /* Если ширине экране ниже чем указано, то вся разметка красится в этот цвет */
+
+    .main-phone {
+        background: #029491;
+
+    }
+
+    .burger-content {
+        text-align: center;
+        margin-bottom: 300px;
+    }
+
+    .text-burger-content {
+        color: white;
+        font-family: Inter, sans-serif;
+        font-size: 50px;
+    }
+
+    .reg-or-log {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .reg {
+        font-size: 50px;
+        text-decoration: none;
+        color: #FFFFFF;
+        opacity: 40%;
+        font-family: Inter, sans-serif;
+        font-weight: 400;
+        margin-bottom: 50px;
+
+    }
+
+    /* Кнопка "Войти" */
+    .my-office-button {
+        width: 1000px;
+        height: 150px;
+        background-color: #7CE3E1;
+        border-radius: 5px;
+        border: none;
+        margin-left: 18px;
+        cursor: pointer;
+    }
+
+    /* Текст "Войти" */
+    .entrance {
+        font-size: 50px;
+        font-weight: bold;
+        font-family: Inter, sans-serif;
+    }
+}

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import './Authorization.css'
 import {loginAndFetch} from "../../api/api";
@@ -10,10 +10,11 @@ import yandexButton from '../../media/yandex-button.svg'
 import facebookButton from '../../media/facebook-button.svg'
 
 
-const Authorization = ({setIsLoggedIn, setAccountInfo}) => {
+const Authorization = ({setIsLoggedIn, setAccountInfo, loading, setLoading, setHandleBurgerMenu}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate(); // Хук для навигации
+
 
     // Проверка на заполнение полей
     const isFormValid = username !== '' && password !== '';
@@ -21,16 +22,20 @@ const Authorization = ({setIsLoggedIn, setAccountInfo}) => {
     // Функция для входа в аккаунт
     const handleLogin = async () => {
         try {
-            await loginAndFetch(username, password, setIsLoggedIn, setAccountInfo, navigate);
+            await loginAndFetch(username, password, setIsLoggedIn, setAccountInfo, navigate, loading, setLoading);
         } catch (error) {
             console.error("Ошибка при выполнении loginAndFetch:", error);
         }
     };
 
+    useEffect(() => {
+        setHandleBurgerMenu(false)
+    }, []);
+
 
     return (
-        <>
-            <div className="both-parts">
+        <div className={'authorization-content'}>
+            <div className="both-parts-authorization">
                 <div className="left-part-authorization">
                     <p className="text-authorization">
                         Для оформления подписки<br/>
@@ -95,7 +100,7 @@ const Authorization = ({setIsLoggedIn, setAccountInfo}) => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

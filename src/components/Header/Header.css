@@ -9,6 +9,21 @@
     margin-bottom: 69px;
 }
 
+.open {
+    background: #029491;
+}
+
+.close {
+    background: white;
+}
+
+/* Логотип */
+.logo {
+    width: 141px;
+    height: 141px;
+}
+
+
 /* Список элементов навигации (Главная, Тарифы, FAQ)*/
 .nav-list {
     list-style-type: none;
@@ -66,7 +81,7 @@
 /* Текст "Войти" */
 .entrance {
     font-weight: bold;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 /*============================================ Если пользователь авторизован ======================================*/
@@ -155,5 +170,79 @@
     font-size: 14px;
     font-weight: 700;
     color: #8AC540;
-
 }
+
+.loader-true {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-header {
+    width: 40px; /* Размер лоадера */
+    height: 40px; /* Размер лоадера */
+    animation: spin 1.5s linear infinite; /* Анимация вращения */
+}
+
+/* Анимация вращения */
+@keyframes spin {
+    from {
+        transform: rotate(0deg); /* Начальное состояние */
+    }
+    to {
+        transform: rotate(360deg); /* Конечное состояние */
+    }
+}
+
+
+/*!* Базовые стили *!*/
+/*.navigation,*/
+/*.authorized,*/
+/*.my-office {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    transition: transform 0.3s ease, opacity 0.3s ease;*/
+/*}*/
+
+/* Скрываем кнопку-бургер на больших экранах */
+.burger-menu {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/*!* Скрытие элементов при маленьком экране *!*/
+/*@media (max-width: 37500px) {*/
+/*    .burger-menu {*/
+/*        display: block; !* Показываем кнопку-бургер *!*/
+/*        !*width: 300px;*!*/
+/*        !*height: 300px;*!*/
+/*    }*/
+
+/*    .navigation,*/
+/*    .authorized,*/
+/*    .my-office {*/
+/*        display: none; !* По умолчанию скрываем элементы *!*/
+/*        position: absolute; !* Фиксируем на экране *!*/
+/*        top: 60px;*/
+/*        right: 0;*/
+/*        width: 100%;*/
+/*        flex-direction: column;*/
+/*        background: white;*/
+/*        z-index: 10;*/
+/*        padding: 20px;*/
+/*        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
+/*    }*/
+
+/*    .navigation.open,*/
+/*    .authorized.open,*/
+/*    .my-office.open {*/
+/*        display: flex; !* Показываем элементы при открытии *!*/
+/*    }*/
+
+/*}*/
+
+
+

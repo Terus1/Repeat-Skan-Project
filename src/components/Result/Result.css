@@ -119,6 +119,10 @@ th:last-child, td:last-child {
 
 }
 
+.table {
+    width: 100%;
+}
+
 .left-arrow, .right-arrow {
     cursor: pointer;
     width: 20px;
@@ -168,7 +172,8 @@ th:last-child, td:last-child {
     display: flex;
     justify-content: center;
     align-content: center;
-    margin-top: 20px;
+    margin-top: 38px;
+    margin-bottom: 109px;
 }
 
 .load-more-button {
@@ -184,3 +189,91 @@ th:last-child, td:last-child {
     cursor: pointer;
 }
 
+
+
+/*!* Общие стили для таблицы *!*/
+/*.tg {*/
+/*    border-collapse: collapse;*/
+/*    border-spacing: 0;*/
+/*}*/
+
+/*!* Стили для ячеек td *!*/
+/*.tg td {*/
+/*    border-color: black;*/
+/*    border-style: solid;*/
+/*    border-width: 1px;*/
+/*    font-family: Arial, sans-serif;*/
+/*    font-size: 14px;*/
+/*    overflow: hidden;*/
+/*    padding: 10px 5px;*/
+/*    word-break: normal;*/
+/*}*/
+
+/*!* Стили для заголовков th *!*/
+/*.tg th {*/
+/*    border-color: black;*/
+/*    border-style: solid;*/
+/*    border-width: 1px;*/
+/*    font-family: Arial, sans-serif;*/
+/*    font-size: 14px;*/
+/*    font-weight: normal;*/
+/*    overflow: hidden;*/
+/*    padding: 10px 5px;*/
+/*    word-break: normal;*/
+/*}*/
+
+/*!* Дополнительный класс для центрирования *!*/
+/*.tg .tg-c3ow {*/
+/*    border-color: inherit;*/
+/*    text-align: center;*/
+/*    vertical-align: top;*/
+/*}*/
+
+/*!* Дополнительный класс с serif-шрифтом *!*/
+/*.tg .tg-d9lh {*/
+/*    border-color: inherit;*/
+/*    font-family: serif !important;*/
+/*    font-size: 100%;*/
+/*    text-align: left;*/
+
+/*}*/
+
+
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Занимает всю высоту ячейки */
+    width: 100%; /* Занимает всю ширину ячейки */
+}
+
+.tg-d9lh {
+    position: relative;
+}
+
+.tg-d9lh img {
+    max-width: 100px; /* Можно настроить размер лоадера */
+}
+
+
+
+
+
+
+/* Лоадер */
+.loader {
+    width: 40px; /* Размер лоадера */
+    height: 40px; /* Размер лоадера */
+    animation: spin 1.5s linear infinite; /* Анимация вращения */
+}
+
+/* Анимация вращения */
+@keyframes spin {
+    from {
+        transform: rotate(0deg); /* Начальное состояние */
+    }
+    to {
+        transform: rotate(360deg); /* Конечное состояние */
+    }
+}

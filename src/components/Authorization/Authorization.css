@@ -1,8 +1,14 @@
+.authorization-content {
+    margin-right: 60px;
+    margin-left: 60px;
+}
+
+
 /* Распределение левой и правой части */
-.both-parts {
+.both-parts-authorization {
     display: flex;
-    justify-content: space-between;
-    margin: 0 550px 0 550px;
+    justify-content: space-around;
+    /*margin: 0 550px 0 550px;*/
 }
 
 /*------------------------------------------------ Левая часть -------------------------------------------------------*/

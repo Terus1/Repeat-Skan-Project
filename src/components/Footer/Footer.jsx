@@ -6,7 +6,7 @@ import logoFooter from '../../media/logo-footer.svg'
 const Footer = () => {
 
     return(
-        <>
+        <div className={'footer-content'}>
             <footer className="footer">
 
                 <div className="logo-footer">
@@ -23,7 +23,7 @@ const Footer = () => {
                 </div>
 
             </footer>
-        </>
+        </div>
     )
 
 }

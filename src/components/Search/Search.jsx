@@ -157,16 +157,16 @@ const Search = () => {
                 token,
                 requestData
             );
-            console.log(objectSearchResponse.items)
+            // console.log(objectSearchResponse.items)
             const documentIds = objectSearchResponse.items.map(doc => doc.encodedId);
             // console.log('documentIds:', documentIds)
             // const objectData = await objectSearchResponse
             // console.log('objectSearchResponse:', objectData)
-            console.log('histogramResponse', histogramResponse)
-            console.log("totalDocuments:", histogramResponse.data[0])
-            console.log('riskFactors:', histogramResponse.data[1])
-            console.log('Количество публикаций:', histogramResponse.data[0].data.length)
-            console.log('Перед навигацией: startDate:', startDate, 'endDate:', endDate);
+            // console.log('histogramResponse', histogramResponse)
+            // console.log("totalDocuments:", histogramResponse.data[0])
+            // console.log('riskFactors:', histogramResponse.data[1])
+            // console.log('Количество публикаций:', histogramResponse.data[0].data.length)
+            // console.log('Перед навигацией: startDate:', startDate, 'endDate:', endDate);
             navigate('/result', {
                 state: {
                     totalDocuments: histogramResponse.data[0],
@@ -189,7 +189,7 @@ const Search = () => {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <div className="both-parts">
+                <div className="both-parts-search">
                     {/* Левая часть формы */}
                     <div className="left-part">
                         <div className="head">
