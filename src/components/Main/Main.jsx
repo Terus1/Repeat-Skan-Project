@@ -1,9 +1,13 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './Main.css'
 
 
 import bigIconSwitchMan from '../../media/big-icon-switch-man.svg'
 import arrowIcon from '../../media/arrow-icon.svg'
+import clock from '../../media/clock.svg'
+import loupe from '../../media/loupe.svg'
+import shield from '../../media/shield.svg'
+
 import groupClock from '../../media/group-clock.svg'
 import groupLoupe from "../../media/group-loupe.svg"
 import groupShield from "../../media/group-shield.svg"
@@ -17,20 +21,65 @@ import {Link} from "react-router-dom";
 
 export const Main = ({isLoggedIn}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const tariff = JSON.parse(localStorage.getItem('accountInfo')).tariff
-    console.log(tariff === 'business')
+    // const tariff = JSON.parse(localStorage.getItem('accountInfo')).tariff
+    // const tariff = localStorage.getItem('accountInfo');
+
+    const [tariff, setTariff] = useState(null);
+
+    useEffect(() => {
+        const tariff = localStorage.getItem('accountInfo');
+        if (tariff) {
+            try {
+                const parsedTariff = JSON.parse(tariff).tariff
+                setTariff(parsedTariff)
+            } catch (error) {
+                console.log('Ошибка парсинга тарифа', error)
+                localStorage.removeItem('accountInfo')
+            }
+        } else {
+            console.log('Данные о тарифе отсутствуют')
+        }
+    }, []);
+
 
     // Массив элементов карусели
     const elements = [
+        // <div className="carousel-item">
+        //     <img src={groupClock} alt="clock"/>
+        // </div>,
+        // <div className="carousel-item">
+        //     <img src={groupLoupe} alt="loupe"/>
+        // </div>,
+        // <div className="carousel-item">
+        //     <img src={groupShield} alt="shield-icon"/>
+        // </div>,
+
         <div className="carousel-item">
-            <img src={groupClock} alt="clock"/>
+            <div className="first-carousel-element">
+                <img className={'clock'} src={clock} alt=""/>
+                <p className={'text-carousel-element'}>Высокая и оперативная скорость обработки заявки</p>
+            </div>
         </div>,
+
         <div className="carousel-item">
-            <img src={groupLoupe} alt="loupe"/>
+            <div className="second-carousel-element">
+                <img className={'loupe'} src={loupe} alt=""/>
+                <p className={'text-carousel-element'}>Огромная комплексная база данных, обеспечивающая объективный
+                    ответ на
+                    запрос
+                    заявки</p>
+            </div>
         </div>,
+
         <div className="carousel-item">
-            <img src={groupShield} alt="shield-icon"/>
+            <div className="thirst-carousel-element">
+                <img className={'shield'} src={shield} alt=""/>
+                <p className={'text-carousel-element'}>Защита конфеденциальных сведений, не подлежащих разглашению по
+                    федеральному законодательству
+                    заявки</p>
+            </div>
         </div>,
+
     ];
 
     // Функция для обработки клика вправо
@@ -92,9 +141,20 @@ export const Main = ({isLoggedIn}) => {
                 <div className="why-are-we">
                     <p className="p-why-are-we">почему именно мы</p>
 
+                    {/*<div className="carousel-position">*/}
+                    {/*    <img className="arrow-nav-left" src={arrowIcon} alt="arrow-left-icon" onClick={handlePrev}/>*/}
+                    {/*    <div className="carousel-container">*/}
+                    {/*        <div className="carousel-track">*/}
+                    {/*            */}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+
+                    {/*    <img className="arrow-nav-right" src={arrowIcon} alt="arrow-right-icon" onClick={handleNext}/>*/}
+
+                    {/*</div>*/}
+
                     <div className="carousel-position">
                         <img className="arrow-nav-left" src={arrowIcon} alt="arrow-left-icon" onClick={handlePrev}/>
-
                         <div className="carousel-container">
                             <div className="carousel-track">
                                 {getVisibleElements().map((element, index) => (
@@ -104,14 +164,12 @@ export const Main = ({isLoggedIn}) => {
                                 ))}
                             </div>
                         </div>
-
-                        <img className="arrow-nav-right" src={arrowIcon} alt="arrow-right-icon"
-                             onClick={handleNext}/>
+                        <img className="arrow-nav-right" src={arrowIcon} alt="arrow-right-icon" onClick={handleNext}/>
                     </div>
                 </div>
 
                 <div className="man-sitting">
-                    <img src={groupManSitting} alt="man-sitting"/>
+                    <img className={'img-man-sitting'} src={groupManSitting} alt="man-sitting"/>
                 </div>
 
                 <div className="block-our-tariffs">
@@ -130,20 +188,24 @@ export const Main = ({isLoggedIn}) => {
                                 </div>
 
                                 <div className="beginner-icon">
-                                    <img src={beginnerIcon} alt="beginner-icon"/>
+                                    <img className={'img-icon'} src={beginnerIcon} alt="beginner-icon"/>
 
                                 </div>
                             </div>
 
                             <div className="tariff-body-beginner">
-                                <div className="div-new-price">
-                                    <p className="new-price">799 ₽</p>
+
+                                <div className="prices">
+                                    <div className="div-new-price">
+                                        <p className="new-price">799 ₽</p>
+                                    </div>
+                                    <div className="div-old-price">
+                                        <p className="old-price">
+                                            <del>1200 ₽</del>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="div-old-price">
-                                    <p className="old-price">
-                                        <del>1200 ₽</del>
-                                    </p>
-                                </div>
+
 
                                 {tariff === 'beginner' ? (
                                     <div className="current-tariff">
@@ -197,20 +259,24 @@ export const Main = ({isLoggedIn}) => {
                                 </div>
 
                                 <div className="pro-icon">
-                                    <img src={targetIcon} alt="target-icon"/>
+                                    <img className={'img-pro-icon'} src={targetIcon} alt="target-icon"/>
 
                                 </div>
                             </div>
                             <div className="tariff-body-beginner">
-                                <div className="div-new-price">
-                                    <p className="new-price">1299 ₽</p>
 
+                                <div className="prices">
+                                    <div className="div-new-price">
+                                        <p className="new-price">1299 ₽</p>
+
+                                    </div>
+                                    <div className="div-old-price">
+                                        <p className="old-price">
+                                            <del>2600 ₽</del>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="div-old-price">
-                                    <p className="old-price">
-                                        <del>2600 ₽</del>
-                                    </p>
-                                </div>
+
                                 {tariff === 'pro' ? (
                                     <div className="current-tariff">
                                         <p className="text-current-tariff">Текущий тариф</p>
@@ -260,20 +326,23 @@ export const Main = ({isLoggedIn}) => {
                                 </div>
 
                                 <div className="business-icon">
-                                    <img src={businessIcon} alt="business-icon"/>
+                                    <img className={'img-icon'} src={businessIcon} alt="business-icon"/>
                                 </div>
                             </div>
 
                             <div className="tariff-body-beginner">
-                                <div className="div-new-price">
-                                    <p className="new-price">2379 ₽</p>
+                                <div className="prices">
+                                    <div className="div-new-price">
+                                        <p className="new-price">2379 ₽</p>
 
+                                    </div>
+                                    <div className="div-old-price">
+                                        <p className="old-price">
+                                            <del>3700 ₽</del>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="div-old-price">
-                                    <p className="old-price">
-                                        <del>3700 ₽</del>
-                                    </p>
-                                </div>
+
                                 {tariff === 'business' ? (
                                     <div className="current-tariff">
                                         <p className="text-current-tariff">Текущий тариф</p>

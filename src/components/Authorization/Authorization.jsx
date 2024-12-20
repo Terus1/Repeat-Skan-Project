@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import './Authorization.css'
 import {loginAndFetch} from "../../api/api";
@@ -66,16 +66,20 @@ const Authorization = ({setIsLoggedIn, setAccountInfo}) => {
 
                             <div className="log-or-number">
                                 <p className="text-log-or-number">Логин или номер телефона:</p>
-                                <input type="text" className="input-log-or-number" value={username} onChange={(e) => setUsername(e.target.value)}/>
+                                <input type="text" className="input-log-or-number" value={username}
+                                       onChange={(e) => setUsername(e.target.value)}/>
                             </div>
 
                             <div className="password">
                                 <p className="text-password">Пароль:</p>
-                                <input type="password" className="input-password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                                <input type="password" className="input-password" value={password}
+                                       onChange={(e) => setPassword(e.target.value)}/>
                             </div>
 
                             <div className="div-button-entrance">
-                                <button disabled={!isFormValid} className="button-entrance" onClick={handleLogin}>Войти</button>
+                                <button disabled={!isFormValid} className="button-entrance"
+                                        onClick={handleLogin}>Войти
+                                </button>
                             </div>
 
                             <div className="recover-password">
@@ -85,13 +89,17 @@ const Authorization = ({setIsLoggedIn, setAccountInfo}) => {
                             <div className="log-in-using">
                                 <p className="text-log-in-using">Войти через:</p>
                                 <img className="site-button-google" src={googleButton} alt="google-button"/>
-                                <img className="site-button-facebook" src={yandexButton} alt="facebook-button"/>
-                                <img className="site-button-yandex" src={facebookButton} alt="yandex-button"/>
+                                <img className="site-button-yandex" src={yandexButton} alt="facebook-button"/>
+                                <img className="site-button-facebook" src={facebookButton} alt="yandex-button"/>
                             </div>
 
                         </div>
 
 
+                    </div>
+
+                    <div className="div-people-carrying-key2">
+                        <img className={'img-people-carrying-key-icon2'} src={peopleCarryingKey} alt="people-carrying-key-icon"/>
                     </div>
                 </div>
             </div>

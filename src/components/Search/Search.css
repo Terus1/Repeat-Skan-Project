@@ -1,8 +1,10 @@
 /* Распределение левой и правой части */
-.both-parts {
-    margin: 0;
+.both-parts-search {
+    margin: 0 60px;
     display: flex;
     justify-content: space-between;
+    /*padding: 0 60px; !* Отступы, чтобы элементы не прилипали к краям *!*/
+
 }
 
 /*------------------------------------------------ Левая часть -------------------------------------------------------*/
@@ -167,32 +169,40 @@
 /* Правая часть */
 .right-part {
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Картинки сверху (папки) */
 .top-pictures {
     display: flex;
     justify-content: space-around;
-    position: absolute;
-    top: 100px;
+    /*position: absolute;*/
+    /*top: 100px;*/
+
+    margin-top: 132px;
 }
 
 /* Контейнер зелёного листа */
 .div-green-leaf {
-    position: absolute;
-    right: 0;
+    /*position: absolute;*/
+    /*right: 0;*/
+    margin-right: auto;
+
 }
 
 /* Контейнер папок */
 .div-folders {
     /*display: inline;*/
-    position: absolute;
-    right: 500px;
+    /*position: absolute;*/
+    /*right: 500px;*/
+
 }
 
 /* Картина "Парень и ракета" */
 .div-man-and-rocket {
-    position: absolute;
-    right: 500px;
-    bottom: 0;
+    /*position: absolute;*/
+    /*right: 500px;*/
+    /*bottom: 0;*/
+    margin-top: auto;
 }

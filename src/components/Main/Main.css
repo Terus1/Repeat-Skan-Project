@@ -3,6 +3,13 @@
     margin-left: 60px;
 }
 
+.prices {
+    display: flex;
+    flex-direction: row;
+    gap: 19px;
+
+}
+
 /* Верхняя часть мейна */
 .upper-part-site {
     display: flex;
@@ -23,9 +30,11 @@
 
 /* Текст под заголовком */
 .small-text {
+
     text-align: left;
     font-size: 20px;
     font-family: Inter, sans-serif;
+    margin-bottom: 32px;
 }
 
 /* Кнопка "Запросить данные" */
@@ -49,9 +58,46 @@
     font-size: 45px;
     font-weight: 900;
     font-family: Ferry, sans-serif;
+    margin-top: 109px;
+    margin-bottom: 70px;
 }
 
 /*---------------------------------------------------Карусель---------------------------------------------------------*/
+
+.first-carousel-element, .second-carousel-element, .thirst-carousel-element {
+    margin-left: 75px;
+    margin-right: 75px;
+    position: relative;
+    width: 400px;
+    height: 225px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 0 #00000033;
+}
+
+.text-carousel-element {
+    position: absolute;
+    top: 113px;
+    left: 20px;
+    color: black;
+    font-family: Inter, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.78px;
+    letter-spacing: 0.01em;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+}
+
+.clock, .loupe, .shield {
+    width: 65px;
+    height: 79px;
+    position: absolute;
+    top: 22px;
+    left: 19px;
+}
+
 
 /* Стрелочки влево и вправо (карусель) */
 .arrow-nav-left, .arrow-nav-right {
@@ -77,12 +123,17 @@
     justify-content: center;
     position: relative;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 70px;
+}
+
+.clock {
+    color: #029491;
 }
 
 .carousel-container {
     display: flex;
-    overflow: hidden; /* Скрыть элементы за границей */
+    /*overflow: hidden; !* Скрыть элементы за границей *!*/
+
     /*width: 100%; !* Ширина для трёх видимых элементов *!*/
 }
 
@@ -94,9 +145,9 @@
 
 .carousel-slide {
     flex: 0 0 33.33%; /* Каждый элемент занимает треть ширины */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
 }
 
 .carousel-item {
@@ -108,6 +159,7 @@
 .man-sitting {
     text-align: center;
     margin-top: 70px;
+    overflow: hidden;
 }
 
 /*===========================================Контейнер "Наши тарифы" =================================================*/
@@ -119,6 +171,8 @@
     font-family: Ferry, sans-serif;
     text-transform: uppercase;
     font-weight: 900;
+    margin-top: 107px;
+    margin-bottom: 70px;
 }
 
 /* 3 контейнера тарифов */
@@ -126,7 +180,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, 415px);
     /*grid-template-rows: 540px 540px 540px;*/
-    grid-gap: 2vw;
+    grid-gap: 37px;
     /*text-align: center;*/
     justify-content: center;
 }
@@ -140,7 +194,7 @@
     width: 415px;
     height: 540px;
     background: white;
-    margin-bottom: 118px;
+    /*margin-bottom: 118px;*/
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
@@ -197,11 +251,11 @@
 
 /* Контейнер "новая цена" (Для всех тарифов) */
 .div-new-price {
-    width: 100px;
-    position: absolute;
-    top: 165px;
-    left: 30px;
-    right: 299px;
+    /*width: 100px;*/
+    /*position: absolute;*/
+    /*top: 165px;*/
+    /*left: 30px;*/
+    /*right: 299px;*/
 }
 
 /* Текст "новая цена" (Для всех тарифов) */
@@ -214,10 +268,10 @@
 
 /* Контейнер "старая цена" (Для всех тарифов) */
 .div-old-price {
-    position: absolute;
-    top: 168px;
-    left: 135px;
-    right: 187px;
+    /*position: absolute;*/
+    /*top: 168px;*/
+    /*left: 135px;*/
+    /*right: 187px;*/
 }
 
 /* Текст "старая цена" (для всех тарифов)*/
@@ -260,7 +314,7 @@
     left: 30px;
     right: 15px;
     margin: 10px 0 0;
-    width: 340px;
+    width: 345px;
     height: 22px;
     font-size: 20px;
     font-family: Inter, sans-serif;
@@ -406,8 +460,8 @@
 /* Иконка тарифа Pro (Мишень со стрелой) */
 .pro-icon {
     position: absolute;
-    top: 0;
-    right: 12px;
+    top: 11px;
+    right: 16px;
     rotate: 0deg;
     align-items: start;
 }
@@ -442,6 +496,7 @@
     height: 540px;
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+    margin-bottom: 42px;
 }
 
 /* Хедер тарифа "Business" */
@@ -509,3 +564,304 @@
     box-shadow: 0 0 5px 1px black;
 }
 
+
+
+/*------------------------------------------------ Стили для уменьшенного экрана -------------------------------------*/
+
+@media (max-width: 1755px) {
+    .first-carousel-element, .second-carousel-element, .thirst-carousel-element {
+        margin-left: 35px;
+        margin-right: 35px;
+    }
+}
+
+@media (max-width: 1510px) {
+    .first-carousel-element, .second-carousel-element, .thirst-carousel-element {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+@media (max-width: 1435px) {
+    .first-carousel-element, .second-carousel-element, .thirst-carousel-element {
+        width: 350px;
+        height: 175px;
+    }
+
+    .clock, .loupe, .shield {
+        width: 57px;
+        top: 0;
+    }
+
+    .text-carousel-element {
+        font-size: 15px;
+        top: 83px;
+    }
+
+    .arrow-nav-left, .arrow-nav-right {
+        padding: 0;
+    }
+
+    .site-h1 {
+        font-size: 40px;
+        line-height: 49px;
+        width: 600px;
+    }
+
+    .big-icon-switch-man {
+        width: 500px;
+    }
+
+    .p-why-are-we {
+        font-size: 25px;
+    }
+
+    .img-man-sitting {
+        width: 1000px;
+    }
+
+    .text-our-tariffs {
+        font-size: 25px;
+    }
+
+    .beginner, .pro, .business {
+        width: 335px;
+        height: 512px;
+    }
+
+    .tariff-header-beginner, .tariff-header-pro, .tariff-header-business {
+        padding-top: 15px;
+        padding-left: 24px;
+        height: 100px;
+    }
+
+    .name-of-tariff, .name-of-tariff-business {
+        font-size: 20px;
+        margin-top: 6px;
+    }
+
+    .shortly, .shortly-business {
+        font-size: 18px;
+        margin-top: 17px;
+    }
+
+    .pro-icon {
+        top: -5px;
+        right: 0;
+    }
+
+    .img-icon{
+        width: 55px;
+    }
+
+    .img-pro-icon {
+        width: 75px;
+    }
+
+    .beginner-icon {
+        right: 9px;
+    }
+
+    .business-icon {
+        top: 11px;
+    }
+
+    .div-new-price {
+        top: 117px;
+        left: 26px;
+    }
+
+    .div-old-price {
+
+    }
+
+    .current-tariff {
+        top: 119px;
+    }
+
+    .to-personal-acc, .more-white {
+        width: 286px;
+        height: 60px;
+        font-size: 18px;
+    }
+
+    .prices {
+        gap: 10px;
+    }
+
+    .monthly {
+        font-size: 18px;
+        top: 171px;
+        width: 270px;
+    }
+
+    .text-tariff-includes {
+        top: 260px;
+        font-size: 18px;
+    }
+
+    .green-check-mark-1, .green-check-mark-2, .green-check-mark-3 {
+        width: 16px;
+    }
+
+    .text-in-body-tariff-includes-1, .text-in-body-tariff-includes-2, .text-in-body-tariff-includes-3 {
+        font-size: 16px;
+    }
+
+    .request-data {
+        font-size: 20px
+    }
+
+    .current-tariff {
+        top: 107px;
+        width: 128px;
+
+    }
+}
+
+@media (max-width: 1220px) {
+    .site-h1 {
+        font-size: 30px;
+        line-height: 39px;
+        width: 100%;
+    }
+
+    .small-text {
+        font-size: 18px;
+    }
+
+    .big-icon-switch-man {
+        width: 450px;
+    }
+
+    .first-carousel-element, .second-carousel-element, .thirst-carousel-element {
+        width: 300px;
+        height: 190px;
+    }
+
+    .arrow-nav-left, .arrow-nav-right {
+        padding: 0;
+    }
+
+    .text-carousel-element {
+        top: 61px;
+    }
+
+    .site-about {
+        width: 350px;
+    }
+
+    .carousel-track {
+        transform: translateX(0); /* Возвращаем позицию к началу */
+    }
+
+    .carousel-track > *:nth-child(n+3) {
+        display: none; /* Скрываем элементы после второго */
+    }
+
+    /*.img-man-sitting {*/
+    /*    width: 800px;*/
+    /*}*/
+}
+
+@media (max-width: 1036px) {
+    .site-h1 {
+        font-size: 28px;
+    }
+
+    .big-icon-switch-man {
+        width: 400px;
+    }
+
+    /*.img-man-sitting {*/
+    /*    width: 100%;*/
+    /*}*/
+
+    .list-of-tariffs {
+        justify-items: center;
+    }
+}
+
+@media (max-width: 900px) {
+    .carousel-track {
+        transform: translateX(0); /* Возвращаем позицию к началу */
+    }
+
+    .carousel-track > *:nth-child(n+2) {
+        display: none; /* Скрываем элементы после первого */
+    }
+}
+
+
+
+/*------------------------------------------------ Стили для мобильного экрана ---------------------------------------*/
+
+@media (max-width: 768px) {
+    .upper-part-site {
+     flex-direction: column;
+        align-items: center;
+    }
+
+    .p-why-are-we {
+        text-align: center;
+        margin-top: 55px;
+        margin-bottom: 32px;
+    }
+
+    .navigation {
+        display: none;
+    }
+
+    .info-about-user {
+        display: none;
+    }
+
+    .site-h1 {
+        width: 340px;
+    }
+
+    .list-of-tariffs {
+        justify-content: center;
+        grid-gap: 43px
+    }
+
+    .request-data {
+        margin-bottom: 24px;
+    }
+
+    .arrow-nav-right, .arrow-nav-left {
+        width: 39px;
+        height: 39px;
+    }
+
+    .first-carousel-element, .second-carousel-element, .thirst-carousel-element {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+
+    .man-sitting {
+        margin-top: 80px;
+    }
+
+    .img-man-sitting {
+        width: 891px;
+    }
+
+    .block-our-tariffs {
+        margin-top: 80px;
+    }
+
+    .text-our-tariffs {
+        margin-top: 0;
+        margin-bottom: 37px;
+    }
+}
+
+
+@media (max-width: 408px) {
+    .big-icon-switch-man {
+        width: 347px;
+        overflow: hidden;
+    }
+}

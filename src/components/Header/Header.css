@@ -6,7 +6,7 @@
     align-items: center;
     margin-right: 60px;
     margin-left: 60px;
-    margin-bottom: 69px;
+    margin-bottom: 24px;
 }
 
 /* Список элементов навигации (Главная, Тарифы, FAQ)*/
@@ -32,6 +32,10 @@
     display: flex;
     font-family: Inter, sans-serif;
 
+}
+
+.burger-menu {
+    display: none;
 }
 
 /*============================================ Если пользователь не авторизован ======================================*/
@@ -123,10 +127,11 @@
     right: 299px;
     width: 175px;
     height: 63px;
-    background: #D9D9D9;
+    background: rgba(217, 217, 217, 0.3);
+
     /*opacity: 30%;*/
     border-radius: 5px;
-
+    /*z-index: 100; !* Слой поверх других элементов *!*/
 }
 
 /* Использовано компаний и лимит по компаниям */
@@ -155,5 +160,146 @@
     font-size: 14px;
     font-weight: 700;
     color: #8AC540;
+
+}
+
+/*------------------------------------------------ Стили для уменьшенного экрана -------------------------------------*/
+
+@media (max-width: 1435px) {
+    .info-about-companies {
+        right: 232px;
+    }
+}
+
+@media (max-width: 1264px) {
+    .info-about-companies {
+        right: 168px;
+    }
+}
+
+@media (max-width: 1220px) {
+    .logo-header {
+        width: 111px;
+        height: 111px;
+    }
+
+    .list-link {
+        font-size: 18px;
+    }
+
+    .info-about-companies {
+        right: 166px;
+    }
+}
+
+@media (max-width: 1036px) {
+    .info-about-companies {
+        width: 134px;
+        right: 156px;
+    }
+}
+
+@media (max-width: 934px) {
+    .info-about-companies {
+        width: 100px;
+        right: 147px;
+    }
+
+    .used-companies, .limit-companies {
+        font-size: 8px;
+        padding-top: 5px;
+    }
+
+    .how-much-used-companies, .how-much-limit-companies {
+        font-size: 12px;
+    }
+
+}
+
+@media (max-width: 900px) {
+    .header {
+        margin-left: 14px;
+        margin-right: 26px;
+    }
+
+    .list-link {
+        font-size: 13px;
+    }
+
+
+    .used-companies, .limit-companies {
+        font-size: 8px;
+        padding-top: 5px;
+    }
+
+    .how-much-used-companies, .how-much-limit-companies {
+        font-size: 12px;
+    }
+
+    .user-name {
+        font-size: 11px;
+    }
+
+    .quit {
+        font-size: 10px;
+    }
+
+    .info-about-companies {
+        width: 100px;
+        right: 147px;
+    }
+}
+
+@media (max-width: 828px) {
+    .info-about-companies {
+        width: 67px;
+        right: 125px;
+    }
+}
+
+/*------------------------------------------------ Стили для мобильного экрана ---------------------------------------*/
+
+@media (max-width: 768px) {
+    .header {
+        margin-left: 14px;
+        margin-right: 26px;
+    }
+
+
+
+    .info-about-companies {
+        text-align: center;
+        width: 132px;
+        height: 75px;
+    }
+
+    .used-companies, .limit-companies {
+        padding-top: 10px;
+        margin: 0;
+        color: grey;
+        font-family: Inter, sans-serif;
+        font-size: 8px;
+        text-align: center;
+
+    }
+
+    .how-much-used-companies, .how-much-limit-companies {
+        font-size: 14px;
+    }
+
+    .my-office {
+        display: none;
+    }
+
+    .burger-menu {
+        display: block;
+        cursor: pointer;
+    }
+}
+
+@media (max-width: 408px) {
+    .info-about-companies {
+        right: 71px;
+    }
 
 }

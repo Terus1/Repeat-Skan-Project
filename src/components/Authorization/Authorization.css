@@ -9,7 +9,7 @@
 
 /* Главный текст */
 .text-authorization {
-    font-size: 48px;
+    font-size: 40px;
     font-weight: 900;
     font-family: Ferry, sans-serif;
     text-transform: uppercase;
@@ -22,6 +22,13 @@
 }
 
 /*------------------------------------------------ Правая часть ------------------------------------------------------*/
+
+
+/* Для замены местами с container-entrance (при 818px экран)*/
+.div-people-carrying-key2 {
+    display: none;
+}
+
 
 /* Контейнер формы регистрации*/
 .container-entrance {
@@ -112,6 +119,9 @@
     left: 25px;
     width: 379px;
     height: 43px;
+    border: 1px solid rgba(199, 199, 199, 1);
+    border-radius: 5px;
+
 }
 
 /* Текст "Пароль" */
@@ -133,6 +143,8 @@
     left: 25px;
     width: 379px;
     height: 43px;
+    border: 1px solid rgba(199, 199, 199, 1);
+    border-radius: 5px;
 }
 
 /* Главная кнопка "Войти" */
@@ -149,6 +161,7 @@
     border: none;
     color: white;
     text-align: center;
+    border-radius: 5px;
 }
 
 /* При наведении на кнопку "Войти" */
@@ -169,6 +182,7 @@
     left: 139px;
     text-align: center;
     font-family: Inter, sans-serif;
+    font-size: 14px;
     color: #5970FF;
     margin-bottom: 30px;
 }
@@ -211,5 +225,206 @@
     bottom: 39px;
     right: 96px;
     cursor: pointer;
+}
+
+
+
+/*------------------------------------------------ Стили для уменьшенного экрана -------------------------------------*/
+
+@media (max-width: 2450px) {
+    .both-parts {
+        margin-left: 510px;
+        margin-right: 510px;
+    }
+}
+
+
+@media (max-width: 2364px) {
+    .both-parts {
+        margin-left: 450px;
+        margin-right: 450px;
+    }
+}
+
+
+@media (max-width: 2250px) {
+    .both-parts {
+        margin-left: 400px;
+        margin-right: 400px;
+    }
+}
+
+@media (max-width: 2150px) {
+    .both-parts {
+        margin-left: 350px;
+        margin-right: 350px;
+    }
+}
+
+@media (max-width: 2050px) {
+    .both-parts {
+        margin-left: 300px;
+        margin-right: 300px;
+    }
+}
+
+@media (max-width: 1950px) {
+    .both-parts {
+        margin-left: 250px;
+        margin-right: 250px;
+    }
+}
+
+@media (max-width: 1900px) {
+    .both-parts {
+        margin-left: 190px;
+        margin-right: 190px;
+    }
+}
+
+@media (max-width: 1720px) {
+    .both-parts {
+        margin-left: 60px;
+        margin-right: 60px;
+    }
+}
+
+
+@media (max-width: 1318px) {
+    .text-authorization {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 1172px) {
+    .text-authorization {
+        font-size: 32px;
+    }
+
+    .container-entrance {
+        width: 335px;
+        height: 504px;
+    }
+
+    .div-lock {
+        right: 303px;
+    }
+
+    .log-tab {
+        font-size: 14px;
+        left: 46px;
+    }
+
+    .reg-tab {
+        font-size: 14px;
+        right: 31px;
+    }
+
+    .hr-log-tab-enter {
+        width: 103px;
+        left: 15px;
+    }
+
+    .hr-log-tab-registration {
+        width: 182px;
+        right: 15px;
+    }
+
+    .text-log-or-number, .text-password {
+        left: 15px;
+        font-size: 14px;
+    }
+
+    .input-log-or-number, .input-password {
+        left: 15px;
+        width: 305px;
+    }
+
+    .button-entrance {
+        left: 15px;
+        width: 305px;
+        font-size: 20px;
+    }
+
+    .text-recover-password {
+        left: 92px;
+    }
+
+    .text-log-in-using {
+        left: 15px;
+        bottom: 50px;
+    }
+
+    .site-button-google {
+        left: 15px;
+        bottom: 20px;
+    }
+
+    .site-button-facebook {
+        left: 120px;
+        bottom: 20px;
+    }
+
+    .site-button-yandex {
+        right: 15px;
+        bottom: 20px;
+    }
+}
+
+@media (max-width: 1082px) {
+    .text-authorization {
+        font-size: 25px;
+    }
+}
+
+
+@media (max-width: 950px) {
+    .text-authorization {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 900px) {
+    .both-parts {
+        margin-left: 14px;
+        margin-right: 26px;
+    }
+}
+
+
+
+@media (max-width: 818px) {
+    .both-parts {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .div-people-carrying-key {
+        display: none;
+    }
+
+    .div-people-carrying-key2 {
+        display: block;
+        margin-bottom: 80px;
+    }
+
+    .text-authorization {
+        margin-bottom: 126px;
+    }
+
+    .div-lock {
+        top: -80px;
+        right: 180px;
+    }
+
+    .container-entrance {
+        margin-bottom: 49px ;
+    }
+
+    .img-people-carrying-key-icon2 {
+        width: 335px;
+        height: 356px;
+    }
+
 }
 

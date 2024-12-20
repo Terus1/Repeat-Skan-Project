@@ -6,7 +6,7 @@ import stick from '../../media/stick.svg';
 import emptyPhoto from '../../photoUsers/emptyPhoto.jpg'
 import {Link, useNavigate} from "react-router-dom";
 import {fetchWithToken} from "../../api/api";
-
+import burgerMenu from '../../media/burger-menu.svg'
 
 
 const Header = ({isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleLogout}) => {
@@ -94,14 +94,14 @@ const Header = ({isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleL
         <>
             <header className="header">
                 <div className="logo-header">
-                    <img src={logoHeader} alt="Логотип"/>
+                    <img className={'logo-header'} src={logoHeader} alt="Логотип"/>
                 </div>
 
                 <div className="navigation">
                     <ul className="nav-list">
-                        <li className="list-item"><a className="list-link" href="#">Главная</a></li>
-                        <li className="list-item"><a className="list-link" href="#">Тарифы</a></li>
-                        <li className="list-item"><a className="list-link" href="#">FAQ</a></li>
+                        <Link to="/" className="list-item list-link">Главная</Link>
+                        <li className="list-item"><a className="list-link" href="#" onClick={(e) => e.preventDefault()}>Тарифы</a></li>
+                        <li className="list-item"><a className="list-link" href="#" onClick={(e) => e.preventDefault()}>FAQ</a></li>
                     </ul>
                 </div>
 
@@ -117,11 +117,22 @@ const Header = ({isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleL
                             // Информация о компаниях
                             <div className="info-about-companies">
                                 <p className="used-companies">Использовано
-                                    компаний: <span className="how-much-used-companies">{accountInfo?.eventFiltersInfo?.usedCompanyCount || '0'}</span></p>
+                                    компаний: <span
+                                        className="how-much-used-companies">{accountInfo?.eventFiltersInfo?.usedCompanyCount || '0'}</span>
+                                </p>
                                 <p className="limit-companies">Лимит по
-                                    компаниям: <span className="how-much-limit-companies">{accountInfo?.eventFiltersInfo?.companyLimit || '0'}</span></p>
+                                    компаниям: <span
+                                        className="how-much-limit-companies">{accountInfo?.eventFiltersInfo?.companyLimit || '0'}</span>
+                                </p>
                             </div>
+
+
                         )}
+
+                        <div className="burger-menu">
+                            <img src={burgerMenu} alt="burger-menu"/>
+                        </div>
+
                         <div className="info-about-user">
                             <div className="user-details">
                                 <p className="user-name">{accountInfo?.fullName || 'Неизвестно'}</p>
@@ -132,14 +143,23 @@ const Header = ({isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handleL
 
                     </div>
                 ) : (
-                    <div className="my-office">
-                        <a className="sign-up" href="#">Зарегистрироваться</a>
-                        <img src={stick} alt="stick"/>
+                    <>
+                        <div className="burger-menu">
+                            <img src={burgerMenu} alt="burger-menu"/>
+                        </div>
+                        <div className="my-office">
 
-                        <Link to="/authorization">
-                            <button className="my-office-button"><span className="entrance">Войти</span></button>
-                        </Link>
-                    </div>
+
+                            <a className="sign-up" href="#">Зарегистрироваться</a>
+                            <img src={stick} alt="stick"/>
+
+                            <Link to="/authorization">
+                                <button className="my-office-button"><span className="entrance">Войти</span></button>
+                            </Link>
+                        </div>
+                    </>
+
+
                 )}
             </header>
         </>

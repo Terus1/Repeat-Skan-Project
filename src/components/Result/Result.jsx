@@ -3,8 +3,11 @@ import './Result.css';
 
 import girlLookingFor from '../../media/girl-looking-for.svg';
 import arrowIcon from '../../media/arrow-icon.svg';
+import loader from '../../media/loader.svg'
 import {useLocation} from "react-router-dom";
 import Document from "../Document/Document";
+
+import {testDocument} from "../../testDocument";
 
 const Result = () => {
 
@@ -12,11 +15,11 @@ const Result = () => {
     const location = useLocation();
     // console.log('location:', location.state)
     const { startDate, endDate, totalDocuments, riskFactors, histograms, documentIds } = location.state || {};
-    console.log('Переданные данные startDate:', startDate,
-        'endDate:', endDate,
-        'totalDocuments:', totalDocuments,
-        'riskFactors:', riskFactors,
-        'histograms:', histograms)
+    // console.log('Переданные данные startDate:', startDate,
+    //     'endDate:', endDate,
+    //     'totalDocuments:', totalDocuments,
+    //     'riskFactors:', riskFactors,
+    //     'histograms:', histograms)
 
     // Проверяем, есть ли данные и выделяем их по типу
     const totalDocumentsData = histograms && histograms[0] && histograms[0].histogramType === 'totalDocuments'
@@ -60,9 +63,9 @@ const Result = () => {
     // console.log('visibleTotalDocumentsData', visibleTotalDocumentsData)
     // console.log('visibleRiskFactorsData', visibleRiskFactorsData)
     // Используем useEffect для вывода данных в консоль при загрузке компонента
-    useEffect(() => {
-            console.log("Ответ сервера:", startDate, endDate, totalDocuments, riskFactors, histograms);
-    }, [startDate, endDate, totalDocuments, riskFactors, histograms]);
+    // useEffect(() => {
+    //         console.log("Ответ сервера:", startDate, endDate, totalDocuments, riskFactors, histograms);
+    // }, [startDate, endDate, totalDocuments, riskFactors, histograms]);
 
     // Отображение даты в нужном формате
     const formatDate = (dateString) => {
@@ -90,6 +93,7 @@ const Result = () => {
         if (response.ok) {
             const data = await response.json();
             console.log('данные из /api/v1/documents', data)
+            console.log('testDocument', testDocument)
             return data;
         } else {
             console.error("Ошибка при загрузке документов:", response.status);
@@ -146,12 +150,6 @@ const Result = () => {
                 <p className="found-options">
                     Найдено {histograms[0].data.length} вариантов
                 </p>
-                <p className="found-options">
-                    Риски: {riskFactors.data.value || 0}
-                </p>
-                <p className="found-options">
-                    Период: с {startDate} по {endDate}
-                </p>
             </div>
 
             <div className="results">
@@ -164,50 +162,76 @@ const Result = () => {
                         alt={'left-arrow-icon'}
                     />
 
-                    {/* Контейнер таблицы */}
-                    <div className="table-container">
-                        <div className="table-wrapper">
-                            <table>
+
+                    {!loading ? (
+                        // Контейнер таблицы
+                        <div className="table-container">
+                            <div className="table-wrapper">
+                                <table className={'table'}>
+                                    <thead>
+                                    <tr>
+                                        <th className={'th-for-top-border-radius'}>Период</th>
+                                        {visibleTotalDocumentsData.length > 0 ? (
+                                            visibleTotalDocumentsData.map((item, index) => (
+                                                <td className={'data-table'}
+                                                    key={index}>{item.date ? formatDate(item.date) : '-'}</td>
+                                            ))
+                                        ) : (
+                                            <td className={'data-table'}>-</td>
+                                        )}
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>Всего</th>
+                                        {visibleTotalDocumentsData.length > 0 ? (
+                                            visibleTotalDocumentsData.map((item, index) => (
+                                                <td className={'data-table'}
+                                                    key={index}>{item.value || item.value === 0 ? String(item.value) : '-'}</td>
+                                            ))
+                                        ) : (
+                                            <td className={'data-table'}>-</td>
+                                        )}
+                                    </tr>
+                                    <tr>
+                                        <th className={'th-for-bottom-border-radius'}>Риски</th>
+                                        {visibleRiskFactorsData.length > 0 ? (
+                                            visibleRiskFactorsData.map((item, index) => (
+                                                <td className={'data-table'}
+                                                    key={index}>{item.value || item.value === 0 ? String(item.value) : '-'}</td>
+                                            ))
+                                        ) : (
+                                            <td className={'data-table'}>-</td>
+                                        )}
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className={'table-container'}>
+                            <table className="table">
                                 <thead>
                                 <tr>
-                                    <th className={'th-for-top-border-radius'}>Период</th>
-                                    {visibleTotalDocumentsData.length > 0 ? (
-                                        visibleTotalDocumentsData.map((item, index) => (
-                                            <td className={'data-table'}
-                                                key={index}>{item.date ? formatDate(item.date) : '-'}</td>
-                                        ))
-                                    ) : (
-                                        <td className={'data-table'}>-</td>
-                                    )}
+                                    <th className="th-for-top-border-radius">Период</th>
+                                    <td className="tg-d9lh" colSpan="14" rowSpan="3">
+                                        <div className="loader-container">
+                                            <img className={'loader'} src={loader} alt="loader"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="">Всего</th>
+                                </tr>
+                                <tr>
+                                    <th className="th-for-bottom-border-radius">Риски</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <th>Всего</th>
-                                    {visibleTotalDocumentsData.length > 0 ? (
-                                        visibleTotalDocumentsData.map((item, index) => (
-                                            <td className={'data-table'}
-                                                key={index}>{item.value || item.value === 0 ? String(item.value) : '-'}</td>
-                                        ))
-                                    ) : (
-                                        <td className={'data-table'}>-</td>
-                                    )}
-                                </tr>
-                                <tr>
-                                    <th className={'th-for-bottom-border-radius'}>Риски</th>
-                                    {visibleRiskFactorsData.length > 0 ? (
-                                        visibleRiskFactorsData.map((item, index) => (
-                                            <td className={'data-table'}
-                                                key={index}>{item.value || item.value === 0 ? String(item.value) : '-'}</td>
-                                        ))
-                                    ) : (
-                                        <td className={'data-table'}>-</td>
-                                    )}
-                                </tr>
-                                </tbody>
                             </table>
                         </div>
-                    </div>
+                    )}
+
 
                     {/* Правая стрелка */}
                     <img
@@ -222,15 +246,9 @@ const Result = () => {
                 <p className={'head-list-of-documents'}>Список документов</p>
                 {/*<Document loadedDocuments={loadedDocuments} formatDate={formatDate}/>*/}
                 <div className="documents-container">
-                    {loadedDocuments.length > 0 ? (
-                        loadedDocuments.map((doc, index) => (
-                            <div key={index} className={'document-item'}>
-                                <Document loadedDocument={doc} formatDate={formatDate}/>
-                            </div>
-                        ))
-                    ) : (
-                        <p>Документы не найдены</p>
-                    )}
+
+                    <Document loadedDocument={testDocument[0]} formatDate={formatDate}/>
+
                 </div>
 
 
@@ -239,7 +257,10 @@ const Result = () => {
             {loadedDocuments.length < documentIds.length && (
                 <div className={'load-more-container'}>
                     <button className="load-more-button" onClick={loadMoreDocuments} disabled={loading}>
-                        {loading ? "Загрузка..." : "Показать больше"}
+                        {loading ?
+                            <img className={'loader'} src={loader} alt="loader"/>
+                            :
+                            "Показать больше"}
                     </button>
                 </div>
 

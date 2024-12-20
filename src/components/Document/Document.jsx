@@ -1,40 +1,101 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './Document.css';
 
-
-const Document = ({loadedDocument, formatDate}) => {
-    const doc = loadedDocument?.ok
+const Document = ({ loadedDocument, formatDate }) => {
+    const doc = loadedDocument?.ok;
+    const contentRef = useRef(null); // Ссылка на div-content
+    const [img, setImg] = useState([]);
 
     useEffect(() => {
         if (doc) {
-            console.log('Loaded document', doc)
+            console.log('Loaded document', doc);
+            let markup = doc.content.markup;
+
+            // Удаляем ссылки с определённым href
+            const unwantedLinkPattern = /<a[^>]*href="https:\/\/www\.interfax\.ru\/business\/998265[^"]*"[^>]*>.*?<\/a>/g;
+            markup = markup.replace(unwantedLinkPattern, "");
+
+            // Регулярное выражение для поиска src внутри img
+            const imageTags = markup.match(/<img [^>]*src="([^"]*)"/g) || [];
+            const imageUrls = imageTags.map(tag => {
+                const match = tag.match(/src="([^"]*)"/); // Извлекаем значение src
+                return match ? match[1] : null; // Берём URL или null, если не найден
+            }).filter(url => url !== null); // Убираем возможные null
+
+            console.log('Extracted image URLs:', imageUrls);
+            setImg(imageUrls); // Сохраняем только массив URL
+
+            // Выполняем обрезку текста после загрузки документа
+            if (contentRef.current) {
+                truncateTextToFit(contentRef.current, parseXML(markup));
+            }
         }
-    }, [loadedDocument]);
+    }, [doc]);
 
 
+    // // Следим за обновлением img и выводим его в консоль
+    // useEffect(() => {
+    //     console.log('Updated img state:', img);
+    // }, [img]);
+
+    // Функция для удаления всех тегов
     const parseXML = (xmlString) => {
-        // Используем DOMParser для парсинга XML
         const parser = new DOMParser();
         const xml = parser.parseFromString(xmlString, "text/xml");
 
-        // Преобразуем XML в массив предложений
-        const sentences = Array.from(xml.getElementsByTagName("sentence")).map((sentence) => {
-            const rawText = sentence.innerHTML;
-            // Убираем все теги и HTML спецсимволы
-            const cleanedText = rawText
-                .replace(/<[^>]*>/g, "")          // Убирает все теги
-                .replace(/&lt;br&gt;/g, "\n")     // Заменяет <br> на перенос строки
-                .replace(/&lt;[^&]*&gt;/g, "")    // Убирает оставшиеся спецсимволы в теге
-                .trim();                          // Убирает лишние пробелы
+        return Array.from(xml.getElementsByTagName("sentence")).map((sentence) => {
+            let rawText = sentence.innerHTML;
 
-            return cleanedText;
+            // Удаляем все теги <a> вместе с их содержимым
+            rawText = rawText.replace(/<a[^>]*>.*?<\/a>/g, "");
+
+            // Заменяем HTML-коды (например, &lt; и &gt;) на символы
+            rawText = rawText
+                .replace(/&lt;/g, "<")
+                .replace(/&gt;/g, ">")
+                .replace(/&amp;/g, "&")
+                .replace(/&quot;/g, '"')
+                .replace(/&#039;/g, "'");
+
+            // Удаляем все оставшиеся HTML-теги
+            rawText = rawText.replace(/<[^>]*>/g, "");
+
+            return rawText.trim();
         });
+    };
 
-        return sentences;
+
+    // Функция для правильного заполнения контейнера предложениями
+    const truncateTextToFit = (container, sentences) => {
+        let truncatedText = "";
+        const maxHeight = container.clientHeight;
+
+        // Очищаем контейнер перед вычислениями
+        container.innerHTML = "";
+
+        for (let i = 0; i < sentences.length; i++) {
+            const nextSentence = sentences[i];
+            truncatedText += `<p class="document-text">${nextSentence}</p>`; // Добавляем следующее предложение
+
+            container.innerHTML = truncatedText; // Обновляем содержимое контейнера
+
+            // Проверяем, превышена ли высота контейнера
+            if (container.scrollHeight > maxHeight) {
+                // Убираем последнее предложение, если оно не помещается
+                truncatedText = truncatedText.replace(
+                    `<p class="document-text">${nextSentence}</p>`,
+                    ""
+                );
+                break;
+            }
+        }
+
+        // Устанавливаем обрезанный текст в контейнер
+        container.innerHTML = truncatedText;
     };
 
     // Функция для правильного склонения слова "слово"
-    function getWordForm(count) {
+    const getWordForm = (count) => {
         const lastDigit = count % 10;
         const lastTwoDigits = count % 100;
 
@@ -45,7 +106,7 @@ const Document = ({loadedDocument, formatDate}) => {
         } else {
             return `${count} слов`;
         }
-    }
+    };
 
     return (
         <div className="div-document">
@@ -60,34 +121,42 @@ const Document = ({loadedDocument, formatDate}) => {
 
             <div className="div-head-of-document">
                 <p className="head-of-document">{doc.title.text}</p>
+                <div className="div-image-of-document">
+                    <img className={'image-of-document'} src={img} alt=""/>
+                </div>
+
             </div>
 
-            <div className="div-tag">
-                {doc.attributes.isTechNews &&
-                    !doc.attributes.isAnnouncement &&
-                    !doc.attributes.isAnnouncementisDigest && (
+
+            {doc.attributes.isTechNews &&
+                !doc.attributes.isAnnouncement &&
+                !doc.attributes.isAnnouncementisDigest && (
+                    <div className="div-tag">
                         <p className="head-tag">Технические новости</p>
-                    )}
+                    </div>
+                )}
 
-                {!doc.attributes.isTechNews &&
-                    doc.attributes.isAnnouncement &&
-                    !doc.attributes.isAnnouncementisDigest && (
+            {!doc.attributes.isTechNews &&
+                doc.attributes.isAnnouncement &&
+                !doc.attributes.isAnnouncementisDigest && (
+                    <div className="div-tag">
                         <p className="head-tag">Анонсы и события</p>
-                    )}
+                    </div>
+                )}
 
-                {!doc.attributes.isTechNews &&
-                    !doc.attributes.isAnnouncement &&
-                    doc.attributes.isAnnouncementisDigest && (
+            {!doc.attributes.isTechNews &&
+                !doc.attributes.isAnnouncement &&
+                doc.attributes.isAnnouncementisDigest && (
+                    <div className="div-tag">
                         <p className="head-tag">Сводки новостей</p>
-                    )}
-            </div>
+                    </div>
+                )}
 
-            <div className="div-content">
-                <p className="document-content">
-                    {parseXML(doc.content.markup).map((sentence, i) => (
-                        <p key={i} className={'document-text'}>{sentence}</p>
-                    ))}
-                </p>
+
+
+
+            <div className="div-content" ref={contentRef}>
+                {/* Контейнер для текста, будет обновляться через truncateTextToFit */}
             </div>
 
             <div className="div-read-in-source">
@@ -98,14 +167,14 @@ const Document = ({loadedDocument, formatDate}) => {
                             window.open(doc.url, "_blank", "noopener,noreferrer");
                         }
                     }}
-                    disabled={!doc.url} // Отключаем кнопку, если ссылки нет
+                    disabled={!doc.url}
                 >
                     Читать в источнике
                 </button>
             </div>
 
             <div className="div-number-of-words">
-            <p className="text-number-of-words">
+                <p className="text-number-of-words">
                     {getWordForm(doc.attributes.wordCount)}
                 </p>
             </div>
