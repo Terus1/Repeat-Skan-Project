@@ -8,7 +8,9 @@ const Document = ({ loadedDocument, formatDate }) => {
 
     useEffect(() => {
         if (doc) {
+
             console.log('Loaded document', doc);
+
             let markup = doc.content.markup;
 
             // Удаляем ссылки с определённым href
@@ -28,6 +30,7 @@ const Document = ({ loadedDocument, formatDate }) => {
             // Выполняем обрезку текста после загрузки документа
             if (contentRef.current) {
                 truncateTextToFit(contentRef.current, parseXML(markup));
+
             }
         }
     }, [doc]);
@@ -121,9 +124,12 @@ const Document = ({ loadedDocument, formatDate }) => {
 
             <div className="div-head-of-document">
                 <p className="head-of-document">{doc.title.text}</p>
-                <div className="div-image-of-document">
-                    <img className={'image-of-document'} src={img} alt=""/>
-                </div>
+                {img.length > 0 ? (
+                    <div className="div-image-of-document">
+                        <img className={'image-of-document'} src={img[0]} alt="image-of-document"/>
+                    </div>
+                ) : <></>}
+
 
             </div>
 
@@ -157,6 +163,7 @@ const Document = ({ loadedDocument, formatDate }) => {
 
             <div className="div-content" ref={contentRef}>
                 {/* Контейнер для текста, будет обновляться через truncateTextToFit */}
+
             </div>
 
             <div className="div-read-in-source">

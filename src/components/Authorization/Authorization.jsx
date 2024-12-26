@@ -13,6 +13,7 @@ import facebookButton from '../../media/facebook-button.svg'
 const Authorization = ({setIsLoggedIn, setAccountInfo}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordError, setPasswordError] = useState('') // Состояние для обработки ошибки пароля
     const navigate = useNavigate(); // Хук для навигации
 
     // Проверка на заполнение полей
@@ -21,9 +22,18 @@ const Authorization = ({setIsLoggedIn, setAccountInfo}) => {
     // Функция для входа в аккаунт
     const handleLogin = async () => {
         try {
-            await loginAndFetch(username, password, setIsLoggedIn, setAccountInfo, navigate);
+            const response = await loginAndFetch(username, password, setIsLoggedIn, setAccountInfo, navigate);
+            if (response?.error) {
+                // Если ошибка авторизации, устанавливаем сообщение об ошибке
+                setPasswordError('Неправильный пароль')
+            } else {
+                // Успешный логин, сбрасываем сообщение об ошибке
+                setPasswordError('');
+            }
+
         } catch (error) {
             console.error("Ошибка при выполнении loginAndFetch:", error);
+            setPasswordError('Ошибка авторизации')
         }
     };
 
@@ -72,8 +82,10 @@ const Authorization = ({setIsLoggedIn, setAccountInfo}) => {
 
                             <div className="password">
                                 <p className="text-password">Пароль:</p>
-                                <input type="password" className="input-password" value={password}
+                                <input type="password" className={`input-password ${passwordError ? 'input-error' : ''}`} value={password}
                                        onChange={(e) => setPassword(e.target.value)}/>
+                                {passwordError && <p className="error-text">{passwordError}</p>}
+
                             </div>
 
                             <div className="div-button-entrance">

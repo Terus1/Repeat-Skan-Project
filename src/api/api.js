@@ -103,6 +103,7 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
       const errorMessage = `Ошибка авторизации: ${response.status}`;
       console.error(errorMessage);
       return { error: errorMessage };
+
     }
 
     const data = await response.json();
@@ -231,52 +232,49 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
 // Функция для проверки валидности ИНН
 export const validateInn = (inn, setError) => {
   let result = false;
-  let error = { code: null, message: '' }; // Инициализируем объект ошибки внутри функции
 
+  // Преобразование типа ИНН
   if (typeof inn === 'number') {
     inn = inn.toString();
   } else if (typeof inn !== 'string') {
     inn = '';
   }
 
+  // Если поле очищено, сразу сбрасываем ошибку и завершаем выполнение
   if (!inn.length) {
-    error.code = 0;
+    setError({ message: '' }); // Очищаем ошибку
+    return false; // Возвращаем false, так как ИНН невалиден, но ошибки нет
+  }
 
-  } else if (/[^0-9]/.test(inn)) {
-    error.code = 2;
-    error.message = 'ИНН может состоять только из цифр';
-  } else {
-    const checkDigit = (inn, coefficients) => {
-      let n = 0;
-      for (let i in coefficients) {
-        n += coefficients[i] * inn[i];
-      }
-      return parseInt(n % 11 % 10);
-    };
+  // Функция для расчёта контрольного числа
+  const checkDigit = (inn, coefficients) => {
+    let n = 0;
+    for (let i in coefficients) {
+      n += coefficients[i] * inn[i];
+    }
+    return parseInt(n % 11 % 10);
+  };
 
-    if (inn.length === 10) {
-      let n10 = checkDigit(inn, [2, 4, 10, 3, 5, 9, 4, 6, 8]);
-      if (n10 === parseInt(inn[9])) {
-        result = true;
-      } else {
-        error.code = 4;
-        error.message = 'Неправильное контрольное число';
-      }
-    } else {
-      error.code = 3;
-      error.message = 'ИНН должен содержать 10 цифр';
+  // Проверка длины и контрольного числа
+  if (inn.length === 10) {
+    let n10 = checkDigit(inn, [2, 4, 10, 3, 5, 9, 4, 6, 8]);
+    if (n10 === parseInt(inn[9])) {
+      result = true; // Валидный ИНН
     }
   }
 
-  // Устанавливаем состояние ошибки
+  // Устанавливаем ошибку или очищаем её
   if (!result) {
-    setError(error); // Устанавливаем ошибку
+    setError({ message: 'Некорректные данные' });
   } else {
-    setError({ code: null, message: '' }); // Очищаем ошибку при успешной проверке
+    setError({ message: '' }); // Очищаем ошибку при успешной проверке
   }
 
   return result;
-}
+};
+
+
+
 
 
 // Функция для проверки дат

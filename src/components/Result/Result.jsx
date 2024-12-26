@@ -1,55 +1,59 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import './Result.css';
 
 import girlLookingFor from '../../media/girl-looking-for.svg';
 import arrowIcon from '../../media/arrow-icon.svg';
-import loader from '../../media/loader.svg'
-import {useLocation} from "react-router-dom";
+import loader from '../../media/loader.svg';
+import { useLocation } from "react-router-dom";
 import Document from "../Document/Document";
 
-import {testDocument} from "../../testDocument";
-
 const Result = () => {
-
-    // Получаем переданные данные через useLocation
     const location = useLocation();
-    // console.log('location:', location.state)
     const { startDate, endDate, totalDocuments, riskFactors, histograms, documentIds } = location.state || {};
-    // console.log('Переданные данные startDate:', startDate,
-    //     'endDate:', endDate,
-    //     'totalDocuments:', totalDocuments,
-    //     'riskFactors:', riskFactors,
-    //     'histograms:', histograms)
+    const totalDocumentsData = histograms && histograms[0] && histograms[0].histogramType === 'totalDocuments' ? histograms[0].data : [];
+    const riskFactorsData = histograms && histograms[1] && histograms[1].histogramType === 'riskFactors' ? histograms[1].data : [];
 
-    // Проверяем, есть ли данные и выделяем их по типу
-    const totalDocumentsData = histograms && histograms[0] && histograms[0].histogramType === 'totalDocuments'
-        ? histograms[0].data
-        : [];
-
-    const riskFactorsData = histograms && histograms[1] && histograms[1].histogramType === 'riskFactors'
-        ? histograms[1].data
-        : [];
-
-    // Состояние для отслеживания текущего слайда
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(5); // Начальное количество элементов на странице
+    const [loadedDocuments, setLoadedDocuments] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    // Если данных нет, используем пустой массив (на случай ошибки)
-    const data = histograms || [];
-
-    // Определение количества видимых элементов на экране (например, 5)
-    const itemsPerPage = 5;
-
-    // Общая длина данных
     const maxLength = Math.max(totalDocumentsData.length, riskFactorsData.length);
 
-    // Функция для прокрутки влево (без зацикливания)
+    // Определение количества элементов на странице в зависимости от ширины окна
+    const updateItemsPerPage = () => {
+        const width = window.innerWidth;
+        if (width >= 2000) {
+            setItemsPerPage(10); // Например, на больших экранах показываем 10 элементов
+        } else if (width >= 1700) {
+            setItemsPerPage(8); // На средних экранах 8 элементов
+        } else if (width >= 1500) {
+            setItemsPerPage(6); // На маленьких экранах показываем 5 элементов
+        } else if (width >= 879) {
+            setItemsPerPage(4)
+        } else {
+            setItemsPerPage(1)
+        }
+    };
+
+    // Обработчик изменения размера окна
+    useEffect(() => {
+        updateItemsPerPage(); // Обновляем количество элементов при монтировании компонента
+        window.addEventListener('resize', updateItemsPerPage); // Добавляем слушатель события resize
+
+        // Очистка при размонтировании компонента
+        return () => {
+            window.removeEventListener('resize', updateItemsPerPage);
+        };
+    }, []);
+
+    // Функции для прокрутки влево и вправо
     const scrollLeft = () => {
         if (currentIndex > 0) {
             setCurrentIndex(currentIndex - itemsPerPage);
         }
     };
 
-    // Функция для прокрутки вправо (без зацикливания)
     const scrollRight = () => {
         if (currentIndex + itemsPerPage < maxLength) {
             setCurrentIndex(currentIndex + itemsPerPage);
@@ -60,25 +64,11 @@ const Result = () => {
     const visibleTotalDocumentsData = totalDocumentsData ? totalDocumentsData.slice(currentIndex, currentIndex + itemsPerPage) : [];
     const visibleRiskFactorsData = riskFactorsData ? riskFactorsData.slice(currentIndex, currentIndex + itemsPerPage) : [];
 
-    // console.log('visibleTotalDocumentsData', visibleTotalDocumentsData)
-    // console.log('visibleRiskFactorsData', visibleRiskFactorsData)
-    // Используем useEffect для вывода данных в консоль при загрузке компонента
-    // useEffect(() => {
-    //         console.log("Ответ сервера:", startDate, endDate, totalDocuments, riskFactors, histograms);
-    // }, [startDate, endDate, totalDocuments, riskFactors, histograms]);
-
-    // Отображение даты в нужном формате
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString('ru-RU'); // Форматирует дату как "DD.MM.YYYY"
+        return date.toLocaleDateString('ru-RU');
     };
 
-
-    const [loadedDocuments, setLoadedDocuments] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [documentsToShow, setDocumentsToShow] = useState(10);
-
-    // Функция для запроса на загрузку документов
     const fetchDocuments = async (ids) => {
         const token = localStorage.getItem("accessToken");
         const response = await fetch('https://gateway.scan-interfax.ru/api/v1/documents', {
@@ -92,8 +82,6 @@ const Result = () => {
 
         if (response.ok) {
             const data = await response.json();
-            console.log('данные из /api/v1/documents', data)
-            console.log('testDocument', testDocument)
             return data;
         } else {
             console.error("Ошибка при загрузке документов:", response.status);
@@ -101,7 +89,6 @@ const Result = () => {
         }
     };
 
-    // Загрузить первые 10 документов
     useEffect(() => {
         const loadInitialDocuments = async () => {
             setLoading(true);
@@ -114,24 +101,17 @@ const Result = () => {
         loadInitialDocuments();
     }, [documentIds]);
 
-    // useEffect(() => {
-    //     if (loadedDocuments.length > 0) {
-    //         console.log('loadedDocuments', loadedDocuments)
-    //     }
-    // }, [loadedDocuments]);
-
-    // Функция для загрузки дополнительных документов
     const loadMoreDocuments = async () => {
         setLoading(true);
         const nextIds = documentIds.slice(loadedDocuments.length, loadedDocuments.length + 10);
         const moreDocuments = await fetchDocuments(nextIds);
-        setLoadedDocuments(prev => [...prev, ...moreDocuments]);
+        setLoadedDocuments((prev) => [...prev, ...moreDocuments]);
         setLoading(false);
     };
 
-
     return (
-        <div className={'main'}>
+        <div className={'main-result'}>
+
             <div className="head-result">
                 <div className="head-text">
                     <p className="searching">Ищем. Скоро <br/> будут результаты</p>
@@ -139,14 +119,12 @@ const Result = () => {
                 </div>
 
                 <div className="head-picture">
-                    <img src={girlLookingFor} alt="girl-looking-for"/>
+                    <img className={'girl-looking-for'} src={girlLookingFor} alt="girl-looking-for"/>
                 </div>
             </div>
 
             <div className="general-summary">
-                <p className="text-general-summary">
-                    Общая сводка
-                </p>
+                <p className="text-general-summary">Общая сводка</p>
                 <p className="found-options">
                     Найдено {histograms[0].data.length} вариантов
                 </p>
@@ -157,20 +135,95 @@ const Result = () => {
                     {/* Левая стрелка */}
                     <img
                         src={arrowIcon}
-                        className={`left-arrow ${currentIndex === 0 ? 'disabled' : ''}`} // Добавляем класс disabled, если достигнут край
+                        className={`left-arrow ${currentIndex === 0 ? 'disabled' : ''}`}
                         onClick={scrollLeft}
                         alt={'left-arrow-icon'}
                     />
 
-
-                    {!loading ? (
-                        // Контейнер таблицы
-                        <div className="table-container">
-                            <div className="table-wrapper">
-                                <table className={'table'}>
+                    {window.innerWidth > 879 ?
+                        (<>
+                            {!loading ? (
+                            <div className="table-container">
+                                <div className="table-wrapper">
+                                    <table className={'table'}>
+                                        <thead>
+                                        <tr>
+                                            <th className={'th-for-top-border-radius'}>Период</th>
+                                            {visibleTotalDocumentsData.length > 0 ? (
+                                                visibleTotalDocumentsData.map((item, index) => (
+                                                    <td className={'data-table'}
+                                                        key={index}>{item.date ? formatDate(item.date) : '-'}</td>
+                                                ))
+                                            ) : (
+                                                <td className={'data-table'}>-</td>
+                                            )}
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th className={'th-for-total'}>Всего</th>
+                                            {visibleTotalDocumentsData.length > 0 ? (
+                                                visibleTotalDocumentsData.map((item, index) => (
+                                                    <td className={'data-table'} key={index}>
+                                                        {item.value || item.value === 0 ? String(item.value) : '-'}
+                                                    </td>
+                                                ))
+                                            ) : (
+                                                <td className={'data-table'}>-</td>
+                                            )}
+                                        </tr>
+                                        <tr>
+                                            <th className={'th-for-bottom-border-radius'}>Риски</th>
+                                            {visibleRiskFactorsData.length > 0 ? (
+                                                visibleRiskFactorsData.map((item, index) => (
+                                                    <td className={'data-table'} key={index}>
+                                                        {item.value || item.value === 0 ? String(item.value) : '-'}
+                                                    </td>
+                                                ))
+                                            ) : (
+                                                <td className={'data-table'}>-</td>
+                                            )}
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className={'table-container'}>
+                                <table className="table">
                                     <thead>
                                     <tr>
-                                        <th className={'th-for-top-border-radius'}>Период</th>
+                                        <th className="th-for-top-border-radius">Период</th>
+                                        <td className="tg-d9lh" colSpan="14" rowSpan="3">
+                                            <div className="loader-container">
+                                                <img className={'loader'} src={loader} alt="loader"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th className="">Всего</th>
+                                    </tr>
+                                    <tr>
+                                        <th className="th-for-bottom-border-radius">Риски</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        )}
+                        </>)
+                        :
+                        (<>
+                            <table className="table">
+                                <thead>
+                                <tr>
+                                    <th className="th-for-top-border-radius-mini">Период</th>
+                                    <th className="th-for-total">Всего</th>
+                                    <th className="th-for-risks">Риски</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td className="th-for-bottom-border-radius-mini">
                                         {visibleTotalDocumentsData.length > 0 ? (
                                             visibleTotalDocumentsData.map((item, index) => (
                                                 <td className={'data-table'}
@@ -179,94 +232,73 @@ const Result = () => {
                                         ) : (
                                             <td className={'data-table'}>-</td>
                                         )}
-                                    </tr>
-
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th>Всего</th>
+                                    </td>
+                                    <td className="tg-0pky">
                                         {visibleTotalDocumentsData.length > 0 ? (
                                             visibleTotalDocumentsData.map((item, index) => (
-                                                <td className={'data-table'}
-                                                    key={index}>{item.value || item.value === 0 ? String(item.value) : '-'}</td>
+                                                <td className={'data-table'} key={index}>
+                                                    {item.value || item.value === 0 ? String(item.value) : '-'}
+                                                </td>
                                             ))
                                         ) : (
                                             <td className={'data-table'}>-</td>
                                         )}
-                                    </tr>
-                                    <tr>
-                                        <th className={'th-for-bottom-border-radius'}>Риски</th>
+                                    </td>
+                                    <td className="tg-0pky">
                                         {visibleRiskFactorsData.length > 0 ? (
                                             visibleRiskFactorsData.map((item, index) => (
-                                                <td className={'data-table'}
-                                                    key={index}>{item.value || item.value === 0 ? String(item.value) : '-'}</td>
+                                                <td className={'data-table'} key={index}>
+                                                    {item.value || item.value === 0 ? String(item.value) : '-'}
+                                                </td>
                                             ))
                                         ) : (
                                             <td className={'data-table'}>-</td>
                                         )}
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className={'table-container'}>
-                            <table className="table">
-                                <thead>
-                                <tr>
-                                    <th className="th-for-top-border-radius">Период</th>
-                                    <td className="tg-d9lh" colSpan="14" rowSpan="3">
-                                        <div className="loader-container">
-                                            <img className={'loader'} src={loader} alt="loader"/>
-                                        </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th className="">Всего</th>
-                                </tr>
-                                <tr>
-                                    <th className="th-for-bottom-border-radius">Риски</th>
-                                </tr>
-                                </thead>
+                                </tbody>
                             </table>
-                        </div>
-                    )}
+                        </>)}
 
 
                     {/* Правая стрелка */}
                     <img
                         src={arrowIcon}
-                        className={`right-arrow ${currentIndex + itemsPerPage >= maxLength ? 'disabled' : ''}`} // Добавляем класс disabled, если достигнут край
+                        className={`right-arrow ${currentIndex + itemsPerPage >= maxLength ? 'disabled' : ''}`}
                         onClick={scrollRight}
                         alt={'right-arrow-icon'}
                     />
                 </div>
             </div>
+
             <div className="results-documents">
                 <p className={'head-list-of-documents'}>Список документов</p>
-                {/*<Document loadedDocuments={loadedDocuments} formatDate={formatDate}/>*/}
                 <div className="documents-container">
-
-                    <Document loadedDocument={testDocument[0]} formatDate={formatDate}/>
-
+                    {loadedDocuments.length > 0 ? (
+                        loadedDocuments.map((doc, index) => (
+                            <div key={index} className={'document-item'}>
+                                <Document loadedDocument={doc} formatDate={formatDate}/>
+                            </div>
+                        ))
+                    ) : (
+                        <p>Документы не найдены</p>
+                    )}
                 </div>
-
-
             </div>
-            {/* Кнопка для загрузки дополнительных документов */}
+
             {loadedDocuments.length < documentIds.length && (
                 <div className={'load-more-container'}>
                     <button className="load-more-button" onClick={loadMoreDocuments} disabled={loading}>
-                        {loading ?
+                        {loading ? (
                             <img className={'loader'} src={loader} alt="loader"/>
-                            :
-                            "Показать больше"}
+                        ) : (
+                            "Показать больше"
+                        )}
                     </button>
                 </div>
-
             )}
         </div>
-    )
+    );
 };
 
 export default Result;

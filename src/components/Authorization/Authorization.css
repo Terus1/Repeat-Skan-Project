@@ -227,7 +227,21 @@
     cursor: pointer;
 }
 
+.error-text {
+    position: absolute;
+    bottom: 232px;
+    left: 136px;
+}
 
+.input-error {
+    border: 2px solid red;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
 
 /*------------------------------------------------ Стили для уменьшенного экрана -------------------------------------*/
 
@@ -409,7 +423,7 @@
     }
 
     .text-authorization {
-        margin-bottom: 126px;
+        margin-bottom: 83px;
     }
 
     .div-lock {

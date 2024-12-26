@@ -1,4 +1,4 @@
-.main {
+.main-result {
     margin-right: 60px;
     margin-left: 60px;
 }
@@ -11,8 +11,8 @@
 
 /* Главный текст */
 .searching {
-    width: 509px;
-    height: 96px;
+    /*width: 509px;*/
+    /*height: 96px;*/
     font-size: 40px;
     font-weight: 900;
     font-family: Ferry, sans-serif;
@@ -21,8 +21,8 @@
 
 /* Текст про задержку ответа */
 .be-patient {
-    width: 447px;
-    height: 48px;
+    /*width: 447px;*/
+    /*height: 48px;*/
     font-size: 20px;
     font-weight: 400;
     font-family: Inter, sans-serif;
@@ -57,6 +57,12 @@
     font-family: Inter, sans-serif;
 }
 
+/* Картинка девушка смотрит через лупу*/
+.girl-looking-for {
+    width: 552px;
+    height: 369px;
+}
+
 /* Карусель результатов */
 .carousel-wrapper {
     display: flex;
@@ -70,6 +76,9 @@
     font-size: 24px;
     cursor: pointer;
     padding: 10px;
+    width: 39px;
+    height: 39px;
+    opacity: 0.6;
 }
 
 /* Развернул стрелку вправо */
@@ -92,7 +101,7 @@ table {
 
 th, td {
     padding: 10px;
-    text-align: center;
+    text-align: -webkit-center;
     border-right: 2px solid rgba(224, 224, 224, 0.5); /* Прозрачная вертикальная линия между заголовками */
     font-family: Inter, sans-serif;
 }
@@ -101,13 +110,13 @@ th, td {
 .data-table {
     font-size: 18px;
     font-weight: 400;
-    font-family: sans-serif;
+    font-family: Inter,     sans-serif;
 }
 
-th:first-child, td:first-child {
-    background-color: #029491;
-    color: white;
-}
+/*th:first-child, td:first-child {*/
+/*    background-color: #029491;*/
+/*    color: white;*/
+/*}*/
 
 th:last-child, td:last-child {
     border-right: none;
@@ -119,25 +128,31 @@ th:last-child, td:last-child {
 
 }
 
-.left-arrow, .right-arrow {
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    opacity: 0.6;
-}
-
 .left-arrow:hover, .right-arrow:hover {
     opacity: 1;
 }
 
 
+
+
 .th-for-top-border-radius {
     border-top-left-radius: 10px;
+    background: #029491;
+    color: white;
+    font-size: 20px;
+}
 
+.th-for-total {
+    background: #029491;
+    color: white;
+    font-size: 20px;
 }
 
 .th-for-bottom-border-radius {
     border-bottom-left-radius: 10px;
+    background: #029491;
+    color: white;
+    font-size: 20px;
 }
 
 .head-list-of-documents {
@@ -169,6 +184,7 @@ th:last-child, td:last-child {
     justify-content: center;
     align-content: center;
     margin-top: 20px;
+    margin-bottom: 109px;
 }
 
 .load-more-button {
@@ -184,3 +200,90 @@ th:last-child, td:last-child {
     cursor: pointer;
 }
 
+
+
+@media (max-width: 1127px) {
+    .main-result {
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+
+    .searching {
+        font-size: 30px;
+    }
+
+    .be-patient {
+        font-size: 18px;
+    }
+
+    .girl-looking-for {
+        width: 350px;
+        height: auto;
+    }
+
+    .text-general-summary {
+        font-size: 28px;
+    }
+
+    .head-list-of-documents {
+        font-size: 28px;
+    }
+
+}
+
+
+@media (max-width: 879px) {
+    .head-result {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .general-summary {
+        text-align: center;
+    }
+
+    .head-text {
+        text-align: center;
+    }
+
+    .searching {
+        font-size: 28px;
+    }
+
+    .th-for-top-border-radius-mini {
+        background: #029491;
+        border-top-left-radius: 10px;
+        color: white;
+        font-size: 18px;
+
+    }
+
+    .th-for-total {
+        font-size: 18px;
+    }
+
+    .th-for-risks {
+        background: #029491;
+        border-top-right-radius: 10px;
+        color: white;
+        font-size: 18px;
+    }
+
+    th, td {
+        border-right: none;
+    }
+
+    .data-table {
+        font-size: 16px;
+    }
+
+    thead, tbody {
+        width: 298px;
+        height: 75px;
+    }
+
+    .load-more-container {
+        margin-top: 36px;
+        margin-bottom: 57px;
+    }
+}

@@ -9,6 +9,11 @@
 
 /*------------------------------------------------ Левая часть -------------------------------------------------------*/
 
+.head {
+    position: relative;
+}
+
+
 /* Главный текст */
 .text-head {
     text-transform: uppercase;
@@ -24,6 +29,10 @@
     font-weight: 400;
 }
 
+.div-green-leaf2 {
+    display: none;
+}
+
 /* Форма поиска */
 .search-form {
     width: 872px;
@@ -32,6 +41,7 @@
     padding: 21px 40px 50px 40px;
     display: flex;
     justify-content: space-between;
+    border-radius: 10px;
 }
 
 /* Тексты заголовков для заполнения */
@@ -49,6 +59,15 @@
     margin-bottom: 30px;
 }
 
+/* Ошибка валидности данных */
+.error-message {
+    font-size: 14px;
+    font-family: Inter, sans-serif;
+    color: #FF5959;
+}
+
+
+
 /* Стили для звездочки (Поля для обязательного заполнения. Инн, кол-во документов, даты) */
 .required-asterisk {
     color: black; /* Обычный цвет */
@@ -62,6 +81,8 @@
     border-radius: 5px;
     border: 1px solid #C7C7C7;
 }
+
+
 
 /* Контейнер тональность */
 .tonality {
@@ -78,6 +99,10 @@
     border-radius: 5px;
     border: 1px solid #C7C7C7;
     font-size: 14px;
+}
+
+.option-tonality {
+    font-family: Inter, sans-serif;
 }
 
 /* Контейнер документы */
@@ -102,10 +127,34 @@
     height: 94px;
 }
 
-/* Поля для начала и конца даты поиска*/
+/* Контейнер дат */
+.dates {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Поля для начала и конца даты поиска */
 .start-date, .end-date {
     width: 176px;
     height: 43px;
+    border-radius: 5px;
+    border: 1px solid #C7C7C7;
+}
+
+/* Скрытие стандартного календарного индикатора (но не всего поля ввода) */
+.start-date::-webkit-calendar-picker-indicator,
+.end-date::-webkit-calendar-picker-indicator {
+    margin-right: 10px;
+    /*padding-right: 30px; !* Оставить место для стрелки *!*/
+    background: url('/public/icons/arrowDown.svg') no-repeat right center; /* Позиционирование стрелки справа */
+    background-size: 15px 15px; /* Размер иконки */
+}
+
+.start-date::before {
+    color: #C7C7C7;
+    transform: translateY(-50%);
+    pointer-events: none;
 }
 
 /* Чекбоксы (галочки)*/
@@ -123,12 +172,18 @@
     margin-right: 7px;
 }
 
+
 /* Текст чекбоксов */
 .text-label-checkboxes {
     font-size: 18px;
     font-weight: 400;
     font-family: Inter, sans-serif;
     margin-bottom: 15px;
+}
+
+/* Рамка поля становится красным при ошибке валидности */
+.input-error {
+    border: 1px solid #FF5959
 }
 
 /* Кнопка поиска */
@@ -205,4 +260,172 @@
     /*right: 500px;*/
     /*bottom: 0;*/
     margin-top: auto;
+}
+
+/*!* Скрываем стандартный чекбокс *!*/
+/*.input-checkbox {*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*    margin-right: 7px;*/
+/*    opacity: 0; !* Скрываем стандартный чекбокс *!*/
+/*    position: relative; !* Для позиционирования псевдо-элемента *!*/
+/*}*/
+
+/* Создаем кастомный чекбокс */
+.input-checkbox::before {
+    content: ''; /* Для пустого псевдо-элемента */
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 1px solid black; /* Светло-серая рамка */
+    /*border-radius: 4px; !* Скругляем углы *!*/
+    background-color: white; /* Белый фон */
+    transition: background-color 0.3s, border-color 0.3s; /* Плавные переходы */
+}
+
+/* Когда чекбокс выбран, показываем зелёную галочку */
+.input-checkbox:checked::before {
+    content: url("/public/icons/green-checkmark-for-checkbox.svg"); /* Галочка */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*background-color: #4CAF50; !* Зелёный фон *!*/
+    /*border-color: #4CAF50; !* Зелёная рамка *!*/
+}
+
+/* Галочка */
+.input-checkbox:checked::after {
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    font-size: 14px;
+    color: white; /* Белый цвет для галочки */
+}
+
+
+
+
+
+/*------------------------------------------------ Стили для уменьшенного экрана -------------------------------------*/
+
+@media (max-width: 1450px) {
+    .search-form {
+        width: 675px;
+        padding: 32px 14px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .text-head {
+        font-size: 28px;
+    }
+
+    .hint {
+        font-size: 18px;
+    }
+
+    .both-parts-search {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .img-man-and-rocket {
+        width: 379px;
+        height: 403px;
+    }
+
+    .top-pictures {
+        margin-top: 60px;
+    }
+
+    .green-leaf {
+        width: 58px;
+        height: 71px;
+    }
+
+}
+
+
+@media (max-width: 704px) {
+    .search-form {
+        padding-top: 24px;
+        padding-left: 14px;
+        padding-bottom: 0;
+        position: relative;
+        width: 375px;
+        height: 688px;
+    }
+
+    .div-button-search {
+        position: absolute;
+        bottom: 18px;
+        left: 14px;
+    }
+
+    .button-search {
+        width: 335px;
+        height: 59px;
+    }
+
+    .checkboxes {
+        display: none;
+    }
+
+    .INN {
+        width: 335px;
+        height: 93px;
+    }
+
+    .tonality {
+        width: 335px;
+        height: 85px;
+    }
+
+    .documents {
+        width: 335px;
+        height: 94px;
+        margin-bottom: 21px;
+    }
+
+    .range {
+        width: 335px;
+        height: 157px;
+
+    }
+
+    .input-INN, .select-tonality, .input-documents, .start-date, .end-date {
+        width: 335px;
+        height: 43px;
+    }
+
+    .start-date {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+}
+
+
+
+@media (max-width: 544px) {
+    .div-folders {
+        display: none;
+    }
+
+    .div-green-leaf1 {
+        display: none;
+    }
+
+    .div-green-leaf2 {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .right-part {
+        flex-direction: row;
+        margin-top: 24px;
+        margin-bottom: 24px;
+    }
 }

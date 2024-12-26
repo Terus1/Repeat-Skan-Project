@@ -783,6 +783,12 @@
 }
 
 @media (max-width: 900px) {
+    .main {
+        margin-right: 14px;
+        margin-left: 14px;
+    }
+
+
     .carousel-track {
         transform: translateX(0); /* Возвращаем позицию к началу */
     }
