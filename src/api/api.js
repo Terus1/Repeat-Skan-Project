@@ -10,7 +10,7 @@ export const fetchWithToken = async (url, token, navigate) => {
 
     // Если срок действия токена истек, перенаправляем на страницу логина
     if (tokenExpire && currentTime > tokenExpire) {
-      console.log('Токен истек, требуется повторная авторизация');
+      // console.log('Токен истек, требуется повторная авторизация');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('tokenExpire');
       localStorage.setItem('isLoggedIn', 'false');
@@ -52,8 +52,6 @@ export const handleLogout = ({setIsLoggedIn, setAccountInfo, navigate}) => {
   navigate('/authorization')
 
 }
-
-
 
 
 //==================================================Authorization.jsx===================================================
@@ -116,8 +114,8 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
     // localStorage.setItem('tokenExpire', new Date(Date.now() - 5000).toISOString());
     localStorage.setItem('isLoggedIn', 'true');
 
-    console.log('Токен получен:', accessToken);
-    console.log('Срок действия токена до:', expire);
+    // console.log('Токен получен:', accessToken);
+    // console.log('Срок действия токена до:', expire);
 
 
     setIsLoggedIn(true);
@@ -128,10 +126,10 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
     const localUser = mockUsers.find(user => user.login === username && user.password === password)
 
     if (!localUser) {
-      console.log('Пользователь с таким логином и паролем не найден в mockUsers!', username)
+      // console.log('Пользователь с таким логином и паролем не найден в mockUsers!', username)
       return
     }
-    console.log('Найден пользователь в mockUsers!', localUser)
+    // console.log('Найден пользователь в mockUsers!', localUser)
 
     // Объединяем данные из сервера с локальными данными
     const MergedAccountInfo = {
@@ -143,7 +141,7 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
 
     // Устанавливаем и сохраняем данные о аккаунте
     setAccountInfo(MergedAccountInfo);
-    console.log('MergedAccountInfo', MergedAccountInfo)
+    // console.log('MergedAccountInfo', MergedAccountInfo)
     localStorage.setItem('accountInfo', JSON.stringify(MergedAccountInfo));
 
     // Перенаправление на главную страницу

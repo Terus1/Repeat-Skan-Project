@@ -15,7 +15,7 @@
     /*height: 96px;*/
     font-size: 40px;
     font-weight: 900;
-    font-family: Ferry, sans-serif;
+    font-family: 'Ferry', Arial, sans-serif;
     text-transform: uppercase;
 }
 
@@ -25,7 +25,7 @@
     /*height: 48px;*/
     font-size: 20px;
     font-weight: 400;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Контейнер "Общая сводка" */
@@ -45,7 +45,7 @@
     margin: 0;
     font-size: 30px;
     font-weight: 900;
-    font-family: Ferry, sans-serif;
+    font-family: 'Ferry', Arial, sans-serif;
     text-transform: uppercase;
 }
 
@@ -54,7 +54,7 @@
     color: #949494;
     font-size: 18px;
     font-weight: 400;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Картинка девушка смотрит через лупу*/
@@ -103,14 +103,14 @@ th, td {
     padding: 10px;
     text-align: -webkit-center;
     border-right: 2px solid rgba(224, 224, 224, 0.5); /* Прозрачная вертикальная линия между заголовками */
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Данные в таблице */
 .data-table {
     font-size: 18px;
     font-weight: 400;
-    font-family: Inter,     sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /*th:first-child, td:first-child {*/
@@ -157,7 +157,7 @@ th:last-child, td:last-child {
 
 .head-list-of-documents {
     font-size: 30px;
-    font-family: Ferry, sans-serif;
+    font-family: 'Ferry', Arial, sans-serif;
     font-weight: 900;
 }
 
@@ -195,11 +195,26 @@ th:last-child, td:last-child {
     background: #5970FF;
     color: white;
     font-size: 22px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     text-align: center;
     cursor: pointer;
 }
 
+
+.loader {
+    width: 24px;
+    height: 24px;
+    animation: rotate 2s linear infinite; /* Анимация вращения */
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg); /* Начальная позиция */
+    }
+    to {
+        transform: rotate(360deg); /* Конечная позиция */
+    }
+}
 
 
 @media (max-width: 1127px) {

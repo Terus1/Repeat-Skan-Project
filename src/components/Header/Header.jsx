@@ -83,13 +83,13 @@ const Header = ({ isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handle
                         ) : (
                             <div className={`info-about-companies ${isMenuOpen ? 'info-close' : ''}`}>
                                 <p className="used-companies">
-                                    Использовано компаний:
+                                    Использовано компаний
                                     <span className="how-much-used-companies">
                                         {accountInfo?.eventFiltersInfo?.usedCompanyCount || '0'}
                                     </span>
                                 </p>
                                 <p className="limit-companies">
-                                    Лимит по компаниям:
+                                    Лимит по компаниям
                                     <span className="how-much-limit-companies">
                                         {accountInfo?.eventFiltersInfo?.companyLimit || '0'}
                                     </span>

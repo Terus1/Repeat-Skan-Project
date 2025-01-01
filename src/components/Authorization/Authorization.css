@@ -11,7 +11,7 @@
 .text-authorization {
     font-size: 40px;
     font-weight: 900;
-    font-family: Ferry, sans-serif;
+    font-family: 'Ferry', Arial, sans-serif;
     text-transform: uppercase;
     margin: 0;
 }
@@ -54,7 +54,7 @@
     left: 77px;
     color: #029491;
     font-size: 16px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     /*cursor: pointer;*/
     text-decoration: none;
 }
@@ -77,7 +77,7 @@
     right: 48px;
     color: #C7C7C7;
     font-size: 16px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     text-decoration: none;
     /*cursor: pointer;*/
 }
@@ -107,7 +107,7 @@
     left: 25px;
     text-align: left;
     font-size: 16px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     color: #949494;
 }
 
@@ -131,7 +131,7 @@
     top: 191px;
     left: 25px;
     font-size: 16px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     color: #949494;
 }
 
@@ -157,7 +157,7 @@
     background: #5970FF;
     font-size: 22px;
     font-weight: 500;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     border: none;
     color: white;
     text-align: center;
@@ -181,7 +181,7 @@
     top: 372px;
     left: 139px;
     text-align: center;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     font-size: 14px;
     color: #5970FF;
     margin-bottom: 30px;
@@ -200,7 +200,7 @@
     color: #949494;
     font-size: 16px;
     font-weight: 400;
-    font-family: sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Картинка Google */

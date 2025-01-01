@@ -19,7 +19,7 @@
     text-decoration: none;
     color: white;
     font-size: 16px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     line-height: 20px;
 }
 
@@ -35,7 +35,7 @@
     color: white;
     opacity: 40%;
     font-size: 16px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 .burger-entrance {
@@ -45,6 +45,6 @@
     border-radius: 5px;
     border: none;
     font-size: 20px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     margin-top: 20px;
 }

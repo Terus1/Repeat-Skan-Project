@@ -9,7 +9,7 @@ const Document = ({ loadedDocument, formatDate }) => {
     useEffect(() => {
         if (doc) {
 
-            console.log('Loaded document', doc);
+            // console.log('Loaded document', doc);
 
             let markup = doc.content.markup;
 
@@ -24,7 +24,7 @@ const Document = ({ loadedDocument, formatDate }) => {
                 return match ? match[1] : null; // Берём URL или null, если не найден
             }).filter(url => url !== null); // Убираем возможные null
 
-            console.log('Extracted image URLs:', imageUrls);
+            // console.log('Extracted image URLs:', imageUrls);
             setImg(imageUrls); // Сохраняем только массив URL
 
             // Выполняем обрезку текста после загрузки документа

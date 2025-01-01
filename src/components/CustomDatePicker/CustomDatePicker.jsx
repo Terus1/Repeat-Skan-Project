@@ -9,7 +9,7 @@ const CustomDatePicker = ({ placeholder, value, onChange, isActive, setActive })
     const calendarRef = useRef(null);
 
     const handleDateClick = (year, month, day) => {
-        const formattedDate = `${String(day).padStart(2, "0")}.${String(month + 1).padStart(2, "0")}.${year}`;
+        const formattedDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
         setSelectedDate(formattedDate);
         onChange(formattedDate);
         setShowCalendar(false);

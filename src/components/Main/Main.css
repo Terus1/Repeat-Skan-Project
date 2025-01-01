@@ -23,7 +23,7 @@
     text-transform: uppercase;
     font-weight: 900;
     font-size: 60px;
-    font-family: Ferry, sans-serif;
+    font-family: 'Ferry', Arial, sans-serif;
     line-height: 72px;
 
 }
@@ -33,7 +33,7 @@
 
     text-align: left;
     font-size: 20px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     margin-bottom: 32px;
 }
 
@@ -47,7 +47,7 @@
     font-size: 22px;
     color: white;
     cursor: pointer;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /*===========================================Контейнер "Почему именно мы" ============================================*/
@@ -57,7 +57,7 @@
     text-transform: uppercase;
     font-size: 45px;
     font-weight: 900;
-    font-family: Ferry, sans-serif;
+    font-family: 'Ferry', Arial, sans-serif;
     margin-top: 109px;
     margin-bottom: 70px;
 }
@@ -79,7 +79,7 @@
     top: 113px;
     left: 20px;
     color: black;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     font-size: 18px;
     font-weight: 400;
     line-height: 21.78px;
@@ -168,7 +168,7 @@
 .text-our-tariffs {
     text-align: left;
     font-size: 45px;
-    font-family: Ferry, sans-serif;
+    font-family: 'Ferry', Arial, sans-serif;
     text-transform: uppercase;
     font-weight: 900;
     margin-top: 107px;
@@ -225,14 +225,14 @@
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 30px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Краткое описание тарифов (Beginner, Pro) */
 .shortly {
     margin: 0;
     font-size: 18px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Иконка Beginner (Лампочка) */
@@ -261,7 +261,7 @@
 /* Текст "новая цена" (Для всех тарифов) */
 .new-price {
     font-size: 30px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     font-weight: 500;
     display: inline;
 }
@@ -277,7 +277,7 @@
 /* Текст "старая цена" (для всех тарифов)*/
 .old-price {
     font-size: 25px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     font-weight: 500;
     color: grey;
     display: inline;
@@ -302,7 +302,7 @@
     text-align: center;
     color: white;
     font-size: 14px;
-    font-family: sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 
@@ -317,7 +317,7 @@
     width: 345px;
     height: 22px;
     font-size: 20px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     font-weight: 400;
 }
 
@@ -338,7 +338,7 @@
     /*bottom: 224px;*/
     font-size: 20px;
     font-weight: 500;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     text-align: left;
 }
 
@@ -360,7 +360,7 @@
     bottom: 192px;
     font-size: 18px;
     font-weight: 400;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Вторая зелёная галочка */
@@ -381,7 +381,7 @@
     bottom: 165px;
     font-size: 18px;
     font-weight: 400;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Третья зелёная галочка */
@@ -402,7 +402,7 @@
     bottom: 139px;
     font-size: 18px;
     font-weight: 400;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Кнопка тарифа Beginner */
@@ -423,7 +423,7 @@
     font-size: 20px;
     border: none;
     cursor: pointer;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /*-------------------------------------------------- Тариф "Pro" -----------------------------------------------------*/
@@ -484,7 +484,7 @@
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /*-------------------------------------------------- Тариф "Business" ------------------------------------------------*/
@@ -524,7 +524,7 @@
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 30px;
-    font-family: sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Краткое описание тарифа Business */
@@ -532,7 +532,7 @@
     color: white;
     margin: 0;
     font-size: 18px;
-    font-family: sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 

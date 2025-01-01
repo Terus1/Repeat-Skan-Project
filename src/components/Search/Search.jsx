@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
 import './Search.css'
 import {validateInn, validateDates} from "../../api/api";
@@ -7,7 +7,6 @@ import greenLeaf from '../../media/green-leaf.svg'
 import folders from '../../media/folders.svg'
 import manAndRocket from '../../media/man-and-rocket.svg'
 import {useNavigate} from "react-router-dom";
-import CustomDatePicker from "../CustomDatePicker/CustomDatePicker";
 
 
 const Search = () => {
@@ -29,24 +28,23 @@ const Search = () => {
         newsSummaries: false,
     });
     const navigate = useNavigate(); // Хук для навигации
-    const [activePicker, setActivePicker] = useState(null);
 
 
-    useEffect(() => {
-        console.log('startDate', startDate, 'endDate', endDate)
-    }, [endDate, startDate]);
-    
-    
+    // Обработчик изменения ИНН
     const handleInnChange = (e) => {
         const value = e.target.value;
         setInn(value);
         validateInn(value, setError);
     };
 
+
+    // Обработчик изменения тональности
     const handleTonalityChange = (e) => {
         setTonality(e.target.value);
     };
 
+
+    // Обработчик изменения количества документов
     const handleDocumentsChange = (e) => {
         let value = e.target.value;
         if (value === '' || (Number(value) >= 1 && Number(value) <= 1000)) {
@@ -54,27 +52,34 @@ const Search = () => {
         }
     };
 
-    const handleStartDateChange = (value) => {
-        // const value = e.target.value;
+    // Обработчик изменения даты начала
+    const handleStartDateChange = (e) => {
+        const value = e.target.value;
         // console.log('value', value)
         setStartDate(value);
-        console.log('startDate', startDate)
+        // console.log('startDate', startDate)
         validateDates(value, endDate, setDateError);
     };
 
-    const handleEndDateChange = (value) => {
-        // const value = e.target.value;
+
+    // Обработчик изменения даты конца
+    const handleEndDateChange = (e) => {
+        const value = e.target.value;
         // console.log('value', value)
         setEndDate(value);
-        console.log('endDate', endDate)
+        // console.log('endDate', endDate)
         validateDates(startDate, value, setDateError);
     };
 
+
+    // Обработчик изменения состояния чекбоксов
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;
         setCheckboxes((prev) => ({ ...prev, [name]: checked }));
     };
 
+
+    // Проверка валидности формы
     const isFormValid = () => {
         return (
             inn.length === 10 &&
@@ -87,6 +92,7 @@ const Search = () => {
 
     // Функция для POST-запроса с телом и использованием токена
     const fetchWithTokenAndBody = async (url, token, requestData) => {
+        // console.log('requestData in fetchWithTokenAndBody:', requestData)
         try {
             const response = await fetch(url, {
                 method: 'POST',
@@ -112,6 +118,7 @@ const Search = () => {
     };
 
 
+    // Обработчик отправки формы
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -152,7 +159,7 @@ const Search = () => {
             intervalType: "month",
             histogramTypes: ["totalDocuments", "riskFactors"]
         };
-
+        // console.log('requestData in handleSubmit:', requestData)
         try {
             const token = localStorage.getItem("accessToken");
 
@@ -163,7 +170,7 @@ const Search = () => {
                 requestData
             );
 
-            console.log('histogramResponse', histogramResponse)
+            // console.log('histogramResponse', histogramResponse)
 
             // Новый запрос для получения ID документов
             const objectSearchResponse = await fetchWithTokenAndBody(
@@ -171,7 +178,7 @@ const Search = () => {
                 token,
                 requestData
             );
-            console.log('objectSearchResponse', objectSearchResponse)
+            // console.log('objectSearchResponse', objectSearchResponse)
             // console.log(objectSearchResponse.items)
 
             if (!objectSearchResponse || !Array.isArray(objectSearchResponse.items)) {
@@ -276,32 +283,32 @@ const Search = () => {
                                     </p>
 
                                     <div className="dates">
-                                        {/*<input*/}
-                                        {/*    className={`start-date ${dateError ? 'input-error' : ''}`}*/}
-                                        {/*    type="date"*/}
-                                        {/*    value={startDate}*/}
-                                        {/*    onChange={handleStartDateChange}*/}
-                                        {/*    placeholder="Дата начала"*/}
-                                        {/*/>*/}
-                                        {/*<input*/}
-                                        {/*    className={`end-date ${dateError ? 'input-error' : ''}`}*/}
-                                        {/*    type="date"*/}
-                                        {/*    value={endDate}*/}
-                                        {/*    onChange={handleEndDateChange}*/}
-                                        {/*    placeholder="Дата конца"*/}
-                                        {/*/>*/}
+                                        <input
+                                            className={`start-date ${dateError ? 'input-error' : ''}`}
+                                            type="date"
+                                            value={startDate}
+                                            onChange={handleStartDateChange}
+                                            placeholder="Дата начала"
+                                        />
+                                        <input
+                                            className={`end-date ${dateError ? 'input-error' : ''}`}
+                                            type="date"
+                                            value={endDate}
+                                            onChange={handleEndDateChange}
+                                            placeholder="Дата конца"
+                                        />
 
 
-                                            <CustomDatePicker
-                                                placeholder="Начало даты"
-                                                value={startDate}
-                                                onChange={handleStartDateChange}
-                                            />
-                                            <CustomDatePicker
-                                                placeholder="Конец даты"
-                                                value={endDate}
-                                                onChange={handleEndDateChange}
-                                            />
+                                            {/*<CustomDatePicker*/}
+                                            {/*    placeholder="Начало даты"*/}
+                                            {/*    value={startDate}*/}
+                                            {/*    onChange={handleStartDateChange}*/}
+                                            {/*/>*/}
+                                            {/*<CustomDatePicker*/}
+                                            {/*    placeholder="Конец даты"*/}
+                                            {/*    value={endDate}*/}
+                                            {/*    onChange={handleEndDateChange}*/}
+                                            {/*/>*/}
 
                                     </div>
 
