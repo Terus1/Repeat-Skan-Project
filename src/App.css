@@ -73,8 +73,16 @@ html, body {
 }
 
 @font-face {
+    font-family: 'Inter Semi Bold';
+    src: url('./assets/fonts/Inter_28pt-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Ferry';
     src: url('./assets/fonts/ferry_black.otf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
+

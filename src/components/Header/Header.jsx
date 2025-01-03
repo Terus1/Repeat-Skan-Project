@@ -58,10 +58,9 @@ const Header = ({ isLoggedIn, setIsLoggedIn, accountInfo, setAccountInfo, handle
         <>
             <header className={`header`}>
                 <div className="logo-header">
-                    <Link to='/'><img className="logo-header" src={!isMenuOpen ? logoHeader : logoFooter} alt="Логотип"
-                    /> </Link>
+                    <img className="logo-header" src={!isMenuOpen ? logoHeader : logoFooter} alt="Логотип"
+                    />
                 </div>
-
                 <div className="navigation">
                 <ul className="nav-list">
                         <Link to="/" className="list-item list-link">Главная</Link>
