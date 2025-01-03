@@ -10,11 +10,11 @@ import yandexButton from '../../media/yandex-button.svg'
 import facebookButton from '../../media/facebook-button.svg'
 
 
-const Authorization = ({setIsLoggedIn, setAccountInfo, loading, setLoading, setHandleBurgerMenu}) => {
+const Authorization = ({setIsLoggedIn, setAccountInfo}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordError, setPasswordError] = useState('') // Состояние для обработки ошибки пароля
     const navigate = useNavigate(); // Хук для навигации
-
 
     // Проверка на заполнение полей
     const isFormValid = username !== '' && password !== '';
@@ -22,20 +22,25 @@ const Authorization = ({setIsLoggedIn, setAccountInfo, loading, setLoading, setH
     // Функция для входа в аккаунт
     const handleLogin = async () => {
         try {
-            await loginAndFetch(username, password, setIsLoggedIn, setAccountInfo, navigate, loading, setLoading);
+            const response = await loginAndFetch(username, password, setIsLoggedIn, setAccountInfo, navigate);
+            if (response?.error) {
+                // Если ошибка авторизации, устанавливаем сообщение об ошибке
+                setPasswordError('Неправильный пароль')
+            } else {
+                // Успешный логин, сбрасываем сообщение об ошибке
+                setPasswordError('');
+            }
+
         } catch (error) {
             console.error("Ошибка при выполнении loginAndFetch:", error);
+            setPasswordError('Ошибка авторизации')
         }
     };
 
-    useEffect(() => {
-        setHandleBurgerMenu(false)
-    }, []);
-
 
     return (
-        <div className={'authorization-content'}>
-            <div className="both-parts-authorization">
+        <>
+            <div className="both-parts">
                 <div className="left-part-authorization">
                     <p className="text-authorization">
                         Для оформления подписки<br/>
@@ -71,16 +76,22 @@ const Authorization = ({setIsLoggedIn, setAccountInfo, loading, setLoading, setH
 
                             <div className="log-or-number">
                                 <p className="text-log-or-number">Логин или номер телефона:</p>
-                                <input type="text" className="input-log-or-number" value={username} onChange={(e) => setUsername(e.target.value)}/>
+                                <input type="text" className="input-log-or-number" value={username}
+                                       onChange={(e) => setUsername(e.target.value)}/>
                             </div>
 
                             <div className="password">
                                 <p className="text-password">Пароль:</p>
-                                <input type="password" className="input-password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                                <input type="password" className={`input-password ${passwordError ? 'input-error' : ''}`} value={password}
+                                       onChange={(e) => setPassword(e.target.value)}/>
+                                {passwordError && <p className="error-text">{passwordError}</p>}
+
                             </div>
 
                             <div className="div-button-entrance">
-                                <button disabled={!isFormValid} className="button-entrance" onClick={handleLogin}>Войти</button>
+                                <button disabled={!isFormValid} className="button-entrance"
+                                        onClick={handleLogin}>Войти
+                                </button>
                             </div>
 
                             <div className="recover-password">
@@ -90,17 +101,21 @@ const Authorization = ({setIsLoggedIn, setAccountInfo, loading, setLoading, setH
                             <div className="log-in-using">
                                 <p className="text-log-in-using">Войти через:</p>
                                 <img className="site-button-google" src={googleButton} alt="google-button"/>
-                                <img className="site-button-facebook" src={yandexButton} alt="facebook-button"/>
-                                <img className="site-button-yandex" src={facebookButton} alt="yandex-button"/>
+                                <img className="site-button-yandex" src={yandexButton} alt="facebook-button"/>
+                                <img className="site-button-facebook" src={facebookButton} alt="yandex-button"/>
                             </div>
 
                         </div>
 
 
                     </div>
+
+                    <div className="div-people-carrying-key2">
+                        <img className={'img-people-carrying-key-icon2'} src={peopleCarryingKey} alt="people-carrying-key-icon"/>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

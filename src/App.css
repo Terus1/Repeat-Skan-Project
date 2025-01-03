@@ -53,6 +53,10 @@ html, body {
     min-height: 100vh; /* Минимальная высота на весь экран */
 }
 
+.app-container-open {
+    background: #029491;
+}
+
 
 /* Контентная часть должна занимать всё пространство, кроме футера */
 .main-content {
@@ -69,10 +73,16 @@ html, body {
 }
 
 @font-face {
+    font-family: 'Inter Semi Bold';
+    src: url('./assets/fonts/Inter_28pt-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Ferry';
     src: url('./assets/fonts/ferry_black.otf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
-
 

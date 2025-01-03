@@ -154,7 +154,7 @@ export const Main = ({isLoggedIn}) => {
                     {/*</div>*/}
 
                     <div className="carousel-position">
-                    <img className="arrow-nav-left" src={arrowIcon} alt="arrow-left-icon" onClick={handlePrev}/>
+                        <img className="arrow-nav-left" src={arrowIcon} alt="arrow-left-icon" onClick={handlePrev}/>
                         <div className="carousel-container">
                             <div className="carousel-track">
                                 {getVisibleElements().map((element, index) => (
@@ -164,12 +164,12 @@ export const Main = ({isLoggedIn}) => {
                                 ))}
                             </div>
                         </div>
-                    <img className="arrow-nav-right" src={arrowIcon} alt="arrow-right-icon" onClick={handleNext}/>
+                        <img className="arrow-nav-right" src={arrowIcon} alt="arrow-right-icon" onClick={handleNext}/>
                     </div>
                 </div>
 
                 <div className="man-sitting">
-                    <img src={groupManSitting} alt="man-sitting"/>
+                    <img className={'img-man-sitting'} src={groupManSitting} alt="man-sitting"/>
                 </div>
 
                 <div className="block-our-tariffs">
@@ -188,20 +188,24 @@ export const Main = ({isLoggedIn}) => {
                                 </div>
 
                                 <div className="beginner-icon">
-                                    <img src={beginnerIcon} alt="beginner-icon"/>
+                                    <img className={'img-icon'} src={beginnerIcon} alt="beginner-icon"/>
 
                                 </div>
                             </div>
 
                             <div className="tariff-body-beginner">
-                                <div className="div-new-price">
-                                    <p className="new-price">799 ₽</p>
+
+                                <div className="prices">
+                                    <div className="div-new-price">
+                                        <p className="new-price">799 ₽</p>
+                                    </div>
+                                    <div className="div-old-price">
+                                        <p className="old-price">
+                                            <del>1200 ₽</del>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="div-old-price">
-                                    <p className="old-price">
-                                        <del>1200 ₽</del>
-                                    </p>
-                                </div>
+
 
                                 {tariff === 'beginner' ? (
                                     <div className="current-tariff">
@@ -255,20 +259,24 @@ export const Main = ({isLoggedIn}) => {
                                 </div>
 
                                 <div className="pro-icon">
-                                    <img src={targetIcon} alt="target-icon"/>
+                                    <img className={'img-pro-icon'} src={targetIcon} alt="target-icon"/>
 
                                 </div>
                             </div>
                             <div className="tariff-body-beginner">
-                                <div className="div-new-price">
-                                    <p className="new-price">1299 ₽</p>
 
+                                <div className="prices">
+                                    <div className="div-new-price">
+                                        <p className="new-price">1299 ₽</p>
+
+                                    </div>
+                                    <div className="div-old-price">
+                                        <p className="old-price">
+                                            <del>2600 ₽</del>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="div-old-price">
-                                    <p className="old-price">
-                                        <del>2600 ₽</del>
-                                    </p>
-                                </div>
+
                                 {tariff === 'pro' ? (
                                     <div className="current-tariff">
                                         <p className="text-current-tariff">Текущий тариф</p>
@@ -318,20 +326,23 @@ export const Main = ({isLoggedIn}) => {
                                 </div>
 
                                 <div className="business-icon">
-                                    <img src={businessIcon} alt="business-icon"/>
+                                    <img className={'img-icon'} src={businessIcon} alt="business-icon"/>
                                 </div>
                             </div>
 
                             <div className="tariff-body-beginner">
-                                <div className="div-new-price">
-                                    <p className="new-price">2379 ₽</p>
+                                <div className="prices">
+                                    <div className="div-new-price">
+                                        <p className="new-price">2379 ₽</p>
 
+                                    </div>
+                                    <div className="div-old-price">
+                                        <p className="old-price">
+                                            <del>3700 ₽</del>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="div-old-price">
-                                    <p className="old-price">
-                                        <del>3700 ₽</del>
-                                    </p>
-                                </div>
+
                                 {tariff === 'business' ? (
                                     <div className="current-tariff">
                                         <p className="text-current-tariff">Текущий тариф</p>

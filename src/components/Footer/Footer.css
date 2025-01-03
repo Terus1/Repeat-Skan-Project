@@ -20,7 +20,42 @@
 
 /* Сама информация */
 .footer-info {
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+
+/*.footer-content {*/
+/*    padding-right: 60px;*/
+/*    padding-left: 60px;*/
+/*}*/
+
+
+@media (max-width: 1220px) {
+    .footer {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .footer {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .logo-footer {
+        width: 111px;
+        height: 111px;
+    }
+
+    .address {
+        font-size: 14px;
+    }
+
+    .rights {
+        font-size: 12px;
+    }
 }
 
 

@@ -10,7 +10,7 @@ export const fetchWithToken = async (url, token, navigate) => {
 
     // Если срок действия токена истек, перенаправляем на страницу логина
     if (tokenExpire && currentTime > tokenExpire) {
-      console.log('Токен истек, требуется повторная авторизация');
+      // console.log('Токен истек, требуется повторная авторизация');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('tokenExpire');
       localStorage.setItem('isLoggedIn', 'false');
@@ -50,15 +50,14 @@ export const handleLogout = ({setIsLoggedIn, setAccountInfo, navigate}) => {
   setIsLoggedIn(false);
   setAccountInfo(null);
   navigate('/authorization')
+
 }
-
-
 
 
 //==================================================Authorization.jsx===================================================
 // Функция для авторизации и получения токена (v2)
 
-export const loginAndFetch = async (username, password, setIsLoggedIn, setAccountInfo, navigate, loading, setLoading) => {
+export const loginAndFetch = async (username, password, setIsLoggedIn, setAccountInfo, navigate) => {
   try {
     // Ищем пользователя в локальных данных
     // const localUser = mockUsers.find(user => user.login === username && user.password === password);
@@ -85,7 +84,7 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
     //   return;
     // }
 
-    setLoading(true)
+    // Если пользователь не найден в mockUsers, выполняем запрос к серверу
     const response = await fetch('https://gateway.scan-interfax.ru/api/v1/account/login', {
       method: 'POST',
       headers: {
@@ -102,6 +101,7 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
       const errorMessage = `Ошибка авторизации: ${response.status}`;
       console.error(errorMessage);
       return { error: errorMessage };
+
     }
 
     const data = await response.json();
@@ -114,13 +114,11 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
     // localStorage.setItem('tokenExpire', new Date(Date.now() - 5000).toISOString());
     localStorage.setItem('isLoggedIn', 'true');
 
-    console.log('Токен получен:', accessToken);
-    console.log('Срок действия токена до:', expire);
+    // console.log('Токен получен:', accessToken);
+    // console.log('Срок действия токена до:', expire);
 
 
     setIsLoggedIn(true);
-    // Перенаправление на главную страницу
-    navigate('/');
 
     // Выполняем защищённый запрос для получения accountInfo
     const accountInfoFromServer = await fetchWithToken('https://gateway.scan-interfax.ru/api/v1/account/info', accessToken);
@@ -128,10 +126,10 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
     const localUser = mockUsers.find(user => user.login === username && user.password === password)
 
     if (!localUser) {
-      console.log('Пользователь с таким логином и паролем не найден в mockUsers!', username)
+      // console.log('Пользователь с таким логином и паролем не найден в mockUsers!', username)
       return
     }
-    console.log('Найден пользователь в mockUsers!', localUser)
+    // console.log('Найден пользователь в mockUsers!', localUser)
 
     // Объединяем данные из сервера с локальными данными
     const MergedAccountInfo = {
@@ -143,14 +141,13 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
 
     // Устанавливаем и сохраняем данные о аккаунте
     setAccountInfo(MergedAccountInfo);
-    console.log('MergedAccountInfo', MergedAccountInfo)
+    // console.log('MergedAccountInfo', MergedAccountInfo)
     localStorage.setItem('accountInfo', JSON.stringify(MergedAccountInfo));
 
-
+    // Перенаправление на главную страницу
+    navigate('/');
   } catch (error) {
     console.error('Ошибка:', error);
-  } finally {
-    setLoading(false)
   }
 };
 
@@ -233,52 +230,49 @@ export const loginAndFetch = async (username, password, setIsLoggedIn, setAccoun
 // Функция для проверки валидности ИНН
 export const validateInn = (inn, setError) => {
   let result = false;
-  let error = { code: null, message: '' }; // Инициализируем объект ошибки внутри функции
 
+  // Преобразование типа ИНН
   if (typeof inn === 'number') {
     inn = inn.toString();
   } else if (typeof inn !== 'string') {
     inn = '';
   }
 
+  // Если поле очищено, сразу сбрасываем ошибку и завершаем выполнение
   if (!inn.length) {
-    error.code = 0;
+    setError({ message: '' }); // Очищаем ошибку
+    return false; // Возвращаем false, так как ИНН невалиден, но ошибки нет
+  }
 
-  } else if (/[^0-9]/.test(inn)) {
-    error.code = 2;
-    error.message = 'ИНН может состоять только из цифр';
-  } else {
-    const checkDigit = (inn, coefficients) => {
-      let n = 0;
-      for (let i in coefficients) {
-        n += coefficients[i] * inn[i];
-      }
-      return parseInt(n % 11 % 10);
-    };
+  // Функция для расчёта контрольного числа
+  const checkDigit = (inn, coefficients) => {
+    let n = 0;
+    for (let i in coefficients) {
+      n += coefficients[i] * inn[i];
+    }
+    return parseInt(n % 11 % 10);
+  };
 
-    if (inn.length === 10) {
-      let n10 = checkDigit(inn, [2, 4, 10, 3, 5, 9, 4, 6, 8]);
-      if (n10 === parseInt(inn[9])) {
-        result = true;
-      } else {
-        error.code = 4;
-        error.message = 'Неправильное контрольное число';
-      }
-    } else {
-      error.code = 3;
-      error.message = 'ИНН должен содержать 10 цифр';
+  // Проверка длины и контрольного числа
+  if (inn.length === 10) {
+    let n10 = checkDigit(inn, [2, 4, 10, 3, 5, 9, 4, 6, 8]);
+    if (n10 === parseInt(inn[9])) {
+      result = true; // Валидный ИНН
     }
   }
 
-  // Устанавливаем состояние ошибки
+  // Устанавливаем ошибку или очищаем её
   if (!result) {
-    setError(error); // Устанавливаем ошибку
+    setError({ message: 'Некорректные данные' });
   } else {
-    setError({ code: null, message: '' }); // Очищаем ошибку при успешной проверке
+    setError({ message: '' }); // Очищаем ошибку при успешной проверке
   }
 
   return result;
-}
+};
+
+
+
 
 
 // Функция для проверки дат

@@ -9,17 +9,17 @@ const Footer = () => {
         <div className={'footer-content'}>
             <footer className="footer">
 
-                <div className="logo-footer">
-                    <img src={logoFooter} alt="Логотип"/>
+                <div className="div-logo-footer">
+                    <img className={'logo-footer'} src={logoFooter} alt="Логотип"/>
                 </div>
 
                 <div className="info-address">
-                    <p className="footer-info">г. Москва, Цветной б-р, 40 <br/>
+                    <p className="footer-info address">г. Москва, Цветной б-р, 40 <br/>
                         +7 495 771 21 11 <br/>
                         info@skan.ru
                     </p>
 
-                    <p className="footer-info">Copyright. 2022</p>
+                    <p className="footer-info rights">Copyright. 2022</p>
                 </div>
 
             </footer>

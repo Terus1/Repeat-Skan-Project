@@ -3,6 +3,13 @@
     margin-left: 60px;
 }
 
+.prices {
+    display: flex;
+    flex-direction: row;
+    gap: 19px;
+
+}
+
 /* Верхняя часть мейна */
 .upper-part-site {
     display: flex;
@@ -16,16 +23,18 @@
     text-transform: uppercase;
     font-weight: 900;
     font-size: 60px;
-    font-family: Ferry, sans-serif;
+    font-family: 'Ferry', Arial, sans-serif;
     line-height: 72px;
 
 }
 
 /* Текст под заголовком */
 .small-text {
+
     text-align: left;
     font-size: 20px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
+    margin-bottom: 32px;
 }
 
 /* Кнопка "Запросить данные" */
@@ -38,7 +47,7 @@
     font-size: 22px;
     color: white;
     cursor: pointer;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /*===========================================Контейнер "Почему именно мы" ============================================*/
@@ -48,7 +57,9 @@
     text-transform: uppercase;
     font-size: 45px;
     font-weight: 900;
-    font-family: Ferry, sans-serif;
+    font-family: 'Ferry', Arial, sans-serif;
+    margin-top: 109px;
+    margin-bottom: 70px;
 }
 
 /*---------------------------------------------------Карусель---------------------------------------------------------*/
@@ -68,7 +79,7 @@
     top: 113px;
     left: 20px;
     color: black;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     font-size: 18px;
     font-weight: 400;
     line-height: 21.78px;
@@ -76,8 +87,6 @@
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
-
-
 
 }
 
@@ -114,7 +123,7 @@
     justify-content: center;
     position: relative;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 70px;
 }
 
 .clock {
@@ -150,6 +159,7 @@
 .man-sitting {
     text-align: center;
     margin-top: 70px;
+    overflow: hidden;
 }
 
 /*===========================================Контейнер "Наши тарифы" =================================================*/
@@ -158,9 +168,11 @@
 .text-our-tariffs {
     text-align: left;
     font-size: 45px;
-    font-family: Ferry, sans-serif;
+    font-family: 'Ferry', Arial, sans-serif;
     text-transform: uppercase;
     font-weight: 900;
+    margin-top: 107px;
+    margin-bottom: 70px;
 }
 
 /* 3 контейнера тарифов */
@@ -168,7 +180,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, 415px);
     /*grid-template-rows: 540px 540px 540px;*/
-    grid-gap: 2vw;
+    grid-gap: 37px;
     /*text-align: center;*/
     justify-content: center;
 }
@@ -182,7 +194,7 @@
     width: 415px;
     height: 540px;
     background: white;
-    margin-bottom: 118px;
+    /*margin-bottom: 118px;*/
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
@@ -213,14 +225,14 @@
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 30px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Краткое описание тарифов (Beginner, Pro) */
 .shortly {
     margin: 0;
     font-size: 18px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Иконка Beginner (Лампочка) */
@@ -239,33 +251,33 @@
 
 /* Контейнер "новая цена" (Для всех тарифов) */
 .div-new-price {
-    width: 100px;
-    position: absolute;
-    top: 165px;
-    left: 30px;
-    right: 299px;
+    /*width: 100px;*/
+    /*position: absolute;*/
+    /*top: 165px;*/
+    /*left: 30px;*/
+    /*right: 299px;*/
 }
 
 /* Текст "новая цена" (Для всех тарифов) */
 .new-price {
     font-size: 30px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     font-weight: 500;
     display: inline;
 }
 
 /* Контейнер "старая цена" (Для всех тарифов) */
 .div-old-price {
-    position: absolute;
-    top: 168px;
-    left: 135px;
-    right: 187px;
+    /*position: absolute;*/
+    /*top: 168px;*/
+    /*left: 135px;*/
+    /*right: 187px;*/
 }
 
 /* Текст "старая цена" (для всех тарифов)*/
 .old-price {
     font-size: 25px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     font-weight: 500;
     color: grey;
     display: inline;
@@ -290,7 +302,7 @@
     text-align: center;
     color: white;
     font-size: 14px;
-    font-family: sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 
@@ -302,10 +314,10 @@
     left: 30px;
     right: 15px;
     margin: 10px 0 0;
-    width: 340px;
+    width: 345px;
     height: 22px;
     font-size: 20px;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     font-weight: 400;
 }
 
@@ -326,7 +338,7 @@
     /*bottom: 224px;*/
     font-size: 20px;
     font-weight: 500;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     text-align: left;
 }
 
@@ -348,7 +360,7 @@
     bottom: 192px;
     font-size: 18px;
     font-weight: 400;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Вторая зелёная галочка */
@@ -369,7 +381,7 @@
     bottom: 165px;
     font-size: 18px;
     font-weight: 400;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Третья зелёная галочка */
@@ -390,7 +402,7 @@
     bottom: 139px;
     font-size: 18px;
     font-weight: 400;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Кнопка тарифа Beginner */
@@ -411,7 +423,7 @@
     font-size: 20px;
     border: none;
     cursor: pointer;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /*-------------------------------------------------- Тариф "Pro" -----------------------------------------------------*/
@@ -448,8 +460,8 @@
 /* Иконка тарифа Pro (Мишень со стрелой) */
 .pro-icon {
     position: absolute;
-    top: 0;
-    right: 12px;
+    top: 11px;
+    right: 16px;
     rotate: 0deg;
     align-items: start;
 }
@@ -472,7 +484,7 @@
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /*-------------------------------------------------- Тариф "Business" ------------------------------------------------*/
@@ -484,6 +496,7 @@
     height: 540px;
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+    margin-bottom: 42px;
 }
 
 /* Хедер тарифа "Business" */
@@ -511,7 +524,7 @@
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 30px;
-    font-family: sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* Краткое описание тарифа Business */
@@ -519,7 +532,7 @@
     color: white;
     margin: 0;
     font-size: 18px;
-    font-family: sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 
@@ -551,3 +564,310 @@
     box-shadow: 0 0 5px 1px black;
 }
 
+
+
+/*------------------------------------------------ Стили для уменьшенного экрана -------------------------------------*/
+
+@media (max-width: 1755px) {
+    .first-carousel-element, .second-carousel-element, .thirst-carousel-element {
+        margin-left: 35px;
+        margin-right: 35px;
+    }
+}
+
+@media (max-width: 1510px) {
+    .first-carousel-element, .second-carousel-element, .thirst-carousel-element {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+@media (max-width: 1435px) {
+    .first-carousel-element, .second-carousel-element, .thirst-carousel-element {
+        width: 350px;
+        height: 175px;
+    }
+
+    .clock, .loupe, .shield {
+        width: 57px;
+        top: 0;
+    }
+
+    .text-carousel-element {
+        font-size: 15px;
+        top: 83px;
+    }
+
+    .arrow-nav-left, .arrow-nav-right {
+        padding: 0;
+    }
+
+    .site-h1 {
+        font-size: 40px;
+        line-height: 49px;
+        width: 600px;
+    }
+
+    .big-icon-switch-man {
+        width: 500px;
+    }
+
+    .p-why-are-we {
+        font-size: 25px;
+    }
+
+    .img-man-sitting {
+        width: 1000px;
+    }
+
+    .text-our-tariffs {
+        font-size: 25px;
+    }
+
+    .beginner, .pro, .business {
+        width: 335px;
+        height: 512px;
+    }
+
+    .tariff-header-beginner, .tariff-header-pro, .tariff-header-business {
+        padding-top: 15px;
+        padding-left: 24px;
+        height: 100px;
+    }
+
+    .name-of-tariff, .name-of-tariff-business {
+        font-size: 20px;
+        margin-top: 6px;
+    }
+
+    .shortly, .shortly-business {
+        font-size: 18px;
+        margin-top: 17px;
+    }
+
+    .pro-icon {
+        top: -5px;
+        right: 0;
+    }
+
+    .img-icon{
+        width: 55px;
+    }
+
+    .img-pro-icon {
+        width: 75px;
+    }
+
+    .beginner-icon {
+        right: 9px;
+    }
+
+    .business-icon {
+        top: 11px;
+    }
+
+    .div-new-price {
+        top: 117px;
+        left: 26px;
+    }
+
+    .div-old-price {
+
+    }
+
+    .current-tariff {
+        top: 119px;
+    }
+
+    .to-personal-acc, .more-white {
+        width: 286px;
+        height: 60px;
+        font-size: 18px;
+    }
+
+    .prices {
+        gap: 10px;
+    }
+
+    .monthly {
+        font-size: 18px;
+        top: 171px;
+        width: 270px;
+    }
+
+    .text-tariff-includes {
+        top: 260px;
+        font-size: 18px;
+    }
+
+    .green-check-mark-1, .green-check-mark-2, .green-check-mark-3 {
+        width: 16px;
+    }
+
+    .text-in-body-tariff-includes-1, .text-in-body-tariff-includes-2, .text-in-body-tariff-includes-3 {
+        font-size: 16px;
+    }
+
+    .request-data {
+        font-size: 20px
+    }
+
+    .current-tariff {
+        top: 107px;
+        width: 128px;
+
+    }
+}
+
+@media (max-width: 1220px) {
+    .site-h1 {
+        font-size: 30px;
+        line-height: 39px;
+        width: 100%;
+    }
+
+    .small-text {
+        font-size: 18px;
+    }
+
+    .big-icon-switch-man {
+        width: 450px;
+    }
+
+    .first-carousel-element, .second-carousel-element, .thirst-carousel-element {
+        width: 300px;
+        height: 190px;
+    }
+
+    .arrow-nav-left, .arrow-nav-right {
+        padding: 0;
+    }
+
+    .text-carousel-element {
+        top: 61px;
+    }
+
+    .site-about {
+        width: 350px;
+    }
+
+    .carousel-track {
+        transform: translateX(0); /* Возвращаем позицию к началу */
+    }
+
+    .carousel-track > *:nth-child(n+3) {
+        display: none; /* Скрываем элементы после второго */
+    }
+
+    /*.img-man-sitting {*/
+    /*    width: 800px;*/
+    /*}*/
+}
+
+@media (max-width: 1036px) {
+    .site-h1 {
+        font-size: 28px;
+    }
+
+    .big-icon-switch-man {
+        width: 400px;
+    }
+
+    /*.img-man-sitting {*/
+    /*    width: 100%;*/
+    /*}*/
+
+    .list-of-tariffs {
+        justify-items: center;
+    }
+}
+
+@media (max-width: 900px) {
+    .main {
+        margin-right: 14px;
+        margin-left: 14px;
+    }
+
+
+    .carousel-track {
+        transform: translateX(0); /* Возвращаем позицию к началу */
+    }
+
+    .carousel-track > *:nth-child(n+2) {
+        display: none; /* Скрываем элементы после первого */
+    }
+}
+
+
+
+/*------------------------------------------------ Стили для мобильного экрана ---------------------------------------*/
+
+@media (max-width: 768px) {
+    .upper-part-site {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .p-why-are-we {
+        text-align: center;
+        margin-top: 55px;
+        margin-bottom: 32px;
+    }
+
+    .navigation {
+        display: none;
+    }
+
+    .info-about-user {
+        display: none;
+    }
+
+    .site-h1 {
+        width: 340px;
+    }
+
+    .list-of-tariffs {
+        justify-content: center;
+        grid-gap: 43px
+    }
+
+    .request-data {
+        margin-bottom: 24px;
+    }
+
+    .arrow-nav-right, .arrow-nav-left {
+        width: 39px;
+        height: 39px;
+    }
+
+    .first-carousel-element, .second-carousel-element, .thirst-carousel-element {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+
+    .man-sitting {
+        margin-top: 80px;
+    }
+
+    .img-man-sitting {
+        width: 891px;
+    }
+
+    .block-our-tariffs {
+        margin-top: 80px;
+    }
+
+    .text-our-tariffs {
+        margin-top: 0;
+        margin-bottom: 37px;
+    }
+}
+
+
+@media (max-width: 408px) {
+    .big-icon-switch-man {
+        width: 347px;
+        overflow: hidden;
+    }
+}

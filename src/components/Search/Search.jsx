@@ -27,19 +27,24 @@ const Search = () => {
         announcements: false,
         newsSummaries: false,
     });
-
     const navigate = useNavigate(); // Хук для навигации
 
+
+    // Обработчик изменения ИНН
     const handleInnChange = (e) => {
         const value = e.target.value;
         setInn(value);
         validateInn(value, setError);
     };
 
+
+    // Обработчик изменения тональности
     const handleTonalityChange = (e) => {
         setTonality(e.target.value);
     };
 
+
+    // Обработчик изменения количества документов
     const handleDocumentsChange = (e) => {
         let value = e.target.value;
         if (value === '' || (Number(value) >= 1 && Number(value) <= 1000)) {
@@ -47,23 +52,34 @@ const Search = () => {
         }
     };
 
+    // Обработчик изменения даты начала
     const handleStartDateChange = (e) => {
         const value = e.target.value;
+        // console.log('value', value)
         setStartDate(value);
+        // console.log('startDate', startDate)
         validateDates(value, endDate, setDateError);
     };
 
+
+    // Обработчик изменения даты конца
     const handleEndDateChange = (e) => {
         const value = e.target.value;
+        // console.log('value', value)
         setEndDate(value);
+        // console.log('endDate', endDate)
         validateDates(startDate, value, setDateError);
     };
 
+
+    // Обработчик изменения состояния чекбоксов
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;
         setCheckboxes((prev) => ({ ...prev, [name]: checked }));
     };
 
+
+    // Проверка валидности формы
     const isFormValid = () => {
         return (
             inn.length === 10 &&
@@ -76,6 +92,7 @@ const Search = () => {
 
     // Функция для POST-запроса с телом и использованием токена
     const fetchWithTokenAndBody = async (url, token, requestData) => {
+        // console.log('requestData in fetchWithTokenAndBody:', requestData)
         try {
             const response = await fetch(url, {
                 method: 'POST',
@@ -100,6 +117,8 @@ const Search = () => {
         }
     };
 
+
+    // Обработчик отправки формы
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -140,7 +159,7 @@ const Search = () => {
             intervalType: "month",
             histogramTypes: ["totalDocuments", "riskFactors"]
         };
-
+        // console.log('requestData in handleSubmit:', requestData)
         try {
             const token = localStorage.getItem("accessToken");
 
@@ -151,13 +170,22 @@ const Search = () => {
                 requestData
             );
 
+            // console.log('histogramResponse', histogramResponse)
+
             // Новый запрос для получения ID документов
             const objectSearchResponse = await fetchWithTokenAndBody(
                 'https://gateway.scan-interfax.ru/api/v1/objectsearch',
                 token,
                 requestData
             );
+            // console.log('objectSearchResponse', objectSearchResponse)
             // console.log(objectSearchResponse.items)
+
+            if (!objectSearchResponse || !Array.isArray(objectSearchResponse.items)) {
+                console.error("Ошибка: нет данных в ответе.");
+                return; // Или можно обработать ошибку иначе
+            }
+
             const documentIds = objectSearchResponse.items.map(doc => doc.encodedId);
             // console.log('documentIds:', documentIds)
             // const objectData = await objectSearchResponse
@@ -194,11 +222,15 @@ const Search = () => {
                     <div className="left-part">
                         <div className="head">
                             <p className="text-head">
-                                Найдите необходимые <br /> данные в пару кликов.
+                                Найдите необходимые <br/> данные в пару кликов.
                             </p>
                             <p className="hint">
-                                Задайте параметры поиска. <br /> Чем больше заполните, тем точнее поиск
+                                Задайте параметры поиска. <br/> Чем больше заполните, тем точнее поиск
                             </p>
+
+                            <div className="div-green-leaf2">
+                                <img className="green-leaf" src={greenLeaf} alt="green-leaf"/>
+                            </div>
                         </div>
 
                         <div className="search-form">
@@ -210,7 +242,7 @@ const Search = () => {
                                         <span className={`required-asterisk ${error.code ? 'error-asterisk' : ''}`}>*</span>
                                     </p>
                                     <input
-                                        className={`input-INN ${error.code ? 'input-error' : ''}`}
+                                        className={`input-INN ${error.message ? 'input-error' : ''}`}
                                         type="text"
                                         placeholder="10 цифр"
                                         value={inn}
@@ -223,9 +255,9 @@ const Search = () => {
                                 <div className="tonality">
                                     <p className="text-tonality">Тональность</p>
                                     <select className="select-tonality" value={tonality} onChange={handleTonalityChange}>
-                                        <option className="option-tonality" value="positive">позитивная</option>
-                                        <option className="option-tonality" value="negative">негативная</option>
-                                        <option className="option-tonality" value="any">любая</option>
+                                        <option className="option-tonality" value="positive">Позитивная</option>
+                                        <option className="option-tonality" value="negative">Негативная</option>
+                                        <option className="option-tonality" value="any">Любая</option>
                                     </select>
                                 </div>
 
@@ -249,20 +281,37 @@ const Search = () => {
                                         Диапазон поиска
                                         <span className={`required-asterisk ${dateError ? 'error-asterisk' : ''}`}>*</span>
                                     </p>
-                                    <input
-                                        className={`start-date ${dateError ? 'input-error' : ''}`}
-                                        type="date"
-                                        value={startDate}
-                                        onChange={handleStartDateChange}
-                                        placeholder="Дата начала"
-                                    />
-                                    <input
-                                        className={`end-date ${dateError ? 'input-error' : ''}`}
-                                        type="date"
-                                        value={endDate}
-                                        onChange={handleEndDateChange}
-                                        placeholder="Дата конца"
-                                    />
+
+                                    <div className="dates">
+                                        <input
+                                            className={`start-date ${dateError ? 'input-error' : ''}`}
+                                            type="date"
+                                            value={startDate}
+                                            onChange={handleStartDateChange}
+                                            placeholder="Дата начала"
+                                        />
+                                        <input
+                                            className={`end-date ${dateError ? 'input-error' : ''}`}
+                                            type="date"
+                                            value={endDate}
+                                            onChange={handleEndDateChange}
+                                            placeholder="Дата конца"
+                                        />
+
+
+                                        {/*<CustomDatePicker*/}
+                                        {/*    placeholder="Начало даты"*/}
+                                        {/*    value={startDate}*/}
+                                        {/*    onChange={handleStartDateChange}*/}
+                                        {/*/>*/}
+                                        {/*<CustomDatePicker*/}
+                                        {/*    placeholder="Конец даты"*/}
+                                        {/*    value={endDate}*/}
+                                        {/*    onChange={handleEndDateChange}*/}
+                                        {/*/>*/}
+
+                                    </div>
+
                                     {dateError && <p className="error-message">{dateError}</p>}
                                 </div>
                             </div>
@@ -357,7 +406,7 @@ const Search = () => {
                     {/* Правая часть страницы с картинками */}
                     <div className="right-part">
                         <div className="top-pictures">
-                            <div className="div-green-leaf">
+                            <div className="div-green-leaf1">
                                 <img className="green-leaf" src={greenLeaf} alt="green-leaf" />
                             </div>
 
@@ -367,7 +416,7 @@ const Search = () => {
                         </div>
 
                         <div className="div-man-and-rocket">
-                            <img src={manAndRocket} alt="man-and-rocket" />
+                            <img className={'img-man-and-rocket'} src={manAndRocket} alt="man-and-rocket" />
                         </div>
                     </div>
                 </div>
